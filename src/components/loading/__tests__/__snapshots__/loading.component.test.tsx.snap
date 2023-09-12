@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the component 1`] = `
+<div>
+  <div
+    class="my-8"
+  >
+    <div
+      class="flex flex-wrap items-center justify-center"
+    >
+      <img
+        alt="Loading icon"
+        data-nimg="1"
+        decoding="async"
+        height="200"
+        loading="lazy"
+        src="/_next/image?url=%2Floading.gif&w=640&q=75"
+        srcset="/_next/image?url=%2Floading.gif&w=256&q=75 1x, /_next/image?url=%2Floading.gif&w=640&q=75 2x"
+        style="color: transparent;"
+        width="200"
+      />
+      <div
+        class="w-full text-center"
+      >
+        test
+      </div>
+    </div>
+  </div>
+</div>
+`;

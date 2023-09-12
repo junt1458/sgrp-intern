@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the component 1`] = `
+<div>
+  <div
+    class="flex h-14 w-full items-center justify-between bg-slate-900 px-4 py-2 text-xl"
+  >
+    Internship Application System
+  </div>
+  Manager Index Page.
+</div>
+`;
