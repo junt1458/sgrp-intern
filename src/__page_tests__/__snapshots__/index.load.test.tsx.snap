@@ -15,13 +15,8 @@ exports[`should render the component 1`] = `
     >
       <img
         alt="Loading icon"
-        data-nimg="1"
-        decoding="async"
         height="200"
-        loading="lazy"
-        src="/_next/image?url=%2Floading.gif&w=640&q=75"
-        srcset="/_next/image?url=%2Floading.gif&w=256&q=75 1x, /_next/image?url=%2Floading.gif&w=640&q=75 2x"
-        style="color: transparent;"
+        src="/loading.gif"
         width="200"
       />
       <div
