@@ -1,2 +1,13 @@
-# sgrp-intern
-Internship Application System (make at Singapore RP Internship 2023)
+# Internship Application System
+
+made at Singapore RP Internship Program 2023
+
+## How to development
+
+```
+# Install Dependencies
+$ yarn
+
+# Start development server
+$ yarn dev
+```
