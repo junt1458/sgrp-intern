@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { useRedirectHook } from '../index.hooks';
+import { useRedirectHook } from '../pages';
 
 const dummy_token = `DUMMY.${btoa(
   JSON.stringify({

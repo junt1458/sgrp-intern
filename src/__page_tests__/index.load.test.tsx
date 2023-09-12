@@ -1,4 +1,4 @@
-import IndexPage from '..';
+import IndexPage from '../pages';
 import { render } from '@testing-library/react';
 
 jest.mock('next/router', () => ({
