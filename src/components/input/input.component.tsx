@@ -10,7 +10,7 @@ const Input: React.FC<InputOptions> = ({ type, id, disabled, placeholder }) => {
     <input
       type={type}
       id={id}
-      className='mx-2 rounded-lg px-4 py-2 text-black'
+      className='mx-2 rounded-lg border border-gray-400 px-4 py-2 text-black'
       disabled={disabled}
       placeholder={placeholder}
     />

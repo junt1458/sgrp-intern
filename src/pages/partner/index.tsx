@@ -6,7 +6,7 @@ import { useAuthHook } from '../../libs/auth';
 import PageLoading from '../../components/pageloading/pageloading.component';
 
 const PartnerIndexPage: NextPage = () => {
-  const { isLoading, isAllowed } = useAuthHook(['partner'], true);
+  const { isLoading, isAllowed } = useAuthHook(['partner'], true, true);
 
   const context = useMemo(
     () => ({

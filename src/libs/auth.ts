@@ -101,7 +101,11 @@ export const authenticate = async (
   };
 };
 
-export const useAuthHook = (roles: string[], redirectWhenNoLogin?: boolean) => {
+export const useAuthHook = (
+  roles: string[],
+  redirectWhenNoLogin?: boolean,
+  redirectWhenUidMissing?: boolean
+) => {
   const router = useRouter();
   const { isLoading, isAuthenticated, user, getAccessTokenSilently } =
     useAuth0();
@@ -133,8 +137,16 @@ export const useAuthHook = (roles: string[], redirectWhenNoLogin?: boolean) => {
 
       setRole(role);
       setUID(uid);
+
+      if (uid === '' && redirectWhenUidMissing) router.push(`/${role}/profile`);
     });
-  }, [isLoading, isAuthenticated, getAccessTokenSilently]);
+  }, [
+    isLoading,
+    isAuthenticated,
+    getAccessTokenSilently,
+    router,
+    redirectWhenUidMissing,
+  ]);
 
   return {
     isAllowed,

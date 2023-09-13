@@ -4,7 +4,7 @@ import { useAuthHook } from '../../libs/auth';
 import PageLoading from '../../components/pageloading/pageloading.component';
 
 const ManagerIndexPage: NextPage = () => {
-  const { isLoading, isAllowed } = useAuthHook(['manager'], true);
+  const { isLoading, isAllowed } = useAuthHook(['manager'], true, true);
   return (
     <PageLoading isLoading={isLoading} isPermissionError={!isAllowed}>
       <>

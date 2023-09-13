@@ -16,7 +16,7 @@ export const useRedirectHook = () => {
       payload['https://hasura.io/jwt/claims']['x-hasura-default-role'];
     const uid = payload['https://hasura.io/jwt/claims']['x-hasura-user-id'];
 
-    if (uid === '') {
+    if (uid === '' && role !== 'register') {
       router.push(`/${role}/profile`);
     } else {
       router.push(`/${role}`);
