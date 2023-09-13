@@ -15,7 +15,7 @@ const Button: React.FC<ButtonOptions> = ({
   let txColorHex = '';
   switch (color) {
     case 'primary': {
-      bgColorHex = '#18a8d9';
+      bgColorHex = '#619eff';
       txColorHex = '#000000';
       break;
     }

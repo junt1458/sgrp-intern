@@ -2,6 +2,15 @@ import { render } from '@testing-library/react';
 import PartnerIndexPage from '../pages/partner';
 import { Provider } from 'urql';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      push: jest.fn(),
+    };
+  },
+}));
+
 const redirectMock = jest.fn();
 jest.mock('@auth0/auth0-react', () => ({
   Auth0Provider: ({ children }) => <div>{children}</div>,

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the component 1`] = `
+<div>
+  <input
+    class="mx-2 rounded-lg px-4 py-2 text-black"
+    id=""
+    type="text"
+  />
+</div>
+`;

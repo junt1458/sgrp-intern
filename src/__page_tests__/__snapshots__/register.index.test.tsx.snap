@@ -5,40 +5,30 @@ exports[`should render the component 1`] = `
   <div
     class="flex h-14 w-full items-center justify-between bg-slate-900 px-4 py-2 text-xl"
   >
-    Internship Application System
+    <a
+      href="/"
+    >
+      Internship Application System
+    </a>
   </div>
   <div
-    class="my-4"
+    class="my-8"
   >
-    <h1
-      class="text-center text-3xl"
+    <div
+      class="flex flex-wrap items-center justify-center"
     >
-      No account found in our system.
-    </h1>
-    <h2
-      class="text-center text-xl"
-    >
-      Please enter registration code provided by administrator.
-    </h2>
+      <img
+        alt="Loading icon"
+        height="200"
+        src="/loading.gif"
+        width="200"
+      />
+      <div
+        class="w-full text-center"
+      >
+        Loading...
+      </div>
+    </div>
   </div>
-  <div
-    class="my-8 flex items-center justify-center"
-  >
-    <input
-      class="mx-2 rounded-lg px-4 py-2 text-black"
-      id="reg_code"
-      placeholder="Registration Code"
-      type="text"
-    />
-    <button
-      class="rounded-lg px-4 py-2"
-      style="background-color: rgb(24, 168, 217); color: rgb(0, 0, 0);"
-    >
-      Submit
-    </button>
-  </div>
-  <div
-    class="text-center"
-  />
 </div>
 `;

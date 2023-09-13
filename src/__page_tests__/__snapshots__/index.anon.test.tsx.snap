@@ -5,7 +5,11 @@ exports[`should render the component 1`] = `
   <div
     class="flex h-14 w-full items-center justify-between bg-slate-900 px-4 py-2 text-xl"
   >
-    Internship Application System
+    <a
+      href="/"
+    >
+      Internship Application System
+    </a>
   </div>
   <div
     class="my-8"

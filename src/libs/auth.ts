@@ -1,6 +1,9 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import jwt from 'jsonwebtoken';
 import jwkToPem, { JWK } from 'jwk-to-pem';
+import { useRouter } from 'next/router';
 import { IncomingHttpHeaders } from 'node:http';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type JwkResponse = {
   keys: JWK[];
@@ -78,7 +81,6 @@ export const authenticate = async (
   let found = false;
   for (let i = 0; i < arr.length; i++) {
     const role = arr[i];
-    console.log(role);
     if (roles.includes(role)) {
       found = true;
       break;
@@ -96,5 +98,50 @@ export const authenticate = async (
     error: undefined,
     status: 200,
     uid: payload['sub'],
+  };
+};
+
+export const useAuthHook = (roles: string[], redirectWhenNoLogin?: boolean) => {
+  const router = useRouter();
+  const { isLoading, isAuthenticated, user, getAccessTokenSilently } =
+    useAuth0();
+  const [role, setRole] = useState<string | undefined>(undefined);
+  const [uid, setUID] = useState<string | undefined>(undefined);
+
+  const isAllowed = useMemo(() => roles.includes(role!), [role, roles]);
+
+  if (!isLoading && !isAuthenticated && redirectWhenNoLogin) router.push('/');
+
+  useEffect(() => {
+    if (isLoading) {
+      setRole(undefined);
+      setUID(undefined);
+      return;
+    }
+
+    if (!isAuthenticated) {
+      setRole(undefined);
+      setUID(undefined);
+      return;
+    }
+
+    getAccessTokenSilently().then((token) => {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const role =
+        payload['https://hasura.io/jwt/claims']['x-hasura-default-role'];
+      const uid = payload['https://hasura.io/jwt/claims']['x-hasura-user-id'];
+
+      setRole(role);
+      setUID(uid);
+    });
+  }, [isLoading, isAuthenticated, getAccessTokenSilently]);
+
+  return {
+    isAllowed,
+    isLoading,
+    role,
+    user,
+    uid,
+    getAccessTokenSilently,
   };
 };

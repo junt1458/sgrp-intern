@@ -3,15 +3,6 @@
 exports[`should render the component 1`] = `
 <div>
   <div
-    class="flex h-14 w-full items-center justify-between bg-slate-900 px-4 py-2 text-xl"
-  >
-    <a
-      href="/"
-    >
-      Internship Application System
-    </a>
-  </div>
-  <div
     class="my-8"
   >
     <div
@@ -32,19 +23,9 @@ exports[`should render the component 1`] = `
       <div
         class="w-full text-center"
       >
-        You do not have permission to view this page.
+        test
       </div>
     </div>
-  </div>
-  <div
-    class="my-2 flex justify-center"
-  >
-    <button
-      class="rounded-lg px-4 py-2"
-      style="background-color: rgb(97, 158, 255); color: rgb(0, 0, 0);"
-    >
-      Back to home
-    </button>
   </div>
 </div>
 `;

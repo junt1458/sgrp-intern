@@ -1,18 +1,19 @@
 import { NextPage } from 'next';
-import Header from '../../components/header/header.component';
-import { useAuthHook } from '../../libs/auth';
 import PageLoading from '../../components/pageloading/pageloading.component';
+import { useAuthHook } from '../../libs/auth';
+import Header from '../../components/header/header.component';
 
-const ManagerIndexPage: NextPage = () => {
+const ManagerProfilePage: NextPage = () => {
   const { isLoading, isAllowed } = useAuthHook(['manager'], true);
+
   return (
     <PageLoading isLoading={isLoading} isPermissionError={!isAllowed}>
       <>
         <Header />
-        Manager Index Page.
+        <span>test</span>
       </>
     </PageLoading>
   );
 };
 
-export default ManagerIndexPage;
+export default ManagerProfilePage;
