@@ -7,6 +7,38 @@ exports[`should render the component 1`] = `
   >
     Internship Application System
   </div>
-  You are first login, you need to setup profile
+  <div
+    class="my-4"
+  >
+    <h1
+      class="text-center text-3xl"
+    >
+      No account found in our system.
+    </h1>
+    <h2
+      class="text-center text-xl"
+    >
+      Please enter registration code provided by administrator.
+    </h2>
+  </div>
+  <div
+    class="my-8 flex items-center justify-center"
+  >
+    <input
+      class="mx-2 rounded-lg px-4 py-2 text-black"
+      id="reg_code"
+      placeholder="Registration Code"
+      type="text"
+    />
+    <button
+      class="rounded-lg px-4 py-2"
+      style="background-color: rgb(24, 168, 217); color: rgb(0, 0, 0);"
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    class="text-center"
+  />
 </div>
 `;

@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
 import type { AppProps } from 'next/app';
+import UrqlProvider from '../libs/graphql-provider';
 
 export default function App({ Component, pageProps }: AppProps) {
   const origin =
@@ -19,7 +20,9 @@ export default function App({ Component, pageProps }: AppProps) {
         audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE!,
       }}
     >
-      <Component {...pageProps} />
+      <UrqlProvider>
+        <Component {...pageProps} />
+      </UrqlProvider>
     </Auth0Provider>
   );
 }
