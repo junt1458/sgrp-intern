@@ -6,7 +6,11 @@ import { useCallback, useMemo, useState } from 'react';
 import FormInput from '../../components/forminput/forminput.component';
 import Button from '../../components/button/button.component';
 import { isValidPhoneNumber } from 'react-phone-number-input';
-import { useAddManagerProfileMutation } from '../../libs/graphql';
+import {
+  useAddManagerProfileMutation,
+  useGetManagerProfileQuery,
+  useUpdateManagerProfileMutation,
+} from '../../libs/graphql';
 import { useRouter } from 'next/router';
 
 export const useProfileHook = (
@@ -23,6 +27,7 @@ export const useProfileHook = (
   const router = useRouter();
   const { reloadRole } = useAuthHook(['manager'], true);
   const [, addProfile] = useAddManagerProfileMutation();
+  const [, updateProfile] = useUpdateManagerProfileMutation();
 
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -91,12 +96,30 @@ export const useProfileHook = (
       await reloadRole();
       router.push('/manager');
     } else {
-      console.log('edit');
+      const result = await updateProfile({
+        name,
+        email,
+        phone,
+        uid,
+      });
+      if (result.error) {
+        alert('Error: ' + result.error);
+        setSending(false);
+        return;
+      }
+
+      router.push('/manager');
     }
     setSending(false);
-
-    console.log({ name, email, phone });
-  }, [uid, sid, router, reloadRole, addProfile, getAccessTokenSilently]);
+  }, [
+    uid,
+    addProfile,
+    sid,
+    getAccessTokenSilently,
+    reloadRole,
+    router,
+    updateProfile,
+  ]);
 
   const onClickSubmit = useCallback(() => {
     validate() && post();
@@ -119,8 +142,23 @@ const ManagerProfilePage: NextPage = () => {
   const { nameError, emailError, phoneError, isSending, onClickSubmit } =
     useProfileHook(getAccessTokenSilently, uid, sid);
 
+  const context = useMemo(
+    () => ({
+      additionalTypenames: ['managers'],
+    }),
+    []
+  );
+
+  const [{ fetching, data }] = useGetManagerProfileQuery({
+    context,
+    variables: { uid },
+  });
+
   return (
-    <PageLoading isLoading={isLoading} isPermissionError={!isAllowed}>
+    <PageLoading
+      isLoading={isLoading || fetching}
+      isPermissionError={!isAllowed}
+    >
       <>
         <Header />
         <h1 className='my-4 text-center text-3xl'>Your profile</h1>
@@ -133,6 +171,7 @@ const ManagerProfilePage: NextPage = () => {
               label='Name'
               placeholder='John Doe'
               error={nameError}
+              defaultValue={data?.managers[0].name!}
               required
             />
           </div>
@@ -141,9 +180,16 @@ const ManagerProfilePage: NextPage = () => {
             type='email'
             label='Email'
             placeholder='john@example.com'
+            defaultValue={data?.managers[0].email!}
             error={emailError}
           />
-          <FormInput id='tel' type='tel' label='Phone' error={phoneError} />
+          <FormInput
+            id='tel'
+            type='tel'
+            label='Phone'
+            error={phoneError}
+            defaultValue={data?.managers[0].phone!}
+          />
 
           <div className='col-span-2 flex justify-end px-4'>
             <span className='text-red-800'>*</span>&nbsp;Required

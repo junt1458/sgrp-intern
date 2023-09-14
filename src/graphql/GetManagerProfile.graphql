@@ -1,0 +1,8 @@
+query GetManagerProfile($uid: uuid) {
+  managers(where: { manager_id: { _eq: $uid } }) {
+    name
+    manager_id
+    email
+    phone
+  }
+}

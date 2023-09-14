@@ -94,7 +94,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       body: JSON.stringify({
         app_metadata: {
           ...a1Res.app_metadata,
-          uid,
+          uid: req.body.uid,
         },
       }),
     }

@@ -1198,6 +1198,33 @@ export type AddManagerProfileMutation = {
   insert_managers_one?: { __typename?: 'managers'; manager_id: any } | null;
 };
 
+export type GetManagerProfileQueryVariables = Exact<{
+  uid?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+export type GetManagerProfileQuery = {
+  __typename?: 'query_root';
+  managers: Array<{
+    __typename?: 'managers';
+    name?: string | null;
+    manager_id: any;
+    email?: string | null;
+    phone?: string | null;
+  }>;
+};
+
+export type UpdateManagerProfileMutationVariables = Exact<{
+  uid: Scalars['uuid']['input'];
+  name: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  phone: Scalars['String']['input'];
+}>;
+
+export type UpdateManagerProfileMutation = {
+  __typename?: 'mutation_root';
+  update_managers_by_pk?: { __typename?: 'managers'; manager_id: any } | null;
+};
+
 export type MyQueryQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyQueryQuery = {
@@ -1235,6 +1262,46 @@ export function useAddManagerProfileMutation() {
     AddManagerProfileMutation,
     AddManagerProfileMutationVariables
   >(AddManagerProfileDocument);
+}
+export const GetManagerProfileDocument = gql`
+  query GetManagerProfile($uid: uuid) {
+    managers(where: { manager_id: { _eq: $uid } }) {
+      name
+      manager_id
+      email
+      phone
+    }
+  }
+`;
+
+export function useGetManagerProfileQuery(
+  options?: Omit<Urql.UseQueryArgs<GetManagerProfileQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<GetManagerProfileQuery, GetManagerProfileQueryVariables>(
+    { query: GetManagerProfileDocument, ...options }
+  );
+}
+export const UpdateManagerProfileDocument = gql`
+  mutation UpdateManagerProfile(
+    $uid: uuid!
+    $name: String!
+    $email: String!
+    $phone: String!
+  ) {
+    update_managers_by_pk(
+      pk_columns: { manager_id: $uid }
+      _set: { email: $email, name: $name, phone: $phone }
+    ) {
+      manager_id
+    }
+  }
+`;
+
+export function useUpdateManagerProfileMutation() {
+  return Urql.useMutation<
+    UpdateManagerProfileMutation,
+    UpdateManagerProfileMutationVariables
+  >(UpdateManagerProfileDocument);
 }
 export const MyQueryDocument = gql`
   query MyQuery {
