@@ -8,7 +8,7 @@ interface FormInputOptions {
   placeholder?: string;
   label: string;
   required?: boolean;
-  type: 'text' | 'tel' | 'date';
+  type: 'text' | 'tel' | 'date' | 'email';
   defaultValue?: string;
   error?: string;
 }
@@ -27,7 +27,7 @@ const FormInput: React.FC<FormInputOptions> = ({
 
   if (type === 'tel') {
     return (
-      <div className='m-4 max-w-sm'>
+      <div className='m-4'>
         {label} {required ? <span className='text-red-600'>*</span> : ''}
         <div
           className={
@@ -51,7 +51,7 @@ const FormInput: React.FC<FormInputOptions> = ({
 
   if (type == 'date') {
     return (
-      <div className='m-4 max-w-sm'>
+      <div className='m-4'>
         {label} {required ? <span className='text-red-600'>*</span> : ''}
         <div
           className={

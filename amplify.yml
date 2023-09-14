@@ -8,7 +8,7 @@ applications:
             - yarn
         build:
           commands:
-            - env | grep -e CODE_ -e NEXT_ -e AUTH0_ >> .env.production
+            - env | grep -e CODE_ -e NEXT_ -e AUTH0_ -e GRAPHQL_ >> .env.production
             - yarn build
       artifacts:
         baseDirectory: .next

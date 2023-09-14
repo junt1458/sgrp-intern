@@ -2,6 +2,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE students (
     client_id UUID DEFAULT uuid_generate_v4() UNIQUE PRIMARY KEY,
+    auth0_uid VARCHAR NOT NULL UNIQUE,
     name VARCHAR DEFAULT '',
     phone VARCHAR DEFAULT '',
     email VARCHAR DEFAULT '',
@@ -18,6 +19,7 @@ CREATE TABLE students (
 
 CREATE TABLE partners (
     partner_id UUID DEFAULT uuid_generate_v4() UNIQUE PRIMARY KEY,
+    auth0_uid VARCHAR NOT NULL UNIQUE,
     display_name VARCHAR DEFAULT '',
     address_zipcode VARCHAR DEFAULT '',
     address_country VARCHAR DEFAULT '',
@@ -31,8 +33,12 @@ CREATE TABLE partners (
 
 CREATE TABLE managers (
     manager_id UUID DEFAULT uuid_generate_v4() UNIQUE PRIMARY KEY,
+    auth0_uid VARCHAR NOT NULL UNIQUE,
     name VARCHAR DEFAULT '',
     email VARCHAR DEFAULT '',
     phone VARCHAR DEFAULT '',
     registered_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+
+ALTER TABLE managers ADD (auth0_uid VARCHAR DEFAULT '' UNIQUE);

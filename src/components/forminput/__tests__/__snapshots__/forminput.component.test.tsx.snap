@@ -3,7 +3,7 @@
 exports[`should render the component date 1`] = `
 <div>
   <div
-    class="m-4 max-w-sm"
+    class="m-4"
   >
      
     <div
@@ -26,7 +26,7 @@ exports[`should render the component date 1`] = `
 exports[`should render the component date requried / error 1`] = `
 <div>
   <div
-    class="m-4 max-w-sm"
+    class="m-4"
   >
      
     <span
@@ -57,7 +57,7 @@ exports[`should render the component date requried / error 1`] = `
 exports[`should render the component tel 1`] = `
 <div>
   <div
-    class="m-4 max-w-sm"
+    class="m-4"
   >
      
     <div
@@ -1341,7 +1341,7 @@ exports[`should render the component tel 1`] = `
 exports[`should render the component tel required / error 1`] = `
 <div>
   <div
-    class="m-4 max-w-sm"
+    class="m-4"
   >
      
     <span

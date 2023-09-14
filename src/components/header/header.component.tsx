@@ -8,16 +8,19 @@ const Header: React.FC = () => {
   const { onClickLogout } = useLogoutHook();
 
   return (
-    <div className='flex h-14 w-full items-center justify-between bg-slate-900 px-4 py-2 text-xl text-white'>
-      <Link href='/'>Internship Application System</Link>
-      {!isLoading && isAuthenticated ? (
-        <button onClick={onClickLogout} title='Logout'>
-          <LogoutIcon />
-        </button>
-      ) : (
-        <></>
-      )}
-    </div>
+    <>
+      <div className='fixed left-0 top-0 z-50 flex h-14 w-full items-center justify-between bg-slate-900 px-4 py-2 text-xl text-white'>
+        <Link href='/'>Internship Application System</Link>
+        {!isLoading && isAuthenticated ? (
+          <button onClick={onClickLogout} title='Logout'>
+            <LogoutIcon />
+          </button>
+        ) : (
+          <></>
+        )}
+      </div>
+      <div className='h-14 w-full py-2'></div>
+    </>
   );
 };
 

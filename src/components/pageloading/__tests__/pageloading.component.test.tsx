@@ -1,6 +1,15 @@
 import { render } from '@testing-library/react';
 import PageLoading from '../pageloading.component';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      push: jest.fn(),
+    };
+  },
+}));
+
 describe('should render the component', () => {
   it('w/ loading', () => {
     const { container } = render(

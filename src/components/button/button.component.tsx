@@ -22,7 +22,7 @@ const Button: React.FC<ButtonOptions> = ({
   }
   return (
     <button
-      className='rounded-lg px-4 py-2'
+      className='rounded-lg px-4 py-2 font-bold'
       onClick={onClick}
       style={{ backgroundColor: bgColorHex, color: txColorHex }}
       disabled={disabled}

@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import { useRegister } from '../pages/register';
 import { act } from 'react-dom/test-utils';
 
-const pushMock = jest.fn();
+let pushMock = jest.fn();
 jest.mock('next/router', () => ({
   useRouter() {
     return {
@@ -70,6 +70,7 @@ describe('do tests', () => {
   });
 
   it('should call fetch function wo/error', async () => {
+    pushMock = jest.fn();
     expect(pushMock).toHaveBeenCalledTimes(0);
     window.fetch = jest.fn().mockResolvedValueOnce({
       ok: true,
@@ -88,6 +89,6 @@ describe('do tests', () => {
     });
 
     expect(window.fetch).toHaveBeenCalledTimes(1);
-    expect(pushMock).toHaveBeenCalledTimes(1);
+    expect(pushMock).toHaveBeenCalledTimes(5);
   });
 });

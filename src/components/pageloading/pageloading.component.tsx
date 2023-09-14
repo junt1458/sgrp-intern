@@ -2,6 +2,7 @@ import Button from '../button/button.component';
 import ErrorIcon from '../error/erroricon.component';
 import Header from '../header/header.component';
 import Loading from '../loading/loading.component';
+import { useBackButton } from './pageloading.hooks';
 
 interface PageLoadingOptions {
   children: JSX.Element;
@@ -14,6 +15,8 @@ const PageLoading: React.FC<PageLoadingOptions> = ({
   isLoading,
   isPermissionError,
 }) => {
+  const { onBackClicked } = useBackButton();
+
   return isLoading ? (
     <>
       <Header />
@@ -24,7 +27,9 @@ const PageLoading: React.FC<PageLoadingOptions> = ({
       <Header />
       <ErrorIcon message='You do not have permission to view this page.' />
       <div className='my-2 flex justify-center'>
-        <Button color={'primary'}>Back to home</Button>
+        <Button color={'primary'} onClick={onBackClicked}>
+          Back to home
+        </Button>
       </div>
     </>
   ) : (

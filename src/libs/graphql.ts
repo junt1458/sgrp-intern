@@ -90,6 +90,7 @@ export type Date_Comparison_Exp = {
 /** columns and relationships of "managers" */
 export type Managers = {
   __typename?: 'managers';
+  auth0_uid: Scalars['String']['output'];
   email?: Maybe<Scalars['String']['output']>;
   manager_id: Scalars['uuid']['output'];
   name?: Maybe<Scalars['String']['output']>;
@@ -123,6 +124,7 @@ export type Managers_Bool_Exp = {
   _and?: InputMaybe<Array<Managers_Bool_Exp>>;
   _not?: InputMaybe<Managers_Bool_Exp>;
   _or?: InputMaybe<Array<Managers_Bool_Exp>>;
+  auth0_uid?: InputMaybe<String_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   manager_id?: InputMaybe<Uuid_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
@@ -132,12 +134,15 @@ export type Managers_Bool_Exp = {
 
 /** unique or primary key constraints on table "managers" */
 export enum Managers_Constraint {
+  /** unique or primary key constraint on columns "auth0_uid" */
+  ManagersAuth0UidKey = 'managers_auth0_uid_key',
   /** unique or primary key constraint on columns "manager_id" */
   ManagersPkey = 'managers_pkey',
 }
 
 /** input type for inserting data into table "managers" */
 export type Managers_Insert_Input = {
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   manager_id?: InputMaybe<Scalars['uuid']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -148,6 +153,7 @@ export type Managers_Insert_Input = {
 /** aggregate max on columns */
 export type Managers_Max_Fields = {
   __typename?: 'managers_max_fields';
+  auth0_uid?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
   manager_id?: Maybe<Scalars['uuid']['output']>;
   name?: Maybe<Scalars['String']['output']>;
@@ -158,6 +164,7 @@ export type Managers_Max_Fields = {
 /** aggregate min on columns */
 export type Managers_Min_Fields = {
   __typename?: 'managers_min_fields';
+  auth0_uid?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
   manager_id?: Maybe<Scalars['uuid']['output']>;
   name?: Maybe<Scalars['String']['output']>;
@@ -183,6 +190,7 @@ export type Managers_On_Conflict = {
 
 /** Ordering options when selecting data from "managers". */
 export type Managers_Order_By = {
+  auth0_uid?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   manager_id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
@@ -198,6 +206,8 @@ export type Managers_Pk_Columns_Input = {
 /** select columns of table "managers" */
 export enum Managers_Select_Column {
   /** column name */
+  Auth0Uid = 'auth0_uid',
+  /** column name */
   Email = 'email',
   /** column name */
   ManagerId = 'manager_id',
@@ -211,6 +221,7 @@ export enum Managers_Select_Column {
 
 /** input type for updating data in table "managers" */
 export type Managers_Set_Input = {
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   manager_id?: InputMaybe<Scalars['uuid']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -228,6 +239,7 @@ export type Managers_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Managers_Stream_Cursor_Value_Input = {
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   manager_id?: InputMaybe<Scalars['uuid']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -237,6 +249,8 @@ export type Managers_Stream_Cursor_Value_Input = {
 
 /** update columns of table "managers" */
 export enum Managers_Update_Column {
+  /** column name */
+  Auth0Uid = 'auth0_uid',
   /** column name */
   Email = 'email',
   /** column name */
@@ -443,6 +457,7 @@ export type Partners = {
   address_line1?: Maybe<Scalars['String']['output']>;
   address_line2?: Maybe<Scalars['String']['output']>;
   address_zipcode?: Maybe<Scalars['String']['output']>;
+  auth0_uid: Scalars['String']['output'];
   contact_email?: Maybe<Scalars['String']['output']>;
   contact_name?: Maybe<Scalars['String']['output']>;
   contact_phone?: Maybe<Scalars['String']['output']>;
@@ -481,6 +496,7 @@ export type Partners_Bool_Exp = {
   address_line1?: InputMaybe<String_Comparison_Exp>;
   address_line2?: InputMaybe<String_Comparison_Exp>;
   address_zipcode?: InputMaybe<String_Comparison_Exp>;
+  auth0_uid?: InputMaybe<String_Comparison_Exp>;
   contact_email?: InputMaybe<String_Comparison_Exp>;
   contact_name?: InputMaybe<String_Comparison_Exp>;
   contact_phone?: InputMaybe<String_Comparison_Exp>;
@@ -491,6 +507,8 @@ export type Partners_Bool_Exp = {
 
 /** unique or primary key constraints on table "partners" */
 export enum Partners_Constraint {
+  /** unique or primary key constraint on columns "auth0_uid" */
+  PartnersAuth0UidKey = 'partners_auth0_uid_key',
   /** unique or primary key constraint on columns "partner_id" */
   PartnersPkey = 'partners_pkey',
 }
@@ -501,6 +519,7 @@ export type Partners_Insert_Input = {
   address_line1?: InputMaybe<Scalars['String']['input']>;
   address_line2?: InputMaybe<Scalars['String']['input']>;
   address_zipcode?: InputMaybe<Scalars['String']['input']>;
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
   contact_email?: InputMaybe<Scalars['String']['input']>;
   contact_name?: InputMaybe<Scalars['String']['input']>;
   contact_phone?: InputMaybe<Scalars['String']['input']>;
@@ -516,6 +535,7 @@ export type Partners_Max_Fields = {
   address_line1?: Maybe<Scalars['String']['output']>;
   address_line2?: Maybe<Scalars['String']['output']>;
   address_zipcode?: Maybe<Scalars['String']['output']>;
+  auth0_uid?: Maybe<Scalars['String']['output']>;
   contact_email?: Maybe<Scalars['String']['output']>;
   contact_name?: Maybe<Scalars['String']['output']>;
   contact_phone?: Maybe<Scalars['String']['output']>;
@@ -531,6 +551,7 @@ export type Partners_Min_Fields = {
   address_line1?: Maybe<Scalars['String']['output']>;
   address_line2?: Maybe<Scalars['String']['output']>;
   address_zipcode?: Maybe<Scalars['String']['output']>;
+  auth0_uid?: Maybe<Scalars['String']['output']>;
   contact_email?: Maybe<Scalars['String']['output']>;
   contact_name?: Maybe<Scalars['String']['output']>;
   contact_phone?: Maybe<Scalars['String']['output']>;
@@ -561,6 +582,7 @@ export type Partners_Order_By = {
   address_line1?: InputMaybe<Order_By>;
   address_line2?: InputMaybe<Order_By>;
   address_zipcode?: InputMaybe<Order_By>;
+  auth0_uid?: InputMaybe<Order_By>;
   contact_email?: InputMaybe<Order_By>;
   contact_name?: InputMaybe<Order_By>;
   contact_phone?: InputMaybe<Order_By>;
@@ -585,6 +607,8 @@ export enum Partners_Select_Column {
   /** column name */
   AddressZipcode = 'address_zipcode',
   /** column name */
+  Auth0Uid = 'auth0_uid',
+  /** column name */
   ContactEmail = 'contact_email',
   /** column name */
   ContactName = 'contact_name',
@@ -604,6 +628,7 @@ export type Partners_Set_Input = {
   address_line1?: InputMaybe<Scalars['String']['input']>;
   address_line2?: InputMaybe<Scalars['String']['input']>;
   address_zipcode?: InputMaybe<Scalars['String']['input']>;
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
   contact_email?: InputMaybe<Scalars['String']['input']>;
   contact_name?: InputMaybe<Scalars['String']['input']>;
   contact_phone?: InputMaybe<Scalars['String']['input']>;
@@ -626,6 +651,7 @@ export type Partners_Stream_Cursor_Value_Input = {
   address_line1?: InputMaybe<Scalars['String']['input']>;
   address_line2?: InputMaybe<Scalars['String']['input']>;
   address_zipcode?: InputMaybe<Scalars['String']['input']>;
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
   contact_email?: InputMaybe<Scalars['String']['input']>;
   contact_name?: InputMaybe<Scalars['String']['input']>;
   contact_phone?: InputMaybe<Scalars['String']['input']>;
@@ -644,6 +670,8 @@ export enum Partners_Update_Column {
   AddressLine2 = 'address_line2',
   /** column name */
   AddressZipcode = 'address_zipcode',
+  /** column name */
+  Auth0Uid = 'auth0_uid',
   /** column name */
   ContactEmail = 'contact_email',
   /** column name */
@@ -750,6 +778,7 @@ export type Query_RootStudents_By_PkArgs = {
 /** columns and relationships of "students" */
 export type Students = {
   __typename?: 'students';
+  auth0_uid: Scalars['String']['output'];
   birthday: Scalars['date']['output'];
   client_id: Scalars['uuid']['output'];
   department?: Maybe<Scalars['String']['output']>;
@@ -791,6 +820,7 @@ export type Students_Bool_Exp = {
   _and?: InputMaybe<Array<Students_Bool_Exp>>;
   _not?: InputMaybe<Students_Bool_Exp>;
   _or?: InputMaybe<Array<Students_Bool_Exp>>;
+  auth0_uid?: InputMaybe<String_Comparison_Exp>;
   birthday?: InputMaybe<Date_Comparison_Exp>;
   client_id?: InputMaybe<Uuid_Comparison_Exp>;
   department?: InputMaybe<String_Comparison_Exp>;
@@ -808,12 +838,15 @@ export type Students_Bool_Exp = {
 
 /** unique or primary key constraints on table "students" */
 export enum Students_Constraint {
+  /** unique or primary key constraint on columns "auth0_uid" */
+  StudentsAuth0UidKey = 'students_auth0_uid_key',
   /** unique or primary key constraint on columns "client_id" */
   StudentsPkey = 'students_pkey',
 }
 
 /** input type for inserting data into table "students" */
 export type Students_Insert_Input = {
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
   birthday?: InputMaybe<Scalars['date']['input']>;
   client_id?: InputMaybe<Scalars['uuid']['input']>;
   department?: InputMaybe<Scalars['String']['input']>;
@@ -832,6 +865,7 @@ export type Students_Insert_Input = {
 /** aggregate max on columns */
 export type Students_Max_Fields = {
   __typename?: 'students_max_fields';
+  auth0_uid?: Maybe<Scalars['String']['output']>;
   birthday?: Maybe<Scalars['date']['output']>;
   client_id?: Maybe<Scalars['uuid']['output']>;
   department?: Maybe<Scalars['String']['output']>;
@@ -850,6 +884,7 @@ export type Students_Max_Fields = {
 /** aggregate min on columns */
 export type Students_Min_Fields = {
   __typename?: 'students_min_fields';
+  auth0_uid?: Maybe<Scalars['String']['output']>;
   birthday?: Maybe<Scalars['date']['output']>;
   client_id?: Maybe<Scalars['uuid']['output']>;
   department?: Maybe<Scalars['String']['output']>;
@@ -883,6 +918,7 @@ export type Students_On_Conflict = {
 
 /** Ordering options when selecting data from "students". */
 export type Students_Order_By = {
+  auth0_uid?: InputMaybe<Order_By>;
   birthday?: InputMaybe<Order_By>;
   client_id?: InputMaybe<Order_By>;
   department?: InputMaybe<Order_By>;
@@ -905,6 +941,8 @@ export type Students_Pk_Columns_Input = {
 
 /** select columns of table "students" */
 export enum Students_Select_Column {
+  /** column name */
+  Auth0Uid = 'auth0_uid',
   /** column name */
   Birthday = 'birthday',
   /** column name */
@@ -935,6 +973,7 @@ export enum Students_Select_Column {
 
 /** input type for updating data in table "students" */
 export type Students_Set_Input = {
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
   birthday?: InputMaybe<Scalars['date']['input']>;
   client_id?: InputMaybe<Scalars['uuid']['input']>;
   department?: InputMaybe<Scalars['String']['input']>;
@@ -960,6 +999,7 @@ export type Students_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Students_Stream_Cursor_Value_Input = {
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
   birthday?: InputMaybe<Scalars['date']['input']>;
   client_id?: InputMaybe<Scalars['uuid']['input']>;
   department?: InputMaybe<Scalars['String']['input']>;
@@ -977,6 +1017,8 @@ export type Students_Stream_Cursor_Value_Input = {
 
 /** update columns of table "students" */
 export enum Students_Update_Column {
+  /** column name */
+  Auth0Uid = 'auth0_uid',
   /** column name */
   Birthday = 'birthday',
   /** column name */
@@ -1144,6 +1186,18 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
 };
 
+export type AddManagerProfileMutationVariables = Exact<{
+  name?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type AddManagerProfileMutation = {
+  __typename?: 'mutation_root';
+  insert_managers_one?: { __typename?: 'managers'; manager_id: any } | null;
+};
+
 export type MyQueryQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyQueryQuery = {
@@ -1156,6 +1210,32 @@ export type MyQueryQuery = {
   }>;
 };
 
+export const AddManagerProfileDocument = gql`
+  mutation AddManagerProfile(
+    $name: String
+    $email: String
+    $phone: String
+    $auth0_uid: String
+  ) {
+    insert_managers_one(
+      object: {
+        name: $name
+        email: $email
+        phone: $phone
+        auth0_uid: $auth0_uid
+      }
+    ) {
+      manager_id
+    }
+  }
+`;
+
+export function useAddManagerProfileMutation() {
+  return Urql.useMutation<
+    AddManagerProfileMutation,
+    AddManagerProfileMutationVariables
+  >(AddManagerProfileDocument);
+}
 export const MyQueryDocument = gql`
   query MyQuery {
     managers {
@@ -1191,6 +1271,17 @@ export default {
         kind: 'OBJECT',
         name: 'managers',
         fields: [
+          {
+            name: 'auth0_uid',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
           {
             name: 'email',
             type: {
@@ -1336,6 +1427,14 @@ export default {
         name: 'managers_max_fields',
         fields: [
           {
+            name: 'auth0_uid',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
             name: 'email',
             type: {
               kind: 'SCALAR',
@@ -1382,6 +1481,14 @@ export default {
         kind: 'OBJECT',
         name: 'managers_min_fields',
         fields: [
+          {
+            name: 'auth0_uid',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
           {
             name: 'email',
             type: {
@@ -2054,6 +2161,17 @@ export default {
             args: [],
           },
           {
+            name: 'auth0_uid',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
+          {
             name: 'contact_email',
             type: {
               kind: 'SCALAR',
@@ -2238,6 +2356,14 @@ export default {
             args: [],
           },
           {
+            name: 'auth0_uid',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
             name: 'contact_email',
             type: {
               kind: 'SCALAR',
@@ -2318,6 +2444,14 @@ export default {
           },
           {
             name: 'address_zipcode',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'auth0_uid',
             type: {
               kind: 'SCALAR',
               name: 'Any',
@@ -2861,6 +2995,17 @@ export default {
         name: 'students',
         fields: [
           {
+            name: 'auth0_uid',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
+          {
             name: 'birthday',
             type: {
               kind: 'NON_NULL',
@@ -3072,6 +3217,14 @@ export default {
         name: 'students_max_fields',
         fields: [
           {
+            name: 'auth0_uid',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
             name: 'birthday',
             type: {
               kind: 'SCALAR',
@@ -3182,6 +3335,14 @@ export default {
         kind: 'OBJECT',
         name: 'students_min_fields',
         fields: [
+          {
+            name: 'auth0_uid',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
           {
             name: 'birthday',
             type: {

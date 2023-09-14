@@ -9,6 +9,7 @@ import { useAuthHook } from '../../libs/auth';
 import PageLoading from '../../components/pageloading/pageloading.component';
 
 export const useRegister = () => {
+  const { reloadRole } = useAuthHook(['register'], true);
   const router = useRouter();
   const { getAccessTokenSilently } = useAuth0();
   const [status, setStatus] = useState('');
@@ -35,8 +36,9 @@ export const useRegister = () => {
       return;
     }
 
+    await reloadRole();
     router.push(`/${res.role}/profile`);
-  }, [getAccessTokenSilently, router]);
+  }, [getAccessTokenSilently, router, reloadRole]);
 
   return { onClick, status };
 };

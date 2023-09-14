@@ -1,6 +1,15 @@
 import { render } from '@testing-library/react';
 import FormInput from '../forminput.component';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      push: jest.fn(),
+    };
+  },
+}));
+
 describe('should render the component', () => {
   it('text', () => {
     const { container } = render(

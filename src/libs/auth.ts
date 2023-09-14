@@ -109,51 +109,67 @@ export const useAuthHook = (
   const router = useRouter();
   const { isLoading, isAuthenticated, user, getAccessTokenSilently } =
     useAuth0();
+
+  const [loading, setLoading] = useState(false);
   const [role, setRole] = useState<string | undefined>(undefined);
   const [uid, setUID] = useState<string | undefined>(undefined);
+  const [sid, setSID] = useState<string | undefined>(undefined);
 
   const isAllowed = useMemo(() => roles.includes(role!), [role, roles]);
 
   if (!isLoading && !isAuthenticated && redirectWhenNoLogin) router.push('/');
 
-  useEffect(() => {
+  const reloadRole = useCallback(async () => {
+    setLoading(true);
     if (isLoading) {
+      setLoading(true);
       setRole(undefined);
       setUID(undefined);
+      setSID(undefined);
       return;
     }
 
     if (!isAuthenticated) {
+      setLoading(false);
       setRole(undefined);
       setUID(undefined);
+      setSID(undefined);
       return;
     }
 
-    getAccessTokenSilently().then((token) => {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const role =
-        payload['https://hasura.io/jwt/claims']['x-hasura-default-role'];
-      const uid = payload['https://hasura.io/jwt/claims']['x-hasura-user-id'];
+    const token = await getAccessTokenSilently({ cacheMode: 'off' });
 
-      setRole(role);
-      setUID(uid);
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const role =
+      payload['https://hasura.io/jwt/claims']['x-hasura-default-role'];
+    const uid = payload['https://hasura.io/jwt/claims']['x-hasura-user-id'];
 
-      if (uid === '' && redirectWhenUidMissing) router.push(`/${role}/profile`);
-    });
+    setRole(role);
+    setUID(uid);
+    setSID(payload['sub']);
+    setLoading(false);
+
+    if (uid === '' && redirectWhenUidMissing) router.push(`/${role}/profile`);
   }, [
-    isLoading,
-    isAuthenticated,
     getAccessTokenSilently,
-    router,
+    isAuthenticated,
+    isLoading,
     redirectWhenUidMissing,
+    router,
   ]);
+
+  useEffect(() => {
+    reloadRole();
+  }, [isLoading, isAuthenticated, reloadRole]);
 
   return {
     isAllowed,
-    isLoading,
+    isLoading: loading,
     role,
     user,
     uid,
+    sid,
+    reloadRole,
     getAccessTokenSilently,
   };
 };
