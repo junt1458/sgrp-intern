@@ -1,0 +1,13 @@
+query GetPartnerProfile($uid: uuid) {
+  partners(where: { partner_id: { _eq: $uid } }) {
+    partner_id
+    display_name
+    address_zipcode
+    address_country
+    address_line1
+    address_line2
+    contact_name
+    contact_email
+    contact_phone
+  }
+}

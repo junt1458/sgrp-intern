@@ -1,0 +1,15 @@
+query GetStudentProfile($uid: uuid) {
+  students(where: { client_id: { _eq: $uid } }) {
+    passport_no
+    birthday
+    client_id
+    department
+    email
+    gender
+    major
+    name
+    passport_country
+    passport_expires
+    phone
+  }
+}

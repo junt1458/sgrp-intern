@@ -14,8 +14,13 @@ export const useRedirectHook = () => {
     const payload = JSON.parse(atob(token.split('.')[1]));
     const role =
       payload['https://hasura.io/jwt/claims']['x-hasura-default-role'];
+    const uid = payload['https://hasura.io/jwt/claims']['x-hasura-user-id'];
 
-    router.push(`/${role}`);
+    if (uid === '' && role !== 'register') {
+      router.push(`/${role}/profile`);
+    } else {
+      router.push(`/${role}`);
+    }
   }, [getAccessTokenSilently, router]);
 
   return { redirectUser };

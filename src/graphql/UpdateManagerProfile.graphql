@@ -1,0 +1,13 @@
+mutation UpdateManagerProfile(
+  $uid: uuid!
+  $name: String!
+  $email: String!
+  $phone: String!
+) {
+  update_managers_by_pk(
+    pk_columns: { manager_id: $uid }
+    _set: { email: $email, name: $name, phone: $phone }
+  ) {
+    manager_id
+  }
+}

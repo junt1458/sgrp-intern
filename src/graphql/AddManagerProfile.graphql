@@ -1,0 +1,12 @@
+mutation AddManagerProfile(
+  $name: String
+  $email: String
+  $phone: String
+  $auth0_uid: String
+) {
+  insert_managers_one(
+    object: { name: $name, email: $email, phone: $phone, auth0_uid: $auth0_uid }
+  ) {
+    manager_id
+  }
+}

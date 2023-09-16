@@ -5,6 +5,7 @@ const dummy_token = `DUMMY.${btoa(
   JSON.stringify({
     'https://hasura.io/jwt/claims': {
       'x-hasura-default-role': 'dummy-role',
+      'x-hasura-user-id': 'test',
     },
   })
 )}.DUMMY`;

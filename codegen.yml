@@ -1,0 +1,16 @@
+overwrite: true
+schema:
+  - ${NEXT_PUBLIC_GRAPHQL_ENDPOINT}:
+      headers:
+        'x-hasura-admin-secret': ${GRAPHQL_SECRET}
+        'Content-Type': 'application/json'
+        'Hasura-Client-Name': 'sgrp-intern'
+
+documents: 'src/graphql/*.graphql'
+generates:
+  src/libs/graphql.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-urql'
+      - 'urql-introspection'

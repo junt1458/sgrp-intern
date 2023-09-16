@@ -3,9 +3,13 @@
 exports[`should render the component 1`] = `
 <div>
   <div
-    class="flex h-14 w-full items-center justify-between bg-slate-900 px-4 py-2 text-xl"
+    class="fixed left-0 top-0 z-50 flex h-14 w-full items-center justify-between bg-slate-900 px-4 py-2 text-xl text-white"
   >
-    Internship Application System
+    <a
+      href="/"
+    >
+      Internship Application System
+    </a>
     <button
       title="Logout"
     >
@@ -22,5 +26,8 @@ exports[`should render the component 1`] = `
       </svg>
     </button>
   </div>
+  <div
+    class="h-14 w-full py-2"
+  />
 </div>
 `;

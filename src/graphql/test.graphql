@@ -1,0 +1,7 @@
+query MyQuery {
+  managers {
+    email
+    name
+    phone
+  }
+}
