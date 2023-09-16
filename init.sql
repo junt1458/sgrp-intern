@@ -9,9 +9,8 @@ CREATE TABLE students (
     gender VARCHAR DEFAULT '',
     passport_no VARCHAR DEFAULT '',
     passport_country VARCHAR DEFAULT '',
-    passport_nationality VARCHAR DEFAULT '',
     passport_expires DATE,
-    birthday DATE NOT NULL,
+    birthday DATE,
     department VARCHAR DEFAULT '',
     major VARCHAR DEFAULT '',
     registered_at TIMESTAMPTZ NOT NULL DEFAULT NOW()

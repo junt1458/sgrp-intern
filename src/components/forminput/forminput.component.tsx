@@ -8,9 +8,10 @@ interface FormInputOptions {
   placeholder?: string;
   label: string;
   required?: boolean;
-  type: 'text' | 'tel' | 'date' | 'email';
+  type: 'text' | 'tel' | 'date' | 'email' | 'option';
   defaultValue?: string;
   error?: string;
+  options?: string[];
 }
 
 const FormInput: React.FC<FormInputOptions> = ({
@@ -22,6 +23,7 @@ const FormInput: React.FC<FormInputOptions> = ({
   placeholder,
   defaultValue,
   error,
+  options,
 }) => {
   const [telVal, setTelVal] = useState<string | undefined>(defaultValue);
 
@@ -49,7 +51,7 @@ const FormInput: React.FC<FormInputOptions> = ({
     );
   }
 
-  if (type == 'date') {
+  if (type === 'option') {
     return (
       <div className='m-4'>
         {label} {required ? <span className='text-red-600'>*</span> : ''}
@@ -59,20 +61,25 @@ const FormInput: React.FC<FormInputOptions> = ({
             (error ? 'border-red-600' : 'border-gray-400')
           }
         >
-          <input
+          <select
             required={required}
-            type={type}
             id={id}
             className='h-full w-full'
             disabled={disabled}
-            placeholder={placeholder}
             defaultValue={defaultValue}
-          />
+          >
+            {options?.map((opt) => (
+              <option value={opt} key={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
         </div>
         <span className='text-red-600'>{error}</span>
       </div>
     );
   }
+
   return (
     <div className='m-4'>
       {label} {required ? <span className='text-red-600'>*</span> : ''}

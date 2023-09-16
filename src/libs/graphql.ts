@@ -779,7 +779,7 @@ export type Query_RootStudents_By_PkArgs = {
 export type Students = {
   __typename?: 'students';
   auth0_uid: Scalars['String']['output'];
-  birthday: Scalars['date']['output'];
+  birthday?: Maybe<Scalars['date']['output']>;
   client_id: Scalars['uuid']['output'];
   department?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
@@ -1198,6 +1198,42 @@ export type AddManagerProfileMutation = {
   insert_managers_one?: { __typename?: 'managers'; manager_id: any } | null;
 };
 
+export type AddPartnerProfileMutationVariables = Exact<{
+  display_name?: InputMaybe<Scalars['String']['input']>;
+  address1?: InputMaybe<Scalars['String']['input']>;
+  address2?: InputMaybe<Scalars['String']['input']>;
+  zip_code?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  c_name?: InputMaybe<Scalars['String']['input']>;
+  c_email?: InputMaybe<Scalars['String']['input']>;
+  c_tel?: InputMaybe<Scalars['String']['input']>;
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type AddPartnerProfileMutation = {
+  __typename?: 'mutation_root';
+  insert_partners_one?: { __typename?: 'partners'; partner_id: any } | null;
+};
+
+export type AddStudentProfileMutationVariables = Exact<{
+  name: Scalars['String']['input'];
+  phone: Scalars['String']['input'];
+  passport_no: Scalars['String']['input'];
+  passport_country: Scalars['String']['input'];
+  passport_expires: Scalars['date']['input'];
+  birthday: Scalars['date']['input'];
+  department: Scalars['String']['input'];
+  major: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  gender: Scalars['String']['input'];
+  auth0_uid?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type AddStudentProfileMutation = {
+  __typename?: 'mutation_root';
+  insert_students_one?: { __typename?: 'students'; client_id: any } | null;
+};
+
 export type GetManagerProfileQueryVariables = Exact<{
   uid?: InputMaybe<Scalars['uuid']['input']>;
 }>;
@@ -1213,6 +1249,48 @@ export type GetManagerProfileQuery = {
   }>;
 };
 
+export type GetPartnerProfileQueryVariables = Exact<{
+  uid?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+export type GetPartnerProfileQuery = {
+  __typename?: 'query_root';
+  partners: Array<{
+    __typename?: 'partners';
+    partner_id: any;
+    display_name?: string | null;
+    address_zipcode?: string | null;
+    address_country?: string | null;
+    address_line1?: string | null;
+    address_line2?: string | null;
+    contact_name?: string | null;
+    contact_email?: string | null;
+    contact_phone?: string | null;
+  }>;
+};
+
+export type GetStudentProfileQueryVariables = Exact<{
+  uid?: InputMaybe<Scalars['uuid']['input']>;
+}>;
+
+export type GetStudentProfileQuery = {
+  __typename?: 'query_root';
+  students: Array<{
+    __typename?: 'students';
+    passport_no?: string | null;
+    birthday?: any | null;
+    client_id: any;
+    department?: string | null;
+    email?: string | null;
+    gender?: string | null;
+    major?: string | null;
+    name?: string | null;
+    passport_country?: string | null;
+    passport_expires?: any | null;
+    phone?: string | null;
+  }>;
+};
+
 export type UpdateManagerProfileMutationVariables = Exact<{
   uid: Scalars['uuid']['input'];
   name: Scalars['String']['input'];
@@ -1223,6 +1301,42 @@ export type UpdateManagerProfileMutationVariables = Exact<{
 export type UpdateManagerProfileMutation = {
   __typename?: 'mutation_root';
   update_managers_by_pk?: { __typename?: 'managers'; manager_id: any } | null;
+};
+
+export type UpdatePartnerProfileMutationVariables = Exact<{
+  uid: Scalars['uuid']['input'];
+  display_name?: InputMaybe<Scalars['String']['input']>;
+  address1?: InputMaybe<Scalars['String']['input']>;
+  address2?: InputMaybe<Scalars['String']['input']>;
+  zip_code?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  c_name?: InputMaybe<Scalars['String']['input']>;
+  c_email?: InputMaybe<Scalars['String']['input']>;
+  c_tel?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type UpdatePartnerProfileMutation = {
+  __typename?: 'mutation_root';
+  update_partners_by_pk?: { __typename?: 'partners'; partner_id: any } | null;
+};
+
+export type UpdateStudentProfileMutationVariables = Exact<{
+  uid: Scalars['uuid']['input'];
+  name: Scalars['String']['input'];
+  phone: Scalars['String']['input'];
+  passport_no: Scalars['String']['input'];
+  passport_country: Scalars['String']['input'];
+  passport_expires: Scalars['date']['input'];
+  birthday: Scalars['date']['input'];
+  department: Scalars['String']['input'];
+  major: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  gender: Scalars['String']['input'];
+}>;
+
+export type UpdateStudentProfileMutation = {
+  __typename?: 'mutation_root';
+  update_students_by_pk?: { __typename?: 'students'; client_id: any } | null;
 };
 
 export type MyQueryQueryVariables = Exact<{ [key: string]: never }>;
@@ -1263,6 +1377,82 @@ export function useAddManagerProfileMutation() {
     AddManagerProfileMutationVariables
   >(AddManagerProfileDocument);
 }
+export const AddPartnerProfileDocument = gql`
+  mutation AddPartnerProfile(
+    $display_name: String
+    $address1: String
+    $address2: String
+    $zip_code: String
+    $country: String
+    $c_name: String
+    $c_email: String
+    $c_tel: String
+    $auth0_uid: String
+  ) {
+    insert_partners_one(
+      object: {
+        display_name: $display_name
+        address_zipcode: $zip_code
+        address_country: $country
+        address_line1: $address1
+        address_line2: $address2
+        contact_name: $c_name
+        contact_email: $c_email
+        contact_phone: $c_tel
+        auth0_uid: $auth0_uid
+      }
+    ) {
+      partner_id
+    }
+  }
+`;
+
+export function useAddPartnerProfileMutation() {
+  return Urql.useMutation<
+    AddPartnerProfileMutation,
+    AddPartnerProfileMutationVariables
+  >(AddPartnerProfileDocument);
+}
+export const AddStudentProfileDocument = gql`
+  mutation AddStudentProfile(
+    $name: String!
+    $phone: String!
+    $passport_no: String!
+    $passport_country: String!
+    $passport_expires: date!
+    $birthday: date!
+    $department: String!
+    $major: String!
+    $email: String!
+    $gender: String!
+    $auth0_uid: String
+  ) {
+    insert_students_one(
+      object: {
+        name: $name
+        phone: $phone
+        passport_no: $passport_no
+        passport_country: $passport_country
+        passport_expires: $passport_expires
+        birthday: $birthday
+        department: $department
+        major: $major
+        email: $email
+        gender: $gender
+        auth0_uid: $auth0_uid
+      }
+    ) {
+      client_id
+    }
+  }
+`;
+
+export function useAddStudentProfileMutation() {
+  return Urql.useMutation<
+    AddStudentProfileMutation,
+    AddStudentProfileMutationVariables
+  >(AddStudentProfileDocument);
+}
 export const GetManagerProfileDocument = gql`
   query GetManagerProfile($uid: uuid) {
     managers(where: { manager_id: { _eq: $uid } }) {
@@ -1279,6 +1469,54 @@ export function useGetManagerProfileQuery(
 ) {
   return Urql.useQuery<GetManagerProfileQuery, GetManagerProfileQueryVariables>(
     { query: GetManagerProfileDocument, ...options }
+  );
+}
+export const GetPartnerProfileDocument = gql`
+  query GetPartnerProfile($uid: uuid) {
+    partners(where: { partner_id: { _eq: $uid } }) {
+      partner_id
+      display_name
+      address_zipcode
+      address_country
+      address_line1
+      address_line2
+      contact_name
+      contact_email
+      contact_phone
+    }
+  }
+`;
+
+export function useGetPartnerProfileQuery(
+  options?: Omit<Urql.UseQueryArgs<GetPartnerProfileQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<GetPartnerProfileQuery, GetPartnerProfileQueryVariables>(
+    { query: GetPartnerProfileDocument, ...options }
+  );
+}
+export const GetStudentProfileDocument = gql`
+  query GetStudentProfile($uid: uuid) {
+    students(where: { client_id: { _eq: $uid } }) {
+      passport_no
+      birthday
+      client_id
+      department
+      email
+      gender
+      major
+      name
+      passport_country
+      passport_expires
+      phone
+    }
+  }
+`;
+
+export function useGetStudentProfileQuery(
+  options?: Omit<Urql.UseQueryArgs<GetStudentProfileQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<GetStudentProfileQuery, GetStudentProfileQueryVariables>(
+    { query: GetStudentProfileDocument, ...options }
   );
 }
 export const UpdateManagerProfileDocument = gql`
@@ -1302,6 +1540,82 @@ export function useUpdateManagerProfileMutation() {
     UpdateManagerProfileMutation,
     UpdateManagerProfileMutationVariables
   >(UpdateManagerProfileDocument);
+}
+export const UpdatePartnerProfileDocument = gql`
+  mutation UpdatePartnerProfile(
+    $uid: uuid!
+    $display_name: String
+    $address1: String
+    $address2: String
+    $zip_code: String
+    $country: String
+    $c_name: String
+    $c_email: String
+    $c_tel: String
+  ) {
+    update_partners_by_pk(
+      pk_columns: { partner_id: $uid }
+      _set: {
+        display_name: $display_name
+        address_zipcode: $zip_code
+        address_country: $country
+        address_line1: $address1
+        address_line2: $address2
+        contact_name: $c_name
+        contact_email: $c_email
+        contact_phone: $c_tel
+      }
+    ) {
+      partner_id
+    }
+  }
+`;
+
+export function useUpdatePartnerProfileMutation() {
+  return Urql.useMutation<
+    UpdatePartnerProfileMutation,
+    UpdatePartnerProfileMutationVariables
+  >(UpdatePartnerProfileDocument);
+}
+export const UpdateStudentProfileDocument = gql`
+  mutation UpdateStudentProfile(
+    $uid: uuid!
+    $name: String!
+    $phone: String!
+    $passport_no: String!
+    $passport_country: String!
+    $passport_expires: date!
+    $birthday: date!
+    $department: String!
+    $major: String!
+    $email: String!
+    $gender: String!
+  ) {
+    update_students_by_pk(
+      pk_columns: { client_id: $uid }
+      _set: {
+        name: $name
+        phone: $phone
+        passport_no: $passport_no
+        passport_country: $passport_country
+        passport_expires: $passport_expires
+        birthday: $birthday
+        department: $department
+        major: $major
+        email: $email
+        gender: $gender
+      }
+    ) {
+      client_id
+    }
+  }
+`;
+
+export function useUpdateStudentProfileMutation() {
+  return Urql.useMutation<
+    UpdateStudentProfileMutation,
+    UpdateStudentProfileMutationVariables
+  >(UpdateStudentProfileDocument);
 }
 export const MyQueryDocument = gql`
   query MyQuery {
@@ -3075,11 +3389,8 @@ export default {
           {
             name: 'birthday',
             type: {
-              kind: 'NON_NULL',
-              ofType: {
-                kind: 'SCALAR',
-                name: 'Any',
-              },
+              kind: 'SCALAR',
+              name: 'Any',
             },
             args: [],
           },

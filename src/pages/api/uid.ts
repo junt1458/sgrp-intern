@@ -59,6 +59,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       ? 'getpartneridfromuid'
       : null;
 
+  const key1 =
+    a1Res.app_metadata.role === 'student'
+      ? 'students'
+      : a1Res.app_metadata.role === 'manager'
+      ? 'managers'
+      : a1Res.app_metadata.role === 'partner'
+      ? 'partners'
+      : '';
+
+  const key2 =
+    a1Res.app_metadata.role === 'student'
+      ? 'client_id'
+      : a1Res.app_metadata.role === 'manager'
+      ? 'manager_id'
+      : a1Res.app_metadata.role === 'partner'
+      ? 'partner_id'
+      : '';
+
   if (endpoint === null) {
     res.status(400).json({ error: 'Invalid role provided.' });
     return;
@@ -75,9 +93,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const a2Res = await a2Req.json();
 
   if (
-    a2Res.managers == undefined ||
-    a2Res.managers.length == 0 ||
-    a2Res.managers[0].manager_id != req.body.uid
+    a2Res[key1] == undefined ||
+    a2Res[key1].length == 0 ||
+    a2Res[key1][0][key2] != req.body.uid
   ) {
     res.status(400).json({ error: 'No profile found.' });
     return;

@@ -1,0 +1,27 @@
+mutation UpdatePartnerProfile(
+  $uid: uuid!
+  $display_name: String
+  $address1: String
+  $address2: String
+  $zip_code: String
+  $country: String
+  $c_name: String
+  $c_email: String
+  $c_tel: String
+) {
+  update_partners_by_pk(
+    pk_columns: { partner_id: $uid }
+    _set: {
+      display_name: $display_name
+      address_zipcode: $zip_code
+      address_country: $country
+      address_line1: $address1
+      address_line2: $address2
+      contact_name: $c_name
+      contact_email: $c_email
+      contact_phone: $c_tel
+    }
+  ) {
+    partner_id
+  }
+}

@@ -225,7 +225,7 @@ it('should call w/valid student profile', async () => {
       ok: true,
       status: 200,
       json: jest.fn().mockResolvedValue({
-        managers: [{ manager_id: 'test' }],
+        students: [{ client_id: 'test' }],
       }),
     });
 
@@ -339,7 +339,7 @@ it('should call w/valid partner profile', async () => {
       ok: true,
       status: 200,
       json: jest.fn().mockResolvedValue({
-        managers: [{ manager_id: 'test' }],
+        partners: [{ partner_id: 'test' }],
       }),
     });
 

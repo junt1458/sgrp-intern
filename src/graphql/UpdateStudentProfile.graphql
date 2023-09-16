@@ -1,0 +1,31 @@
+mutation UpdateStudentProfile(
+  $uid: uuid!
+  $name: String!
+  $phone: String!
+  $passport_no: String!
+  $passport_country: String!
+  $passport_expires: date!
+  $birthday: date!
+  $department: String!
+  $major: String!
+  $email: String!
+  $gender: String!
+) {
+  update_students_by_pk(
+    pk_columns: { client_id: $uid }
+    _set: {
+      name: $name
+      phone: $phone
+      passport_no: $passport_no
+      passport_country: $passport_country
+      passport_expires: $passport_expires
+      birthday: $birthday
+      department: $department
+      major: $major
+      email: $email
+      gender: $gender
+    }
+  ) {
+    client_id
+  }
+}
