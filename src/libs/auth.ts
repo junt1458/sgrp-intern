@@ -169,6 +169,8 @@ export const useAuthHook = (
     user,
     uid,
     sid,
+    icon: user?.picture || '',
+    name: user?.name || '',
     reloadRole,
     getAccessTokenSilently,
   };

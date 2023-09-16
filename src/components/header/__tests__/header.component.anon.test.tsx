@@ -1,12 +1,21 @@
 import { render } from '@testing-library/react';
 import Header from '../header.component';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      push: jest.fn(),
+    };
+  },
+}));
+
 jest.mock('@auth0/auth0-react', () => ({
   Auth0Provider: ({ children }) => <div>{children}</div>,
   useAuth0: () => ({
     isLoading: false,
     user: { sub: 'foobar' },
-    isAuthenticated: true,
+    isAuthenticated: false,
     loginWithRedirect: jest.fn(),
   }),
 }));

@@ -1,7 +1,16 @@
 import { renderHook } from '@testing-library/react';
-import { useLogoutHook } from '../header.hooks';
+import { useHeaderHook } from '../header.hooks';
 
 const logoutMock = jest.fn();
+
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      push: jest.fn(),
+    };
+  },
+}));
 
 jest.mock('@auth0/auth0-react', () => ({
   Auth0Provider: ({ children }) => <div>{children}</div>,
@@ -15,7 +24,7 @@ jest.mock('@auth0/auth0-react', () => ({
 }));
 
 it('should call logout function', () => {
-  const { result } = renderHook(() => useLogoutHook());
+  const { result } = renderHook(() => useHeaderHook());
   expect(logoutMock).toHaveBeenCalledTimes(0);
   result.current.onClickLogout();
   expect(logoutMock).toHaveBeenCalledTimes(1);
