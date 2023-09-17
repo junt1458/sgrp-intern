@@ -53,7 +53,7 @@ export const authenticate = async (
 
   const { payload, error } = await new Promise<JwtVerifyResult>((resolve) => {
     jwt.verify(token, pem, (err, decoded) =>
-      resolve({ error: err, payload: decoded as jwt.JwtPayload })
+      resolve({ error: err!, payload: decoded as Auth0Jwt })
     );
   });
 
