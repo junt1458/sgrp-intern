@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { cacheExchange, fetchExchange, createClient, Provider } from 'urql';
-import { authExchange } from '@urql/exchange-auth';
+import { AuthConfig, authExchange } from '@urql/exchange-auth';
 
 export const GRAPHQL_ENDPOINT =
   process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
@@ -31,6 +31,7 @@ const UrqlProvider: React.FunctionComponent<{
     const token = isAuthenticated ? await getAccessTokenSilently() : undefined;
 
     return {
+      // @ts-ignore
       addAuthToOperation(operation) {
         if (!token) return operation;
         return utils.appendHeaders(operation, {
@@ -39,7 +40,7 @@ const UrqlProvider: React.FunctionComponent<{
       },
       didAuthError: undefined,
       refreshAuth: undefined,
-    };
+    } as unknown as AuthConfig;
   });
 
   const client = createClient({
