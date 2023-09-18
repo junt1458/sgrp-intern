@@ -1,0 +1,19 @@
+query GetOpportunities {
+  opportunities {
+    detail
+    display_status
+    manager_id
+    slots
+    city
+    date_from
+    date_to
+    opportunity_id
+    partner {
+      display_name
+      address_country
+    }
+    manager {
+      name
+    }
+  }
+}

@@ -1,0 +1,23 @@
+mutation UpdateOpportunity(
+  $opportunity_id: uuid!
+  $city: String
+  $slots: Int
+  $date_start: date
+  $date_end: date
+  $detail: String
+  $status: Int
+) {
+  update_opportunities_by_pk(
+    pk_columns: { opportunity_id: $opportunity_id }
+    _set: {
+      city: $city
+      slots: $slots
+      date_from: $date_start
+      date_to: $date_end
+      detail: $detail
+      display_status: $status
+    }
+  ) {
+    opportunity_id
+  }
+}

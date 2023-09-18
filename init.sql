@@ -39,5 +39,22 @@ CREATE TABLE managers (
     registered_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- display_status: 0 (Draft) / 1 (In Review) / 2 (Form Open) / 3 (Form Closed)
+CREATE TABLE opportunities (
+    opportunity_id UUID DEFAULT uuid_generate_v4() UNIQUE PRIMARY KEY,
+    partner_id UUID NOT NULL,
+    city VARCHAR NOT NULL,
+    display_status INT DEFAULT 0,
+    slots INT DEFAULT 0,
+    detail VARCHAR DEFAULT '',
+    date_from DATE NOT NULL,
+    date_to DATE NOT NULL,
+    manager_id UUID,
+    FOREIGN KEY (partner_id)
+      REFERENCES partners (partner_id),
+    FOREIGN KEY (manager_id)
+      REFERENCES managers (manager_id)
+);
 
-ALTER TABLE managers ADD (auth0_uid VARCHAR DEFAULT '' UNIQUE);
+-- For memo purpose
+-- ALTER TABLE managers ADD (auth0_uid VARCHAR DEFAULT '' UNIQUE);

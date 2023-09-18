@@ -33,6 +33,19 @@ export type Scalars = {
   uuid: { input: any; output: any };
 };
 
+/** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
+export type Int_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Int']['input']>;
+  _gt?: InputMaybe<Scalars['Int']['input']>;
+  _gte?: InputMaybe<Scalars['Int']['input']>;
+  _in?: InputMaybe<Array<Scalars['Int']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['Int']['input']>;
+  _lte?: InputMaybe<Scalars['Int']['input']>;
+  _neq?: InputMaybe<Scalars['Int']['input']>;
+  _nin?: InputMaybe<Array<Scalars['Int']['input']>>;
+};
+
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['String']['input']>;
@@ -94,8 +107,30 @@ export type Managers = {
   email?: Maybe<Scalars['String']['output']>;
   manager_id: Scalars['uuid']['output'];
   name?: Maybe<Scalars['String']['output']>;
+  /** An array relationship */
+  opportunities: Array<Opportunities>;
+  /** An aggregate relationship */
+  opportunities_aggregate: Opportunities_Aggregate;
   phone?: Maybe<Scalars['String']['output']>;
   registered_at: Scalars['timestamptz']['output'];
+};
+
+/** columns and relationships of "managers" */
+export type ManagersOpportunitiesArgs = {
+  distinct_on?: InputMaybe<Array<Opportunities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Opportunities_Order_By>>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
+};
+
+/** columns and relationships of "managers" */
+export type ManagersOpportunities_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Opportunities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Opportunities_Order_By>>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
 };
 
 /** aggregated selection of "managers" */
@@ -128,6 +163,8 @@ export type Managers_Bool_Exp = {
   email?: InputMaybe<String_Comparison_Exp>;
   manager_id?: InputMaybe<Uuid_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  opportunities?: InputMaybe<Opportunities_Bool_Exp>;
+  opportunities_aggregate?: InputMaybe<Opportunities_Aggregate_Bool_Exp>;
   phone?: InputMaybe<String_Comparison_Exp>;
   registered_at?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
@@ -146,6 +183,7 @@ export type Managers_Insert_Input = {
   email?: InputMaybe<Scalars['String']['input']>;
   manager_id?: InputMaybe<Scalars['uuid']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  opportunities?: InputMaybe<Opportunities_Arr_Rel_Insert_Input>;
   phone?: InputMaybe<Scalars['String']['input']>;
   registered_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
@@ -181,6 +219,13 @@ export type Managers_Mutation_Response = {
   returning: Array<Managers>;
 };
 
+/** input type for inserting object relation for remote table "managers" */
+export type Managers_Obj_Rel_Insert_Input = {
+  data: Managers_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Managers_On_Conflict>;
+};
+
 /** on_conflict condition type for table "managers" */
 export type Managers_On_Conflict = {
   constraint: Managers_Constraint;
@@ -194,6 +239,7 @@ export type Managers_Order_By = {
   email?: InputMaybe<Order_By>;
   manager_id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  opportunities_aggregate?: InputMaybe<Opportunities_Aggregate_Order_By>;
   phone?: InputMaybe<Order_By>;
   registered_at?: InputMaybe<Order_By>;
 };
@@ -277,6 +323,10 @@ export type Mutation_Root = {
   delete_managers?: Maybe<Managers_Mutation_Response>;
   /** delete single row from the table: "managers" */
   delete_managers_by_pk?: Maybe<Managers>;
+  /** delete data from the table: "opportunities" */
+  delete_opportunities?: Maybe<Opportunities_Mutation_Response>;
+  /** delete single row from the table: "opportunities" */
+  delete_opportunities_by_pk?: Maybe<Opportunities>;
   /** delete data from the table: "partners" */
   delete_partners?: Maybe<Partners_Mutation_Response>;
   /** delete single row from the table: "partners" */
@@ -289,6 +339,10 @@ export type Mutation_Root = {
   insert_managers?: Maybe<Managers_Mutation_Response>;
   /** insert a single row into the table: "managers" */
   insert_managers_one?: Maybe<Managers>;
+  /** insert data into the table: "opportunities" */
+  insert_opportunities?: Maybe<Opportunities_Mutation_Response>;
+  /** insert a single row into the table: "opportunities" */
+  insert_opportunities_one?: Maybe<Opportunities>;
   /** insert data into the table: "partners" */
   insert_partners?: Maybe<Partners_Mutation_Response>;
   /** insert a single row into the table: "partners" */
@@ -303,6 +357,14 @@ export type Mutation_Root = {
   update_managers_by_pk?: Maybe<Managers>;
   /** update multiples rows of table: "managers" */
   update_managers_many?: Maybe<Array<Maybe<Managers_Mutation_Response>>>;
+  /** update data of the table: "opportunities" */
+  update_opportunities?: Maybe<Opportunities_Mutation_Response>;
+  /** update single row of the table: "opportunities" */
+  update_opportunities_by_pk?: Maybe<Opportunities>;
+  /** update multiples rows of table: "opportunities" */
+  update_opportunities_many?: Maybe<
+    Array<Maybe<Opportunities_Mutation_Response>>
+  >;
   /** update data of the table: "partners" */
   update_partners?: Maybe<Partners_Mutation_Response>;
   /** update single row of the table: "partners" */
@@ -325,6 +387,16 @@ export type Mutation_RootDelete_ManagersArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Managers_By_PkArgs = {
   manager_id: Scalars['uuid']['input'];
+};
+
+/** mutation root */
+export type Mutation_RootDelete_OpportunitiesArgs = {
+  where: Opportunities_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Opportunities_By_PkArgs = {
+  opportunity_id: Scalars['uuid']['input'];
 };
 
 /** mutation root */
@@ -357,6 +429,18 @@ export type Mutation_RootInsert_ManagersArgs = {
 export type Mutation_RootInsert_Managers_OneArgs = {
   object: Managers_Insert_Input;
   on_conflict?: InputMaybe<Managers_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_OpportunitiesArgs = {
+  objects: Array<Opportunities_Insert_Input>;
+  on_conflict?: InputMaybe<Opportunities_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Opportunities_OneArgs = {
+  object: Opportunities_Insert_Input;
+  on_conflict?: InputMaybe<Opportunities_On_Conflict>;
 };
 
 /** mutation root */
@@ -401,6 +485,25 @@ export type Mutation_RootUpdate_Managers_ManyArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdate_OpportunitiesArgs = {
+  _inc?: InputMaybe<Opportunities_Inc_Input>;
+  _set?: InputMaybe<Opportunities_Set_Input>;
+  where: Opportunities_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Opportunities_By_PkArgs = {
+  _inc?: InputMaybe<Opportunities_Inc_Input>;
+  _set?: InputMaybe<Opportunities_Set_Input>;
+  pk_columns: Opportunities_Pk_Columns_Input;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Opportunities_ManyArgs = {
+  updates: Array<Opportunities_Updates>;
+};
+
+/** mutation root */
 export type Mutation_RootUpdate_PartnersArgs = {
   _set?: InputMaybe<Partners_Set_Input>;
   where: Partners_Bool_Exp;
@@ -434,6 +537,412 @@ export type Mutation_RootUpdate_Students_ManyArgs = {
   updates: Array<Students_Updates>;
 };
 
+/** columns and relationships of "opportunities" */
+export type Opportunities = {
+  __typename?: 'opportunities';
+  city: Scalars['String']['output'];
+  date_from: Scalars['date']['output'];
+  date_to: Scalars['date']['output'];
+  detail?: Maybe<Scalars['String']['output']>;
+  display_status?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  manager?: Maybe<Managers>;
+  manager_id?: Maybe<Scalars['uuid']['output']>;
+  opportunity_id: Scalars['uuid']['output'];
+  /** An object relationship */
+  partner: Partners;
+  partner_id: Scalars['uuid']['output'];
+  slots?: Maybe<Scalars['Int']['output']>;
+};
+
+/** aggregated selection of "opportunities" */
+export type Opportunities_Aggregate = {
+  __typename?: 'opportunities_aggregate';
+  aggregate?: Maybe<Opportunities_Aggregate_Fields>;
+  nodes: Array<Opportunities>;
+};
+
+export type Opportunities_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Opportunities_Aggregate_Bool_Exp_Count>;
+};
+
+export type Opportunities_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Opportunities_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Opportunities_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "opportunities" */
+export type Opportunities_Aggregate_Fields = {
+  __typename?: 'opportunities_aggregate_fields';
+  avg?: Maybe<Opportunities_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Opportunities_Max_Fields>;
+  min?: Maybe<Opportunities_Min_Fields>;
+  stddev?: Maybe<Opportunities_Stddev_Fields>;
+  stddev_pop?: Maybe<Opportunities_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Opportunities_Stddev_Samp_Fields>;
+  sum?: Maybe<Opportunities_Sum_Fields>;
+  var_pop?: Maybe<Opportunities_Var_Pop_Fields>;
+  var_samp?: Maybe<Opportunities_Var_Samp_Fields>;
+  variance?: Maybe<Opportunities_Variance_Fields>;
+};
+
+/** aggregate fields of "opportunities" */
+export type Opportunities_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Opportunities_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "opportunities" */
+export type Opportunities_Aggregate_Order_By = {
+  avg?: InputMaybe<Opportunities_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Opportunities_Max_Order_By>;
+  min?: InputMaybe<Opportunities_Min_Order_By>;
+  stddev?: InputMaybe<Opportunities_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Opportunities_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Opportunities_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Opportunities_Sum_Order_By>;
+  var_pop?: InputMaybe<Opportunities_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Opportunities_Var_Samp_Order_By>;
+  variance?: InputMaybe<Opportunities_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "opportunities" */
+export type Opportunities_Arr_Rel_Insert_Input = {
+  data: Array<Opportunities_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Opportunities_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Opportunities_Avg_Fields = {
+  __typename?: 'opportunities_avg_fields';
+  display_status?: Maybe<Scalars['Float']['output']>;
+  slots?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "opportunities" */
+export type Opportunities_Avg_Order_By = {
+  display_status?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "opportunities". All fields are combined with a logical 'AND'. */
+export type Opportunities_Bool_Exp = {
+  _and?: InputMaybe<Array<Opportunities_Bool_Exp>>;
+  _not?: InputMaybe<Opportunities_Bool_Exp>;
+  _or?: InputMaybe<Array<Opportunities_Bool_Exp>>;
+  city?: InputMaybe<String_Comparison_Exp>;
+  date_from?: InputMaybe<Date_Comparison_Exp>;
+  date_to?: InputMaybe<Date_Comparison_Exp>;
+  detail?: InputMaybe<String_Comparison_Exp>;
+  display_status?: InputMaybe<Int_Comparison_Exp>;
+  manager?: InputMaybe<Managers_Bool_Exp>;
+  manager_id?: InputMaybe<Uuid_Comparison_Exp>;
+  opportunity_id?: InputMaybe<Uuid_Comparison_Exp>;
+  partner?: InputMaybe<Partners_Bool_Exp>;
+  partner_id?: InputMaybe<Uuid_Comparison_Exp>;
+  slots?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "opportunities" */
+export enum Opportunities_Constraint {
+  /** unique or primary key constraint on columns "opportunity_id" */
+  OpportunitiesPkey = 'opportunities_pkey',
+}
+
+/** input type for incrementing numeric columns in table "opportunities" */
+export type Opportunities_Inc_Input = {
+  display_status?: InputMaybe<Scalars['Int']['input']>;
+  slots?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "opportunities" */
+export type Opportunities_Insert_Input = {
+  city?: InputMaybe<Scalars['String']['input']>;
+  date_from?: InputMaybe<Scalars['date']['input']>;
+  date_to?: InputMaybe<Scalars['date']['input']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+  display_status?: InputMaybe<Scalars['Int']['input']>;
+  manager?: InputMaybe<Managers_Obj_Rel_Insert_Input>;
+  manager_id?: InputMaybe<Scalars['uuid']['input']>;
+  opportunity_id?: InputMaybe<Scalars['uuid']['input']>;
+  partner?: InputMaybe<Partners_Obj_Rel_Insert_Input>;
+  partner_id?: InputMaybe<Scalars['uuid']['input']>;
+  slots?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** aggregate max on columns */
+export type Opportunities_Max_Fields = {
+  __typename?: 'opportunities_max_fields';
+  city?: Maybe<Scalars['String']['output']>;
+  date_from?: Maybe<Scalars['date']['output']>;
+  date_to?: Maybe<Scalars['date']['output']>;
+  detail?: Maybe<Scalars['String']['output']>;
+  display_status?: Maybe<Scalars['Int']['output']>;
+  manager_id?: Maybe<Scalars['uuid']['output']>;
+  opportunity_id?: Maybe<Scalars['uuid']['output']>;
+  partner_id?: Maybe<Scalars['uuid']['output']>;
+  slots?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by max() on columns of table "opportunities" */
+export type Opportunities_Max_Order_By = {
+  city?: InputMaybe<Order_By>;
+  date_from?: InputMaybe<Order_By>;
+  date_to?: InputMaybe<Order_By>;
+  detail?: InputMaybe<Order_By>;
+  display_status?: InputMaybe<Order_By>;
+  manager_id?: InputMaybe<Order_By>;
+  opportunity_id?: InputMaybe<Order_By>;
+  partner_id?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Opportunities_Min_Fields = {
+  __typename?: 'opportunities_min_fields';
+  city?: Maybe<Scalars['String']['output']>;
+  date_from?: Maybe<Scalars['date']['output']>;
+  date_to?: Maybe<Scalars['date']['output']>;
+  detail?: Maybe<Scalars['String']['output']>;
+  display_status?: Maybe<Scalars['Int']['output']>;
+  manager_id?: Maybe<Scalars['uuid']['output']>;
+  opportunity_id?: Maybe<Scalars['uuid']['output']>;
+  partner_id?: Maybe<Scalars['uuid']['output']>;
+  slots?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by min() on columns of table "opportunities" */
+export type Opportunities_Min_Order_By = {
+  city?: InputMaybe<Order_By>;
+  date_from?: InputMaybe<Order_By>;
+  date_to?: InputMaybe<Order_By>;
+  detail?: InputMaybe<Order_By>;
+  display_status?: InputMaybe<Order_By>;
+  manager_id?: InputMaybe<Order_By>;
+  opportunity_id?: InputMaybe<Order_By>;
+  partner_id?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "opportunities" */
+export type Opportunities_Mutation_Response = {
+  __typename?: 'opportunities_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Opportunities>;
+};
+
+/** on_conflict condition type for table "opportunities" */
+export type Opportunities_On_Conflict = {
+  constraint: Opportunities_Constraint;
+  update_columns?: Array<Opportunities_Update_Column>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "opportunities". */
+export type Opportunities_Order_By = {
+  city?: InputMaybe<Order_By>;
+  date_from?: InputMaybe<Order_By>;
+  date_to?: InputMaybe<Order_By>;
+  detail?: InputMaybe<Order_By>;
+  display_status?: InputMaybe<Order_By>;
+  manager?: InputMaybe<Managers_Order_By>;
+  manager_id?: InputMaybe<Order_By>;
+  opportunity_id?: InputMaybe<Order_By>;
+  partner?: InputMaybe<Partners_Order_By>;
+  partner_id?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: opportunities */
+export type Opportunities_Pk_Columns_Input = {
+  opportunity_id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "opportunities" */
+export enum Opportunities_Select_Column {
+  /** column name */
+  City = 'city',
+  /** column name */
+  DateFrom = 'date_from',
+  /** column name */
+  DateTo = 'date_to',
+  /** column name */
+  Detail = 'detail',
+  /** column name */
+  DisplayStatus = 'display_status',
+  /** column name */
+  ManagerId = 'manager_id',
+  /** column name */
+  OpportunityId = 'opportunity_id',
+  /** column name */
+  PartnerId = 'partner_id',
+  /** column name */
+  Slots = 'slots',
+}
+
+/** input type for updating data in table "opportunities" */
+export type Opportunities_Set_Input = {
+  city?: InputMaybe<Scalars['String']['input']>;
+  date_from?: InputMaybe<Scalars['date']['input']>;
+  date_to?: InputMaybe<Scalars['date']['input']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+  display_status?: InputMaybe<Scalars['Int']['input']>;
+  manager_id?: InputMaybe<Scalars['uuid']['input']>;
+  opportunity_id?: InputMaybe<Scalars['uuid']['input']>;
+  partner_id?: InputMaybe<Scalars['uuid']['input']>;
+  slots?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Opportunities_Stddev_Fields = {
+  __typename?: 'opportunities_stddev_fields';
+  display_status?: Maybe<Scalars['Float']['output']>;
+  slots?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "opportunities" */
+export type Opportunities_Stddev_Order_By = {
+  display_status?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Opportunities_Stddev_Pop_Fields = {
+  __typename?: 'opportunities_stddev_pop_fields';
+  display_status?: Maybe<Scalars['Float']['output']>;
+  slots?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "opportunities" */
+export type Opportunities_Stddev_Pop_Order_By = {
+  display_status?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Opportunities_Stddev_Samp_Fields = {
+  __typename?: 'opportunities_stddev_samp_fields';
+  display_status?: Maybe<Scalars['Float']['output']>;
+  slots?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "opportunities" */
+export type Opportunities_Stddev_Samp_Order_By = {
+  display_status?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "opportunities" */
+export type Opportunities_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Opportunities_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Opportunities_Stream_Cursor_Value_Input = {
+  city?: InputMaybe<Scalars['String']['input']>;
+  date_from?: InputMaybe<Scalars['date']['input']>;
+  date_to?: InputMaybe<Scalars['date']['input']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+  display_status?: InputMaybe<Scalars['Int']['input']>;
+  manager_id?: InputMaybe<Scalars['uuid']['input']>;
+  opportunity_id?: InputMaybe<Scalars['uuid']['input']>;
+  partner_id?: InputMaybe<Scalars['uuid']['input']>;
+  slots?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Opportunities_Sum_Fields = {
+  __typename?: 'opportunities_sum_fields';
+  display_status?: Maybe<Scalars['Int']['output']>;
+  slots?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "opportunities" */
+export type Opportunities_Sum_Order_By = {
+  display_status?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "opportunities" */
+export enum Opportunities_Update_Column {
+  /** column name */
+  City = 'city',
+  /** column name */
+  DateFrom = 'date_from',
+  /** column name */
+  DateTo = 'date_to',
+  /** column name */
+  Detail = 'detail',
+  /** column name */
+  DisplayStatus = 'display_status',
+  /** column name */
+  ManagerId = 'manager_id',
+  /** column name */
+  OpportunityId = 'opportunity_id',
+  /** column name */
+  PartnerId = 'partner_id',
+  /** column name */
+  Slots = 'slots',
+}
+
+export type Opportunities_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Opportunities_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Opportunities_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Opportunities_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Opportunities_Var_Pop_Fields = {
+  __typename?: 'opportunities_var_pop_fields';
+  display_status?: Maybe<Scalars['Float']['output']>;
+  slots?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "opportunities" */
+export type Opportunities_Var_Pop_Order_By = {
+  display_status?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Opportunities_Var_Samp_Fields = {
+  __typename?: 'opportunities_var_samp_fields';
+  display_status?: Maybe<Scalars['Float']['output']>;
+  slots?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "opportunities" */
+export type Opportunities_Var_Samp_Order_By = {
+  display_status?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Opportunities_Variance_Fields = {
+  __typename?: 'opportunities_variance_fields';
+  display_status?: Maybe<Scalars['Float']['output']>;
+  slots?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "opportunities" */
+export type Opportunities_Variance_Order_By = {
+  display_status?: InputMaybe<Order_By>;
+  slots?: InputMaybe<Order_By>;
+};
+
 /** column ordering options */
 export enum Order_By {
   /** in ascending order, nulls last */
@@ -462,8 +971,30 @@ export type Partners = {
   contact_name?: Maybe<Scalars['String']['output']>;
   contact_phone?: Maybe<Scalars['String']['output']>;
   display_name?: Maybe<Scalars['String']['output']>;
+  /** An array relationship */
+  opportunities: Array<Opportunities>;
+  /** An aggregate relationship */
+  opportunities_aggregate: Opportunities_Aggregate;
   partner_id: Scalars['uuid']['output'];
   registered_at: Scalars['timestamptz']['output'];
+};
+
+/** columns and relationships of "partners" */
+export type PartnersOpportunitiesArgs = {
+  distinct_on?: InputMaybe<Array<Opportunities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Opportunities_Order_By>>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
+};
+
+/** columns and relationships of "partners" */
+export type PartnersOpportunities_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Opportunities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Opportunities_Order_By>>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
 };
 
 /** aggregated selection of "partners" */
@@ -501,6 +1032,8 @@ export type Partners_Bool_Exp = {
   contact_name?: InputMaybe<String_Comparison_Exp>;
   contact_phone?: InputMaybe<String_Comparison_Exp>;
   display_name?: InputMaybe<String_Comparison_Exp>;
+  opportunities?: InputMaybe<Opportunities_Bool_Exp>;
+  opportunities_aggregate?: InputMaybe<Opportunities_Aggregate_Bool_Exp>;
   partner_id?: InputMaybe<Uuid_Comparison_Exp>;
   registered_at?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
@@ -524,6 +1057,7 @@ export type Partners_Insert_Input = {
   contact_name?: InputMaybe<Scalars['String']['input']>;
   contact_phone?: InputMaybe<Scalars['String']['input']>;
   display_name?: InputMaybe<Scalars['String']['input']>;
+  opportunities?: InputMaybe<Opportunities_Arr_Rel_Insert_Input>;
   partner_id?: InputMaybe<Scalars['uuid']['input']>;
   registered_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
@@ -569,6 +1103,13 @@ export type Partners_Mutation_Response = {
   returning: Array<Partners>;
 };
 
+/** input type for inserting object relation for remote table "partners" */
+export type Partners_Obj_Rel_Insert_Input = {
+  data: Partners_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Partners_On_Conflict>;
+};
+
 /** on_conflict condition type for table "partners" */
 export type Partners_On_Conflict = {
   constraint: Partners_Constraint;
@@ -587,6 +1128,7 @@ export type Partners_Order_By = {
   contact_name?: InputMaybe<Order_By>;
   contact_phone?: InputMaybe<Order_By>;
   display_name?: InputMaybe<Order_By>;
+  opportunities_aggregate?: InputMaybe<Opportunities_Aggregate_Order_By>;
   partner_id?: InputMaybe<Order_By>;
   registered_at?: InputMaybe<Order_By>;
 };
@@ -701,6 +1243,12 @@ export type Query_Root = {
   managers_aggregate: Managers_Aggregate;
   /** fetch data from the table: "managers" using primary key columns */
   managers_by_pk?: Maybe<Managers>;
+  /** An array relationship */
+  opportunities: Array<Opportunities>;
+  /** An aggregate relationship */
+  opportunities_aggregate: Opportunities_Aggregate;
+  /** fetch data from the table: "opportunities" using primary key columns */
+  opportunities_by_pk?: Maybe<Opportunities>;
   /** fetch data from the table: "partners" */
   partners: Array<Partners>;
   /** fetch aggregated fields from the table: "partners" */
@@ -733,6 +1281,26 @@ export type Query_RootManagers_AggregateArgs = {
 
 export type Query_RootManagers_By_PkArgs = {
   manager_id: Scalars['uuid']['input'];
+};
+
+export type Query_RootOpportunitiesArgs = {
+  distinct_on?: InputMaybe<Array<Opportunities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Opportunities_Order_By>>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
+};
+
+export type Query_RootOpportunities_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Opportunities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Opportunities_Order_By>>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
+};
+
+export type Query_RootOpportunities_By_PkArgs = {
+  opportunity_id: Scalars['uuid']['input'];
 };
 
 export type Query_RootPartnersArgs = {
@@ -1064,6 +1632,14 @@ export type Subscription_Root = {
   managers_by_pk?: Maybe<Managers>;
   /** fetch data from the table in a streaming manner: "managers" */
   managers_stream: Array<Managers>;
+  /** An array relationship */
+  opportunities: Array<Opportunities>;
+  /** An aggregate relationship */
+  opportunities_aggregate: Opportunities_Aggregate;
+  /** fetch data from the table: "opportunities" using primary key columns */
+  opportunities_by_pk?: Maybe<Opportunities>;
+  /** fetch data from the table in a streaming manner: "opportunities" */
+  opportunities_stream: Array<Opportunities>;
   /** fetch data from the table: "partners" */
   partners: Array<Partners>;
   /** fetch aggregated fields from the table: "partners" */
@@ -1106,6 +1682,32 @@ export type Subscription_RootManagers_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Managers_Stream_Cursor_Input>>;
   where?: InputMaybe<Managers_Bool_Exp>;
+};
+
+export type Subscription_RootOpportunitiesArgs = {
+  distinct_on?: InputMaybe<Array<Opportunities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Opportunities_Order_By>>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
+};
+
+export type Subscription_RootOpportunities_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Opportunities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Opportunities_Order_By>>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
+};
+
+export type Subscription_RootOpportunities_By_PkArgs = {
+  opportunity_id: Scalars['uuid']['input'];
+};
+
+export type Subscription_RootOpportunities_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Opportunities_Stream_Cursor_Input>>;
+  where?: InputMaybe<Opportunities_Bool_Exp>;
 };
 
 export type Subscription_RootPartnersArgs = {
@@ -1198,6 +1800,24 @@ export type AddManagerProfileMutation = {
   insert_managers_one?: { __typename?: 'managers'; manager_id: any } | null;
 };
 
+export type AddOpportunityMutationVariables = Exact<{
+  city?: InputMaybe<Scalars['String']['input']>;
+  slots?: InputMaybe<Scalars['Int']['input']>;
+  date_start?: InputMaybe<Scalars['date']['input']>;
+  date_end?: InputMaybe<Scalars['date']['input']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+  partner_id?: InputMaybe<Scalars['uuid']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type AddOpportunityMutation = {
+  __typename?: 'mutation_root';
+  insert_opportunities_one?: {
+    __typename?: 'opportunities';
+    opportunity_id: any;
+  } | null;
+};
+
 export type AddPartnerProfileMutationVariables = Exact<{
   display_name?: InputMaybe<Scalars['String']['input']>;
   address1?: InputMaybe<Scalars['String']['input']>;
@@ -1247,6 +1867,57 @@ export type GetManagerProfileQuery = {
     email?: string | null;
     phone?: string | null;
   }>;
+};
+
+export type GetOpportunitiesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetOpportunitiesQuery = {
+  __typename?: 'query_root';
+  opportunities: Array<{
+    __typename?: 'opportunities';
+    detail?: string | null;
+    display_status?: number | null;
+    manager_id?: any | null;
+    slots?: number | null;
+    city: string;
+    date_from: any;
+    date_to: any;
+    opportunity_id: any;
+    partner: {
+      __typename?: 'partners';
+      display_name?: string | null;
+      address_country?: string | null;
+    };
+    manager?: { __typename?: 'managers'; name?: string | null } | null;
+  }>;
+};
+
+export type GetOpportunityQueryVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+export type GetOpportunityQuery = {
+  __typename?: 'query_root';
+  opportunities_by_pk?: {
+    __typename?: 'opportunities';
+    detail?: string | null;
+    display_status?: number | null;
+    manager_id?: any | null;
+    slots?: number | null;
+    city: string;
+    date_from: any;
+    date_to: any;
+    opportunity_id: any;
+    partner: {
+      __typename?: 'partners';
+      address_country?: string | null;
+      address_line1?: string | null;
+      address_line2?: string | null;
+      address_zipcode?: string | null;
+      display_name?: string | null;
+    };
+    manager?: { __typename?: 'managers'; name?: string | null } | null;
+  } | null;
 };
 
 export type GetPartnerProfileQueryVariables = Exact<{
@@ -1303,6 +1974,24 @@ export type UpdateManagerProfileMutation = {
   update_managers_by_pk?: { __typename?: 'managers'; manager_id: any } | null;
 };
 
+export type UpdateOpportunityMutationVariables = Exact<{
+  opportunity_id: Scalars['uuid']['input'];
+  city?: InputMaybe<Scalars['String']['input']>;
+  slots?: InputMaybe<Scalars['Int']['input']>;
+  date_start?: InputMaybe<Scalars['date']['input']>;
+  date_end?: InputMaybe<Scalars['date']['input']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type UpdateOpportunityMutation = {
+  __typename?: 'mutation_root';
+  update_opportunities_by_pk?: {
+    __typename?: 'opportunities';
+    opportunity_id: any;
+  } | null;
+};
+
 export type UpdatePartnerProfileMutationVariables = Exact<{
   uid: Scalars['uuid']['input'];
   display_name?: InputMaybe<Scalars['String']['input']>;
@@ -1339,18 +2028,6 @@ export type UpdateStudentProfileMutation = {
   update_students_by_pk?: { __typename?: 'students'; client_id: any } | null;
 };
 
-export type MyQueryQueryVariables = Exact<{ [key: string]: never }>;
-
-export type MyQueryQuery = {
-  __typename?: 'query_root';
-  managers: Array<{
-    __typename?: 'managers';
-    email?: string | null;
-    name?: string | null;
-    phone?: string | null;
-  }>;
-};
-
 export const AddManagerProfileDocument = gql`
   mutation AddManagerProfile(
     $name: String
@@ -1376,6 +2053,38 @@ export function useAddManagerProfileMutation() {
     AddManagerProfileMutation,
     AddManagerProfileMutationVariables
   >(AddManagerProfileDocument);
+}
+export const AddOpportunityDocument = gql`
+  mutation AddOpportunity(
+    $city: String
+    $slots: Int
+    $date_start: date
+    $date_end: date
+    $detail: String
+    $partner_id: uuid
+    $status: Int
+  ) {
+    insert_opportunities_one(
+      object: {
+        city: $city
+        slots: $slots
+        date_from: $date_start
+        date_to: $date_end
+        detail: $detail
+        partner_id: $partner_id
+        display_status: $status
+      }
+    ) {
+      opportunity_id
+    }
+  }
+`;
+
+export function useAddOpportunityMutation() {
+  return Urql.useMutation<
+    AddOpportunityMutation,
+    AddOpportunityMutationVariables
+  >(AddOpportunityDocument);
 }
 export const AddPartnerProfileDocument = gql`
   mutation AddPartnerProfile(
@@ -1471,6 +2180,69 @@ export function useGetManagerProfileQuery(
     { query: GetManagerProfileDocument, ...options }
   );
 }
+export const GetOpportunitiesDocument = gql`
+  query GetOpportunities {
+    opportunities {
+      detail
+      display_status
+      manager_id
+      slots
+      city
+      date_from
+      date_to
+      opportunity_id
+      partner {
+        display_name
+        address_country
+      }
+      manager {
+        name
+      }
+    }
+  }
+`;
+
+export function useGetOpportunitiesQuery(
+  options?: Omit<Urql.UseQueryArgs<GetOpportunitiesQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<GetOpportunitiesQuery, GetOpportunitiesQueryVariables>({
+    query: GetOpportunitiesDocument,
+    ...options,
+  });
+}
+export const GetOpportunityDocument = gql`
+  query GetOpportunity($id: uuid!) {
+    opportunities_by_pk(opportunity_id: $id) {
+      detail
+      display_status
+      manager_id
+      slots
+      city
+      date_from
+      date_to
+      opportunity_id
+      partner {
+        address_country
+        address_line1
+        address_line2
+        address_zipcode
+        display_name
+      }
+      manager {
+        name
+      }
+    }
+  }
+`;
+
+export function useGetOpportunityQuery(
+  options: Omit<Urql.UseQueryArgs<GetOpportunityQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<GetOpportunityQuery, GetOpportunityQueryVariables>({
+    query: GetOpportunityDocument,
+    ...options,
+  });
+}
 export const GetPartnerProfileDocument = gql`
   query GetPartnerProfile($uid: uuid) {
     partners(where: { partner_id: { _eq: $uid } }) {
@@ -1540,6 +2312,38 @@ export function useUpdateManagerProfileMutation() {
     UpdateManagerProfileMutation,
     UpdateManagerProfileMutationVariables
   >(UpdateManagerProfileDocument);
+}
+export const UpdateOpportunityDocument = gql`
+  mutation UpdateOpportunity(
+    $opportunity_id: uuid!
+    $city: String
+    $slots: Int
+    $date_start: date
+    $date_end: date
+    $detail: String
+    $status: Int
+  ) {
+    update_opportunities_by_pk(
+      pk_columns: { opportunity_id: $opportunity_id }
+      _set: {
+        city: $city
+        slots: $slots
+        date_from: $date_start
+        date_to: $date_end
+        detail: $detail
+        display_status: $status
+      }
+    ) {
+      opportunity_id
+    }
+  }
+`;
+
+export function useUpdateOpportunityMutation() {
+  return Urql.useMutation<
+    UpdateOpportunityMutation,
+    UpdateOpportunityMutationVariables
+  >(UpdateOpportunityDocument);
 }
 export const UpdatePartnerProfileDocument = gql`
   mutation UpdatePartnerProfile(
@@ -1617,24 +2421,6 @@ export function useUpdateStudentProfileMutation() {
     UpdateStudentProfileMutationVariables
   >(UpdateStudentProfileDocument);
 }
-export const MyQueryDocument = gql`
-  query MyQuery {
-    managers {
-      email
-      name
-      phone
-    }
-  }
-`;
-
-export function useMyQueryQuery(
-  options?: Omit<Urql.UseQueryArgs<MyQueryQueryVariables>, 'query'>
-) {
-  return Urql.useQuery<MyQueryQuery, MyQueryQueryVariables>({
-    query: MyQueryDocument,
-    ...options,
-  });
-}
 import { IntrospectionQuery } from 'graphql';
 export default {
   __schema: {
@@ -1689,6 +2475,132 @@ export default {
               name: 'Any',
             },
             args: [],
+          },
+          {
+            name: 'opportunities',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'LIST',
+                ofType: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'OBJECT',
+                    name: 'opportunities',
+                    ofType: null,
+                  },
+                },
+              },
+            },
+            args: [
+              {
+                name: 'distinct_on',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'limit',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'offset',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'order_by',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'opportunities_aggregate',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'OBJECT',
+                name: 'opportunities_aggregate',
+                ofType: null,
+              },
+            },
+            args: [
+              {
+                name: 'distinct_on',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'limit',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'offset',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'order_by',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
           },
           {
             name: 'phone',
@@ -1994,6 +2906,46 @@ export default {
             ],
           },
           {
+            name: 'delete_opportunities',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_mutation_response',
+              ofType: null,
+            },
+            args: [
+              {
+                name: 'where',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'SCALAR',
+                    name: 'Any',
+                  },
+                },
+              },
+            ],
+          },
+          {
+            name: 'delete_opportunities_by_pk',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities',
+              ofType: null,
+            },
+            args: [
+              {
+                name: 'opportunity_id',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'SCALAR',
+                    name: 'Any',
+                  },
+                },
+              },
+            ],
+          },
+          {
             name: 'delete_partners',
             type: {
               kind: 'OBJECT',
@@ -2111,6 +3063,66 @@ export default {
             type: {
               kind: 'OBJECT',
               name: 'managers',
+              ofType: null,
+            },
+            args: [
+              {
+                name: 'object',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'SCALAR',
+                    name: 'Any',
+                  },
+                },
+              },
+              {
+                name: 'on_conflict',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'insert_opportunities',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_mutation_response',
+              ofType: null,
+            },
+            args: [
+              {
+                name: 'objects',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'LIST',
+                    ofType: {
+                      kind: 'NON_NULL',
+                      ofType: {
+                        kind: 'SCALAR',
+                        name: 'Any',
+                      },
+                    },
+                  },
+                },
+              },
+              {
+                name: 'on_conflict',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'insert_opportunities_one',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities',
               ofType: null,
             },
             args: [
@@ -2337,6 +3349,103 @@ export default {
             ],
           },
           {
+            name: 'update_opportunities',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_mutation_response',
+              ofType: null,
+            },
+            args: [
+              {
+                name: '_inc',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: '_set',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'SCALAR',
+                    name: 'Any',
+                  },
+                },
+              },
+            ],
+          },
+          {
+            name: 'update_opportunities_by_pk',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities',
+              ofType: null,
+            },
+            args: [
+              {
+                name: '_inc',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: '_set',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'pk_columns',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'SCALAR',
+                    name: 'Any',
+                  },
+                },
+              },
+            ],
+          },
+          {
+            name: 'update_opportunities_many',
+            type: {
+              kind: 'LIST',
+              ofType: {
+                kind: 'OBJECT',
+                name: 'opportunities_mutation_response',
+                ofType: null,
+              },
+            },
+            args: [
+              {
+                name: 'updates',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'LIST',
+                    ofType: {
+                      kind: 'NON_NULL',
+                      ofType: {
+                        kind: 'SCALAR',
+                        name: 'Any',
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+          },
+          {
             name: 'update_partners',
             type: {
               kind: 'OBJECT',
@@ -2507,6 +3616,662 @@ export default {
       },
       {
         kind: 'OBJECT',
+        name: 'opportunities',
+        fields: [
+          {
+            name: 'city',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
+          {
+            name: 'date_from',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
+          {
+            name: 'date_to',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
+          {
+            name: 'detail',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'manager',
+            type: {
+              kind: 'OBJECT',
+              name: 'managers',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'manager_id',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'opportunity_id',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
+          {
+            name: 'partner',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'OBJECT',
+                name: 'partners',
+                ofType: null,
+              },
+            },
+            args: [],
+          },
+          {
+            name: 'partner_id',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_aggregate',
+        fields: [
+          {
+            name: 'aggregate',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_aggregate_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'nodes',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'LIST',
+                ofType: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'OBJECT',
+                    name: 'opportunities',
+                    ofType: null,
+                  },
+                },
+              },
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_aggregate_fields',
+        fields: [
+          {
+            name: 'avg',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_avg_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'count',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [
+              {
+                name: 'columns',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'distinct',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'max',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_max_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'min',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_min_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'stddev',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_stddev_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'stddev_pop',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_stddev_pop_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'stddev_samp',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_stddev_samp_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'sum',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_sum_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'var_pop',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_var_pop_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'var_samp',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_var_samp_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+          {
+            name: 'variance',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities_variance_fields',
+              ofType: null,
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_avg_fields',
+        fields: [
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_max_fields',
+        fields: [
+          {
+            name: 'city',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'date_from',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'date_to',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'detail',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'manager_id',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'opportunity_id',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'partner_id',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_min_fields',
+        fields: [
+          {
+            name: 'city',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'date_from',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'date_to',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'detail',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'manager_id',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'opportunity_id',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'partner_id',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_mutation_response',
+        fields: [
+          {
+            name: 'affected_rows',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
+          {
+            name: 'returning',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'LIST',
+                ofType: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'OBJECT',
+                    name: 'opportunities',
+                    ofType: null,
+                  },
+                },
+              },
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_stddev_fields',
+        fields: [
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_stddev_pop_fields',
+        fields: [
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_stddev_samp_fields',
+        fields: [
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_sum_fields',
+        fields: [
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_var_pop_fields',
+        fields: [
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_var_samp_fields',
+        fields: [
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
+        name: 'opportunities_variance_fields',
+        fields: [
+          {
+            name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'slots',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+        ],
+        interfaces: [],
+      },
+      {
+        kind: 'OBJECT',
         name: 'partners',
         fields: [
           {
@@ -2583,6 +4348,132 @@ export default {
               name: 'Any',
             },
             args: [],
+          },
+          {
+            name: 'opportunities',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'LIST',
+                ofType: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'OBJECT',
+                    name: 'opportunities',
+                    ofType: null,
+                  },
+                },
+              },
+            },
+            args: [
+              {
+                name: 'distinct_on',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'limit',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'offset',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'order_by',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'opportunities_aggregate',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'OBJECT',
+                name: 'opportunities_aggregate',
+                ofType: null,
+              },
+            },
+            args: [
+              {
+                name: 'distinct_on',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'limit',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'offset',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'order_by',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
           },
           {
             name: 'partner_id',
@@ -3066,6 +4957,152 @@ export default {
             args: [
               {
                 name: 'manager_id',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'SCALAR',
+                    name: 'Any',
+                  },
+                },
+              },
+            ],
+          },
+          {
+            name: 'opportunities',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'LIST',
+                ofType: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'OBJECT',
+                    name: 'opportunities',
+                    ofType: null,
+                  },
+                },
+              },
+            },
+            args: [
+              {
+                name: 'distinct_on',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'limit',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'offset',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'order_by',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'opportunities_aggregate',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'OBJECT',
+                name: 'opportunities_aggregate',
+                ofType: null,
+              },
+            },
+            args: [
+              {
+                name: 'distinct_on',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'limit',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'offset',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'order_by',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'opportunities_by_pk',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities',
+              ofType: null,
+            },
+            args: [
+              {
+                name: 'opportunity_id',
                 type: {
                   kind: 'NON_NULL',
                   ofType: {
@@ -4025,6 +6062,201 @@ export default {
                   ofType: {
                     kind: 'OBJECT',
                     name: 'managers',
+                    ofType: null,
+                  },
+                },
+              },
+            },
+            args: [
+              {
+                name: 'batch_size',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'SCALAR',
+                    name: 'Any',
+                  },
+                },
+              },
+              {
+                name: 'cursor',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'LIST',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'opportunities',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'LIST',
+                ofType: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'OBJECT',
+                    name: 'opportunities',
+                    ofType: null,
+                  },
+                },
+              },
+            },
+            args: [
+              {
+                name: 'distinct_on',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'limit',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'offset',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'order_by',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'opportunities_aggregate',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'OBJECT',
+                name: 'opportunities_aggregate',
+                ofType: null,
+              },
+            },
+            args: [
+              {
+                name: 'distinct_on',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'limit',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'offset',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+              {
+                name: 'order_by',
+                type: {
+                  kind: 'LIST',
+                  ofType: {
+                    kind: 'NON_NULL',
+                    ofType: {
+                      kind: 'SCALAR',
+                      name: 'Any',
+                    },
+                  },
+                },
+              },
+              {
+                name: 'where',
+                type: {
+                  kind: 'SCALAR',
+                  name: 'Any',
+                },
+              },
+            ],
+          },
+          {
+            name: 'opportunities_by_pk',
+            type: {
+              kind: 'OBJECT',
+              name: 'opportunities',
+              ofType: null,
+            },
+            args: [
+              {
+                name: 'opportunity_id',
+                type: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'SCALAR',
+                    name: 'Any',
+                  },
+                },
+              },
+            ],
+          },
+          {
+            name: 'opportunities_stream',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'LIST',
+                ofType: {
+                  kind: 'NON_NULL',
+                  ofType: {
+                    kind: 'OBJECT',
+                    name: 'opportunities',
                     ofType: null,
                   },
                 },

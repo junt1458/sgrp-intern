@@ -1,8 +1,21 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useCallback } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
 
-export const useLogoutHook = () => {
+export const useHeaderHook = (role?: string) => {
+  const router = useRouter();
   const { logout } = useAuth0();
+  const [isOpen, setOpen] = useState(false);
+
+  const toggleOpen = useCallback(() => {
+    setOpen((open) => !open);
+  }, [setOpen]);
+
+  const onClickProfile = useCallback(() => {
+    setOpen(false);
+    router.push(`/${role}/profile`);
+  }, [router, role]);
+
   const onClickLogout = useCallback(() => {
     logout({
       logoutParams: {
@@ -11,5 +24,5 @@ export const useLogoutHook = () => {
     });
   }, [logout]);
 
-  return { onClickLogout };
+  return { isOpen, onClickLogout, onClickProfile, toggleOpen };
 };

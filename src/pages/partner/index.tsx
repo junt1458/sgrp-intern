@@ -1,30 +1,51 @@
 import { NextPage } from 'next';
 import Header from '../../components/header/header.component';
-import { useMyQueryQuery } from '../../libs/graphql';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useAuthHook } from '../../libs/auth';
 import PageLoading from '../../components/pageloading/pageloading.component';
+import Button from '../../components/button/button.component';
+import OpportunitiesView from '../../components/opportunities/opportunities.component';
+import { useRouter } from 'next/router';
+import { Opportunities, useGetOpportunitiesQuery } from '../../libs/graphql';
+
+const usePartnerHooks = () => {
+  const router = useRouter();
+
+  const onCreateNew = useCallback(() => {
+    router.push('/partner/detail');
+  }, [router]);
+
+  return { onCreateNew };
+};
 
 const PartnerIndexPage: NextPage = () => {
+  const { onCreateNew } = usePartnerHooks();
   const { isLoading, isAllowed } = useAuthHook(['partner'], true, true);
 
-  const context = useMemo(
-    () => ({
-      additionalTypenames: [],
-    }),
-    []
-  );
+  const [{ data, fetching }] = useGetOpportunitiesQuery();
 
-  const [result] = useMyQueryQuery({
-    context,
-  });
+  console.log(data);
 
-  console.log(result);
   return (
-    <PageLoading isLoading={isLoading} isPermissionError={!isAllowed}>
+    <PageLoading
+      isLoading={isLoading || fetching}
+      isPermissionError={!isAllowed}
+    >
       <>
         <Header />
-        Partner Index Page.
+
+        <h1 className='my-4 w-full text-center text-3xl'>Your Opportunities</h1>
+        <div className='my-2 flex justify-center'>
+          <Button color={'primary'} onClick={onCreateNew}>
+            Create New
+          </Button>
+        </div>
+
+        <div className='screen-x mx-auto max-w-4xl py-2'>
+          <OpportunitiesView
+            opportunities={data?.opportunities as Opportunities[]}
+          />
+        </div>
       </>
     </PageLoading>
   );

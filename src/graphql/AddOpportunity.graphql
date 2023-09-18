@@ -1,0 +1,23 @@
+mutation AddOpportunity(
+  $city: String
+  $slots: Int
+  $date_start: date
+  $date_end: date
+  $detail: String
+  $partner_id: uuid
+  $status: Int
+) {
+  insert_opportunities_one(
+    object: {
+      city: $city
+      slots: $slots
+      date_from: $date_start
+      date_to: $date_end
+      detail: $detail
+      partner_id: $partner_id
+      display_status: $status
+    }
+  ) {
+    opportunity_id
+  }
+}
