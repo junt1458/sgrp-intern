@@ -8,10 +8,12 @@ interface FormInputOptions {
   placeholder?: string;
   label: string;
   required?: boolean;
-  type: 'text' | 'tel' | 'date' | 'email' | 'option';
+  type: 'text' | 'number' | 'tel' | 'date' | 'email' | 'option' | 'textarea';
   defaultValue?: string;
   error?: string;
+  minValue?: number;
   options?: string[];
+  rows?: number;
 }
 
 const FormInput: React.FC<FormInputOptions> = ({
@@ -23,7 +25,9 @@ const FormInput: React.FC<FormInputOptions> = ({
   placeholder,
   defaultValue,
   error,
+  minValue,
   options,
+  rows,
 }) => {
   const [telVal, setTelVal] = useState<string | undefined>(defaultValue);
 
@@ -80,6 +84,31 @@ const FormInput: React.FC<FormInputOptions> = ({
     );
   }
 
+  if (type === 'textarea') {
+    return (
+      <div className='m-4'>
+        {label} {required ? <span className='text-red-600'>*</span> : ''}
+        <div
+          className={
+            'w-full rounded-md border bg-white px-4 py-2 ' +
+            (error ? 'border-red-600' : 'border-gray-400')
+          }
+        >
+          <textarea
+            required={required}
+            id={id}
+            className='h-full w-full'
+            disabled={disabled}
+            placeholder={placeholder}
+            defaultValue={defaultValue}
+            rows={rows}
+          />
+        </div>
+        <span className='text-red-600'>{error}</span>
+      </div>
+    );
+  }
+
   return (
     <div className='m-4'>
       {label} {required ? <span className='text-red-600'>*</span> : ''}
@@ -97,6 +126,7 @@ const FormInput: React.FC<FormInputOptions> = ({
           disabled={disabled}
           placeholder={placeholder}
           defaultValue={defaultValue}
+          min={minValue}
         />
       </div>
       <span className='text-red-600'>{error}</span>

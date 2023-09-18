@@ -29,7 +29,7 @@ const Header: React.FC = () => {
       </div>
       <div className='h-14 w-full py-2'></div>
       <div
-        className='fixed right-0 top-14 w-64 rounded-b-xl border border-gray-500'
+        className='fixed right-0 top-14 w-64 rounded-b-xl border border-gray-500 bg-white'
         style={{ display: isOpen ? 'block' : 'none' }}
       >
         <div className='mx-2 w-full border-gray-500 py-2 text-left'>
