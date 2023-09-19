@@ -2,7 +2,7 @@ interface ButtonOptions {
   children: JSX.Element | string;
   onClick?(): void;
   disabled?: boolean;
-  color: 'primary' | 'danger' | 'draft';
+  color: 'primary' | 'danger' | 'draft' | 'action' | 'list';
 }
 
 const Button: React.FC<ButtonOptions> = ({
@@ -16,9 +16,9 @@ const Button: React.FC<ButtonOptions> = ({
   let borderHex = '';
   switch (color) {
     case 'primary': {
-      bgColorHex = '#619eff';
+      bgColorHex = '#78acff';
       txColorHex = '#000000';
-      borderHex = '#619eff';
+      borderHex = '#78acff';
       break;
     }
     case 'danger': {
@@ -31,6 +31,18 @@ const Button: React.FC<ButtonOptions> = ({
       bgColorHex = 'whitesmoke';
       txColorHex = '#000000';
       borderHex = '#000000';
+      break;
+    }
+    case 'action': {
+      bgColorHex = '#dfdf41';
+      txColorHex = '#000000';
+      borderHex = '#dfdf41';
+      break;
+    }
+    case 'list': {
+      bgColorHex = '#70e674';
+      txColorHex = '#000000';
+      borderHex = '#70e674';
       break;
     }
   }

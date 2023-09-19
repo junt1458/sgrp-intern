@@ -50,6 +50,16 @@
 
 ### Condition B
 
+(pre update)
+
+```json
+{ "display_status": { "_gte": 2 } }
+```
+
+(post update)
+
+### Condition B
+
 ```json
 { "display_status": { "_gte": 1 } }
 ```
@@ -63,5 +73,16 @@
 ### Condition D
 
 ```json
-{ "display_status": { "_gte": 2 } }
+{ "display_status": { "_gte": 3 } }
+```
+
+### Condition E
+
+```json
+{
+  "_and": [
+    { "partner_id": { "_eq": "X-Hasura-User-Id" } },
+    { "display_status": { "_lte": 2 } }
+  ]
+}
 ```

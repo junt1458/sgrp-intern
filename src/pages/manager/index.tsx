@@ -9,7 +9,16 @@ const ManagerIndexPage: NextPage = () => {
     <PageLoading isLoading={isLoading} isPermissionError={!isAllowed}>
       <>
         <Header />
-        Manager Index Page.
+        <h1 className='my-4 w-full text-center text-3xl'>
+          Pending Opportunities
+        </h1>
+        <h1 className='my-4 w-full text-center text-3xl'>
+          Pending Applications
+        </h1>
+        <h1 className='my-4 w-full text-center text-3xl'>Open Opportunities</h1>
+        <h1 className='my-4 w-full text-center text-3xl'>
+          Closed Opportunities
+        </h1>
       </>
     </PageLoading>
   );

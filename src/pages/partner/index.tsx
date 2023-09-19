@@ -24,8 +24,6 @@ const PartnerIndexPage: NextPage = () => {
 
   const [{ data, fetching }] = useGetOpportunitiesQuery();
 
-  console.log(data);
-
   return (
     <PageLoading
       isLoading={isLoading || fetching}
@@ -33,7 +31,9 @@ const PartnerIndexPage: NextPage = () => {
     >
       <>
         <Header />
-
+        <h1 className='my-4 w-full text-center text-3xl'>
+          Pending Applications
+        </h1>
         <h1 className='my-4 w-full text-center text-3xl'>Your Opportunities</h1>
         <div className='my-2 flex justify-center'>
           <Button color={'primary'} onClick={onCreateNew}>
@@ -44,6 +44,7 @@ const PartnerIndexPage: NextPage = () => {
         <div className='screen-x mx-auto max-w-4xl py-2'>
           <OpportunitiesView
             opportunities={data?.opportunities as Opportunities[]}
+            key_prefix='my'
           />
         </div>
       </>

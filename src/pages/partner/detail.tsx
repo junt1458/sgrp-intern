@@ -110,7 +110,7 @@ const usePartnerDetailPageHook = () => {
         date_end: date_end || new Date(),
         detail,
         partner_id: uid,
-        status: 1,
+        status: 2,
       });
 
       if (data.error) {
@@ -129,7 +129,7 @@ const usePartnerDetailPageHook = () => {
         date_start: date_start || new Date(),
         date_end: date_end || new Date(),
         detail,
-        status: 1,
+        status: 2,
       });
 
       if (data.error) {
@@ -242,7 +242,7 @@ const PartnerDetailPage: NextPage = () => {
     <PageLoading
       isLoading={isLoading || fetching}
       isPermissionError={
-        !isAllowed || data?.opportunities_by_pk?.display_status! > 1
+        !isAllowed || data?.opportunities_by_pk?.display_status! > 2
       }
     >
       <>

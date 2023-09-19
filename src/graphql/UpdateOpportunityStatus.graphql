@@ -1,0 +1,8 @@
+mutation UpdateOpportunityStatus($opportunity_id: uuid!, $status: Int) {
+  update_opportunities_by_pk(
+    pk_columns: { opportunity_id: $opportunity_id }
+    _set: { display_status: $status }
+  ) {
+    opportunity_id
+  }
+}

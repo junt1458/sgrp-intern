@@ -1,0 +1,5 @@
+mutation DeleteOpportunity($id: uuid!) {
+  delete_opportunities_by_pk(opportunity_id: $id) {
+    opportunity_id
+  }
+}

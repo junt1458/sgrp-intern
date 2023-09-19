@@ -1854,6 +1854,32 @@ export type AddStudentProfileMutation = {
   insert_students_one?: { __typename?: 'students'; client_id: any } | null;
 };
 
+export type ApproveRejectOpportunityMutationVariables = Exact<{
+  opportunity_id: Scalars['uuid']['input'];
+  status?: InputMaybe<Scalars['Int']['input']>;
+  manager_id: Scalars['uuid']['input'];
+}>;
+
+export type ApproveRejectOpportunityMutation = {
+  __typename?: 'mutation_root';
+  update_opportunities_by_pk?: {
+    __typename?: 'opportunities';
+    opportunity_id: any;
+  } | null;
+};
+
+export type DeleteOpportunityMutationVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+export type DeleteOpportunityMutation = {
+  __typename?: 'mutation_root';
+  delete_opportunities_by_pk?: {
+    __typename?: 'opportunities';
+    opportunity_id: any;
+  } | null;
+};
+
 export type GetManagerProfileQueryVariables = Exact<{
   uid?: InputMaybe<Scalars['uuid']['input']>;
 }>;
@@ -1883,6 +1909,7 @@ export type GetOpportunitiesQuery = {
     date_from: any;
     date_to: any;
     opportunity_id: any;
+    partner_id: any;
     partner: {
       __typename?: 'partners';
       display_name?: string | null;
@@ -1986,6 +2013,19 @@ export type UpdateOpportunityMutationVariables = Exact<{
 }>;
 
 export type UpdateOpportunityMutation = {
+  __typename?: 'mutation_root';
+  update_opportunities_by_pk?: {
+    __typename?: 'opportunities';
+    opportunity_id: any;
+  } | null;
+};
+
+export type UpdateOpportunityStatusMutationVariables = Exact<{
+  opportunity_id: Scalars['uuid']['input'];
+  status?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type UpdateOpportunityStatusMutation = {
   __typename?: 'mutation_root';
   update_opportunities_by_pk?: {
     __typename?: 'opportunities';
@@ -2163,6 +2203,41 @@ export function useAddStudentProfileMutation() {
     AddStudentProfileMutationVariables
   >(AddStudentProfileDocument);
 }
+export const ApproveRejectOpportunityDocument = gql`
+  mutation ApproveRejectOpportunity(
+    $opportunity_id: uuid!
+    $status: Int
+    $manager_id: uuid!
+  ) {
+    update_opportunities_by_pk(
+      pk_columns: { opportunity_id: $opportunity_id }
+      _set: { display_status: $status, manager_id: $manager_id }
+    ) {
+      opportunity_id
+    }
+  }
+`;
+
+export function useApproveRejectOpportunityMutation() {
+  return Urql.useMutation<
+    ApproveRejectOpportunityMutation,
+    ApproveRejectOpportunityMutationVariables
+  >(ApproveRejectOpportunityDocument);
+}
+export const DeleteOpportunityDocument = gql`
+  mutation DeleteOpportunity($id: uuid!) {
+    delete_opportunities_by_pk(opportunity_id: $id) {
+      opportunity_id
+    }
+  }
+`;
+
+export function useDeleteOpportunityMutation() {
+  return Urql.useMutation<
+    DeleteOpportunityMutation,
+    DeleteOpportunityMutationVariables
+  >(DeleteOpportunityDocument);
+}
 export const GetManagerProfileDocument = gql`
   query GetManagerProfile($uid: uuid) {
     managers(where: { manager_id: { _eq: $uid } }) {
@@ -2192,6 +2267,7 @@ export const GetOpportunitiesDocument = gql`
       date_from
       date_to
       opportunity_id
+      partner_id
       partner {
         display_name
         address_country
@@ -2346,6 +2422,23 @@ export function useUpdateOpportunityMutation() {
     UpdateOpportunityMutation,
     UpdateOpportunityMutationVariables
   >(UpdateOpportunityDocument);
+}
+export const UpdateOpportunityStatusDocument = gql`
+  mutation UpdateOpportunityStatus($opportunity_id: uuid!, $status: Int) {
+    update_opportunities_by_pk(
+      pk_columns: { opportunity_id: $opportunity_id }
+      _set: { display_status: $status }
+    ) {
+      opportunity_id
+    }
+  }
+`;
+
+export function useUpdateOpportunityStatusMutation() {
+  return Urql.useMutation<
+    UpdateOpportunityStatusMutation,
+    UpdateOpportunityStatusMutationVariables
+  >(UpdateOpportunityStatusDocument);
 }
 export const UpdatePartnerProfileDocument = gql`
   mutation UpdatePartnerProfile(
