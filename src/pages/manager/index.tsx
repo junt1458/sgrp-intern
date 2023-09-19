@@ -36,39 +36,16 @@ const ManagerIndexPage: NextPage = () => {
         <h1 className='my-4 w-full text-center text-3xl'>
           Pending Applications
         </h1>
-        <h1 className='my-4 w-full text-center text-3xl'>Open Opportunities</h1>
+        <h1 className='my-4 w-full text-center text-3xl'>Opportunities</h1>
         <div className='screen-x mx-auto max-w-4xl py-2'>
-          {!data?.opportunities.filter((f) => f.display_status === 3).length ? (
+          {!data?.opportunities.length ? (
             <div className='text-center text-xl'>- Nothing to show -</div>
           ) : (
             ''
           )}
           <OpportunitiesView
-            opportunities={
-              data?.opportunities.filter(
-                (f) => f.display_status === 3
-              ) as Opportunities[]
-            }
+            opportunities={data?.opportunities as Opportunities[]}
             key_prefix='open'
-          />
-        </div>
-
-        <h1 className='my-4 w-full text-center text-3xl'>
-          Closed Opportunities
-        </h1>
-        <div className='screen-x mx-auto max-w-4xl py-2'>
-          {!data?.opportunities.filter((f) => f.display_status === 4).length ? (
-            <div className='text-center text-xl'>- Nothing to show -</div>
-          ) : (
-            ''
-          )}
-          <OpportunitiesView
-            opportunities={
-              data?.opportunities.filter(
-                (f) => f.display_status === 4
-              ) as Opportunities[]
-            }
-            key_prefix='closed'
           />
         </div>
       </>

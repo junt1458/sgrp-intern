@@ -56,5 +56,24 @@ CREATE TABLE opportunities (
       REFERENCES managers (manager_id)
 );
 
+-- display_status: 0 (Manager In Review) / 1 (Manager Rejected) / 3 (Partner In Review) / 4 (Partner Rejected) / 5 (Partner Accepted)
+CREATE TABLE applications (
+    application_id UUID DEFAULT uuid_generate_v4() UNIQUE PRIMARY KEY,
+    student_id UUID NOT NULL,
+    opportunity_id UUID NOT NULL,
+    partner_id UUID NOT NULL,
+    manager_id UUID,
+    display_status INT DEFAULT 0,
+    applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    FOREIGN KEY (student_id)
+      REFERENCES students (client_id),
+    FOREIGN KEY (partner_id)
+      REFERENCES partners (partner_id),
+    FOREIGN KEY (opportunity_id)
+      REFERENCES opportunities (opportunity_id),
+    FOREIGN KEY (manager_id)
+      REFERENCES managers (manager_id)
+);
+
 -- For memo purpose
 -- ALTER TABLE managers ADD (auth0_uid VARCHAR DEFAULT '' UNIQUE);

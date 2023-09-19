@@ -56,6 +56,9 @@ const OpportunitiesView: React.FC<OpportunitiesViewOptions> = ({
 
   return (
     <div>
+      <div className='mx-4 flex justify-end px-2'>
+        TODO: PUT SOME FILTER CONTROLS HERE
+      </div>
       {(opportunities || []).map((v, i) => (
         <div
           key={key_prefix + '_' + v.opportunity_id + '_' + i}

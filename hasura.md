@@ -34,11 +34,11 @@
 
 ## applications
 
-| Role    | Insert | Select | Update | Delete |
-| ------- | ------ | ------ | ------ | ------ |
-| manager |        |        |        |        |
-| partner |        |        |        |        |
-| student |        |        |        |        |
+| Role    | Insert                 | Select                 | Update                 | Delete |
+| ------- | ---------------------- | ---------------------- | ---------------------- | ------ |
+| manager |                        | All / No Check         | All / No Check         |        |
+| partner |                        | All / With Condition F | All / With Condition F |        |
+| student | All / With Condition G | All / With Condition G |                        |        |
 
 ## Conditions
 
@@ -85,4 +85,21 @@
     { "display_status": { "_lte": 2 } }
   ]
 }
+```
+
+### Condition F
+
+```json
+{
+  "_and": [
+    { "partner_id": { "_eq": "X-Hasura-User-Id" } },
+    { "display_status": { "_gte": 3 } }
+  ]
+}
+```
+
+### Condition G
+
+```json
+{ "student_id": { "_eq": "X-Hasura-User-Id" } }
 ```

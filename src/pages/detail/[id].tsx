@@ -6,17 +6,21 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Button from '../../components/button/button.component';
 import {
+  Applications,
+  useAddApplicationMutation,
   useApproveRejectOpportunityMutation,
   useDeleteOpportunityMutation,
+  useGetApplicationsQuery,
   useGetOpportunityQuery,
   useGetPartnerProfileQuery,
   useUpdateOpportunityStatusMutation,
 } from '../../libs/graphql';
 import ReactMarkdown from 'react-markdown';
-import { formatDate } from '../../libs/date';
+import { formatDate, formatDateTime } from '../../libs/date';
 import WarningIcon from '@mui/icons-material/Warning';
 
-const useDetailHook = (status: number) => {
+const useDetailHook = (status: number, partner_id: string) => {
+  const [, createApplication] = useAddApplicationMutation();
   const [, approveReject] = useApproveRejectOpportunityMutation();
   const [, updateStatus] = useUpdateOpportunityStatusMutation();
   const [, deleteOpportunity] = useDeleteOpportunityMutation();
@@ -73,12 +77,25 @@ const useDetailHook = (status: number) => {
     router.push('/' + role);
   }, [router, role, id, approveReject, uid]);
 
-  const onClickApply = useCallback(() => {
+  const onClickApply = useCallback(async () => {
     if (status !== 3 || role !== 'student') return;
     if (!confirm('Are you sure to apply to this opportunity?')) return;
 
-    // TODO: Create application.
-  }, [role, status]);
+    const result = await createApplication({
+      partner_id,
+      student_id: uid,
+      opportunity_id: id,
+    });
+
+    if (result.error) {
+      alert('Error: ' + result.error);
+      return;
+    }
+
+    router.push(
+      '/application/' + result.data?.insert_applications_one?.application_id
+    );
+  }, [createApplication, id, partner_id, role, router, status, uid]);
 
   const onClickList = useCallback(() => {
     router.push('/list/' + id);
@@ -117,15 +134,56 @@ const DetailPage: NextPage = () => {
     onClickApprove,
     onClickReject,
     onClickList,
-  } = useDetailHook(data?.opportunities_by_pk?.display_status!);
+  } = useDetailHook(
+    data?.opportunities_by_pk?.display_status!,
+    data?.opportunities_by_pk?.partner_id!
+  );
 
   const [result] = useGetPartnerProfileQuery({
     variables: { uid: data?.opportunities_by_pk?.partner_id },
   });
 
+  const [stuResult] = useGetApplicationsQuery({
+    variables: { opportunity_id: id },
+  });
+
+  const toStateString = (state: number) => {
+    switch (state) {
+      case 0:
+        return 'Manager Reviewing';
+      case 1:
+        return 'Manager Rejected';
+      case 3:
+        return 'Partner Reviewing';
+      case 4:
+        return 'Partner Accepted';
+      case 5:
+        return 'Partner Rejected';
+    }
+    return 'Unknown Status';
+  };
+
+  const pendingState = (applications: Applications[]) => {
+    for (var app of applications) {
+      let state = app.display_status;
+      if (state === 0 || state === 3) {
+        return toStateString(state);
+      }
+    }
+    return false;
+  };
+
+  const isPending = (applications: Applications[]) => {
+    for (var app of applications) {
+      let state = app.display_status;
+      if (state === 0 || state === 3) return true;
+    }
+    return false;
+  };
+
   return (
     <PageLoading
-      isLoading={isLoading || fetching || result.fetching}
+      isLoading={isLoading || fetching || result.fetching || stuResult.fetching}
       isPermissionError={!isAllowed}
       isGeneralError={!isLoading && !fetching && !data?.opportunities_by_pk}
       errorMessage='Opportunity Not Found'
@@ -233,52 +291,52 @@ const DetailPage: NextPage = () => {
             ) : (
               <></>
             )}
-            <div className='mx-4 rounded-md border border-gray-400 p-3'>
-              <div className='mx-4 flex flex-wrap rounded-md border border-gray-400 p-3'>
-                {(data?.opportunities_by_pk?.display_status || 0) <= 2 ? (
-                  <div className='my-1 mr-2'>
-                    <Button color='primary' onClick={onClickApprove}>
-                      Approve
-                    </Button>
-                  </div>
-                ) : (
-                  <></>
-                )}
-                {(data?.opportunities_by_pk?.display_status || 0) <= 2 ? (
-                  <div className='my-1 mr-6'>
-                    <Button color='danger' onClick={onClickReject}>
-                      Reject
-                    </Button>
-                  </div>
-                ) : (
-                  <></>
-                )}
-                {(data?.opportunities_by_pk?.display_status || 0) >= 3 ? (
-                  <div className='my-1 mr-2'>
-                    <Button color='action' onClick={onClickAction}>
-                      {(data?.opportunities_by_pk?.display_status || 0) == 3
-                        ? 'Close Opportunity'
-                        : 'Open Opportunity'}
-                    </Button>
-                  </div>
-                ) : (
-                  <></>
-                )}
-                {(data?.opportunities_by_pk?.display_status || 0) >= 3 ? (
-                  <div className='my-1'>
-                    <Button color='list' onClick={onClickList}>
-                      List of Applications
-                    </Button>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
+            <div className='mx-4 flex flex-wrap rounded-md border border-gray-400 p-3'>
+              {(data?.opportunities_by_pk?.display_status || 0) <= 2 ? (
+                <div className='my-1 mr-2'>
+                  <Button color='primary' onClick={onClickApprove}>
+                    Approve
+                  </Button>
+                </div>
+              ) : (
+                <></>
+              )}
+              {(data?.opportunities_by_pk?.display_status || 0) <= 2 ? (
+                <div className='my-1 mr-6'>
+                  <Button color='danger' onClick={onClickReject}>
+                    Reject
+                  </Button>
+                </div>
+              ) : (
+                <></>
+              )}
+              {(data?.opportunities_by_pk?.display_status || 0) >= 3 ? (
+                <div className='my-1 mr-2'>
+                  <Button color='action' onClick={onClickAction}>
+                    {(data?.opportunities_by_pk?.display_status || 0) == 3
+                      ? 'Close Opportunity'
+                      : 'Open Opportunity'}
+                  </Button>
+                </div>
+              ) : (
+                <></>
+              )}
+              {(data?.opportunities_by_pk?.display_status || 0) >= 3 ? (
+                <div className='my-1'>
+                  <Button color='list' onClick={onClickList}>
+                    List of Applications
+                  </Button>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         ) : role === 'student' ? (
           <div className='screen-x mx-auto my-4 max-w-4xl'>
-            {true ? (
+            {isPending(
+              (stuResult.data?.applications as Applications[]) || []
+            ) ? (
               <div className='mx-4 my-2 flex rounded-md bg-[#dfdf41] px-3 py-1'>
                 <div className='mr-3 flex items-center justify-center'>
                   <WarningIcon />
@@ -286,7 +344,10 @@ const DetailPage: NextPage = () => {
                 <div>
                   Your application is in progress.
                   <br />
-                  Current Status: Example.
+                  Current Status:{' '}
+                  {pendingState(
+                    (stuResult.data?.applications as Applications[]) || []
+                  )}
                 </div>
               </div>
             ) : data?.opportunities_by_pk?.display_status == 4 ? (
@@ -306,10 +367,25 @@ const DetailPage: NextPage = () => {
               <div className='mb-2'>
                 <div>Your Applications</div>
                 <ul className='list-inside list-disc'>
-                  <li>No applications found</li>
+                  {!stuResult.data?.applications.length ? (
+                    <li>No applications found</li>
+                  ) : (
+                    stuResult.data?.applications.map((a) => (
+                      <li key={a.application_id} className='markdown'>
+                        <a href={'/application/' + a.application_id}>
+                          Application at{' '}
+                          {formatDateTime(new Date(a.applied_at!))}
+                        </a>
+                        : {toStateString(a.display_status!)}
+                      </li>
+                    ))
+                  )}
                 </ul>
               </div>
-              {data?.opportunities_by_pk?.display_status == 3 && true ? (
+              {data?.opportunities_by_pk?.display_status == 3 &&
+              !isPending(
+                (stuResult.data?.applications as Applications[]) || []
+              ) ? (
                 <Button color='action' onClick={onClickApply}>
                   Apply to this opportunity
                 </Button>

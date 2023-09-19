@@ -1,0 +1,16 @@
+mutation AddApplication(
+  $student_id: uuid!
+  $opportunity_id: uuid!
+  $partner_id: uuid!
+) {
+  insert_applications_one(
+    object: {
+      student_id: $student_id
+      opportunity_id: $opportunity_id
+      partner_id: $partner_id
+      display_status: 0
+    }
+  ) {
+    application_id
+  }
+}

@@ -1,0 +1,23 @@
+query GetApplications {
+  applications {
+    application_id
+    student {
+      passport_no
+      birthday
+      client_id
+      department
+      email
+      gender
+      major
+      name
+      passport_country
+      passport_expires
+      phone
+    }
+    manager {
+      name
+    }
+    applied_at
+    display_status
+  }
+}
