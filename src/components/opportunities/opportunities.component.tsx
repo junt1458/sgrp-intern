@@ -76,7 +76,9 @@ const OpportunitiesView: React.FC<OpportunitiesViewOptions> = ({
             )
           }
         >
-          <div className='p-1 text-2xl'>{v.partner.display_name}</div>
+          <div className='p-1 text-2xl'>
+            {v.partner.display_name} - {v.field}
+          </div>
           <div className='flex flex-wrap'>
             <div>
               <LocationOnIcon />

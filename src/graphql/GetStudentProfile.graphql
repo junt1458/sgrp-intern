@@ -11,5 +11,6 @@ query GetStudentProfile($uid: uuid) {
     passport_country
     passport_expires
     phone
+    self_introduction
   }
 }

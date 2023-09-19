@@ -9,6 +9,7 @@ query GetOpportunities {
     date_to
     opportunity_id
     partner_id
+    field
     partner {
       display_name
       address_country

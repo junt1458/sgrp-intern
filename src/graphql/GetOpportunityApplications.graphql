@@ -16,6 +16,7 @@ query GetOpportunityApplications($opportunity_id: uuid!) {
       address_zipcode
       display_name
     }
+    field
     manager {
       name
     }
@@ -40,6 +41,9 @@ query GetOpportunityApplications($opportunity_id: uuid!) {
     }
     manager {
       name
+    }
+    opportunity {
+      field
     }
     applied_at
     display_status

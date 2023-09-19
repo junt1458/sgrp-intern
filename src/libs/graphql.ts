@@ -1003,6 +1003,7 @@ export type Opportunities = {
   date_to: Scalars['date']['output'];
   detail?: Maybe<Scalars['String']['output']>;
   display_status?: Maybe<Scalars['Int']['output']>;
+  field?: Maybe<Scalars['String']['output']>;
   /** An object relationship */
   manager?: Maybe<Managers>;
   manager_id?: Maybe<Scalars['uuid']['output']>;
@@ -1118,6 +1119,7 @@ export type Opportunities_Bool_Exp = {
   date_to?: InputMaybe<Date_Comparison_Exp>;
   detail?: InputMaybe<String_Comparison_Exp>;
   display_status?: InputMaybe<Int_Comparison_Exp>;
+  field?: InputMaybe<String_Comparison_Exp>;
   manager?: InputMaybe<Managers_Bool_Exp>;
   manager_id?: InputMaybe<Uuid_Comparison_Exp>;
   opportunity_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -1146,6 +1148,7 @@ export type Opportunities_Insert_Input = {
   date_to?: InputMaybe<Scalars['date']['input']>;
   detail?: InputMaybe<Scalars['String']['input']>;
   display_status?: InputMaybe<Scalars['Int']['input']>;
+  field?: InputMaybe<Scalars['String']['input']>;
   manager?: InputMaybe<Managers_Obj_Rel_Insert_Input>;
   manager_id?: InputMaybe<Scalars['uuid']['input']>;
   opportunity_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1162,6 +1165,7 @@ export type Opportunities_Max_Fields = {
   date_to?: Maybe<Scalars['date']['output']>;
   detail?: Maybe<Scalars['String']['output']>;
   display_status?: Maybe<Scalars['Int']['output']>;
+  field?: Maybe<Scalars['String']['output']>;
   manager_id?: Maybe<Scalars['uuid']['output']>;
   opportunity_id?: Maybe<Scalars['uuid']['output']>;
   partner_id?: Maybe<Scalars['uuid']['output']>;
@@ -1175,6 +1179,7 @@ export type Opportunities_Max_Order_By = {
   date_to?: InputMaybe<Order_By>;
   detail?: InputMaybe<Order_By>;
   display_status?: InputMaybe<Order_By>;
+  field?: InputMaybe<Order_By>;
   manager_id?: InputMaybe<Order_By>;
   opportunity_id?: InputMaybe<Order_By>;
   partner_id?: InputMaybe<Order_By>;
@@ -1189,6 +1194,7 @@ export type Opportunities_Min_Fields = {
   date_to?: Maybe<Scalars['date']['output']>;
   detail?: Maybe<Scalars['String']['output']>;
   display_status?: Maybe<Scalars['Int']['output']>;
+  field?: Maybe<Scalars['String']['output']>;
   manager_id?: Maybe<Scalars['uuid']['output']>;
   opportunity_id?: Maybe<Scalars['uuid']['output']>;
   partner_id?: Maybe<Scalars['uuid']['output']>;
@@ -1202,6 +1208,7 @@ export type Opportunities_Min_Order_By = {
   date_to?: InputMaybe<Order_By>;
   detail?: InputMaybe<Order_By>;
   display_status?: InputMaybe<Order_By>;
+  field?: InputMaybe<Order_By>;
   manager_id?: InputMaybe<Order_By>;
   opportunity_id?: InputMaybe<Order_By>;
   partner_id?: InputMaybe<Order_By>;
@@ -1239,6 +1246,7 @@ export type Opportunities_Order_By = {
   date_to?: InputMaybe<Order_By>;
   detail?: InputMaybe<Order_By>;
   display_status?: InputMaybe<Order_By>;
+  field?: InputMaybe<Order_By>;
   manager?: InputMaybe<Managers_Order_By>;
   manager_id?: InputMaybe<Order_By>;
   opportunity_id?: InputMaybe<Order_By>;
@@ -1265,6 +1273,8 @@ export enum Opportunities_Select_Column {
   /** column name */
   DisplayStatus = 'display_status',
   /** column name */
+  Field = 'field',
+  /** column name */
   ManagerId = 'manager_id',
   /** column name */
   OpportunityId = 'opportunity_id',
@@ -1281,6 +1291,7 @@ export type Opportunities_Set_Input = {
   date_to?: InputMaybe<Scalars['date']['input']>;
   detail?: InputMaybe<Scalars['String']['input']>;
   display_status?: InputMaybe<Scalars['Int']['input']>;
+  field?: InputMaybe<Scalars['String']['input']>;
   manager_id?: InputMaybe<Scalars['uuid']['input']>;
   opportunity_id?: InputMaybe<Scalars['uuid']['input']>;
   partner_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1341,6 +1352,7 @@ export type Opportunities_Stream_Cursor_Value_Input = {
   date_to?: InputMaybe<Scalars['date']['input']>;
   detail?: InputMaybe<Scalars['String']['input']>;
   display_status?: InputMaybe<Scalars['Int']['input']>;
+  field?: InputMaybe<Scalars['String']['input']>;
   manager_id?: InputMaybe<Scalars['uuid']['input']>;
   opportunity_id?: InputMaybe<Scalars['uuid']['input']>;
   partner_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1372,6 +1384,8 @@ export enum Opportunities_Update_Column {
   Detail = 'detail',
   /** column name */
   DisplayStatus = 'display_status',
+  /** column name */
+  Field = 'field',
   /** column name */
   ManagerId = 'manager_id',
   /** column name */
@@ -1903,6 +1917,7 @@ export type Students = {
   passport_no?: Maybe<Scalars['String']['output']>;
   phone?: Maybe<Scalars['String']['output']>;
   registered_at: Scalars['timestamptz']['output'];
+  self_introduction?: Maybe<Scalars['String']['output']>;
 };
 
 /** columns and relationships of "students" */
@@ -1965,6 +1980,7 @@ export type Students_Bool_Exp = {
   passport_no?: InputMaybe<String_Comparison_Exp>;
   phone?: InputMaybe<String_Comparison_Exp>;
   registered_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  self_introduction?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "students" */
@@ -1992,6 +2008,7 @@ export type Students_Insert_Input = {
   passport_no?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
   registered_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  self_introduction?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
@@ -2011,6 +2028,7 @@ export type Students_Max_Fields = {
   passport_no?: Maybe<Scalars['String']['output']>;
   phone?: Maybe<Scalars['String']['output']>;
   registered_at?: Maybe<Scalars['timestamptz']['output']>;
+  self_introduction?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
@@ -2030,6 +2048,7 @@ export type Students_Min_Fields = {
   passport_no?: Maybe<Scalars['String']['output']>;
   phone?: Maybe<Scalars['String']['output']>;
   registered_at?: Maybe<Scalars['timestamptz']['output']>;
+  self_introduction?: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "students" */
@@ -2072,6 +2091,7 @@ export type Students_Order_By = {
   passport_no?: InputMaybe<Order_By>;
   phone?: InputMaybe<Order_By>;
   registered_at?: InputMaybe<Order_By>;
+  self_introduction?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: students */
@@ -2109,6 +2129,8 @@ export enum Students_Select_Column {
   Phone = 'phone',
   /** column name */
   RegisteredAt = 'registered_at',
+  /** column name */
+  SelfIntroduction = 'self_introduction',
 }
 
 /** input type for updating data in table "students" */
@@ -2127,6 +2149,7 @@ export type Students_Set_Input = {
   passport_no?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
   registered_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  self_introduction?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "students" */
@@ -2153,6 +2176,7 @@ export type Students_Stream_Cursor_Value_Input = {
   passport_no?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
   registered_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  self_introduction?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "students" */
@@ -2185,6 +2209,8 @@ export enum Students_Update_Column {
   Phone = 'phone',
   /** column name */
   RegisteredAt = 'registered_at',
+  /** column name */
+  SelfIntroduction = 'self_introduction',
 }
 
 export type Students_Updates = {
@@ -2428,6 +2454,7 @@ export type AddOpportunityMutationVariables = Exact<{
   detail?: InputMaybe<Scalars['String']['input']>;
   partner_id?: InputMaybe<Scalars['uuid']['input']>;
   status?: InputMaybe<Scalars['Int']['input']>;
+  field?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 export type AddOpportunityMutation = {
@@ -2466,6 +2493,7 @@ export type AddStudentProfileMutationVariables = Exact<{
   major: Scalars['String']['input'];
   email: Scalars['String']['input'];
   gender: Scalars['String']['input'];
+  self_introduction: Scalars['String']['input'];
   auth0_uid?: InputMaybe<Scalars['String']['input']>;
 }>;
 
@@ -2588,6 +2616,7 @@ export type GetOpportunitiesQuery = {
     date_to: any;
     opportunity_id: any;
     partner_id: any;
+    field?: string | null;
     partner: {
       __typename?: 'partners';
       display_name?: string | null;
@@ -2614,6 +2643,7 @@ export type GetOpportunityQuery = {
     date_to: any;
     opportunity_id: any;
     partner_id: any;
+    field?: string | null;
     partner: {
       __typename?: 'partners';
       address_country?: string | null;
@@ -2643,6 +2673,7 @@ export type GetOpportunityApplicationsQuery = {
     date_to: any;
     opportunity_id: any;
     partner_id: any;
+    field?: string | null;
     partner: {
       __typename?: 'partners';
       address_country?: string | null;
@@ -2674,6 +2705,7 @@ export type GetOpportunityApplicationsQuery = {
     };
     partner: { __typename?: 'partners'; display_name?: string | null };
     manager?: { __typename?: 'managers'; name?: string | null } | null;
+    opportunity: { __typename?: 'opportunities'; field?: string | null };
   }>;
 };
 
@@ -2716,6 +2748,7 @@ export type GetStudentProfileQuery = {
     passport_country?: string | null;
     passport_expires?: any | null;
     phone?: string | null;
+    self_introduction?: string | null;
   }>;
 };
 
@@ -2739,6 +2772,7 @@ export type UpdateOpportunityMutationVariables = Exact<{
   date_end?: InputMaybe<Scalars['date']['input']>;
   detail?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['Int']['input']>;
+  field?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 export type UpdateOpportunityMutation = {
@@ -2791,6 +2825,7 @@ export type UpdateStudentProfileMutationVariables = Exact<{
   major: Scalars['String']['input'];
   email: Scalars['String']['input'];
   gender: Scalars['String']['input'];
+  self_introduction: Scalars['String']['input'];
 }>;
 
 export type UpdateStudentProfileMutation = {
@@ -2858,6 +2893,7 @@ export const AddOpportunityDocument = gql`
     $detail: String
     $partner_id: uuid
     $status: Int
+    $field: String
   ) {
     insert_opportunities_one(
       object: {
@@ -2868,6 +2904,7 @@ export const AddOpportunityDocument = gql`
         detail: $detail
         partner_id: $partner_id
         display_status: $status
+        field: $field
       }
     ) {
       opportunity_id
@@ -2929,6 +2966,7 @@ export const AddStudentProfileDocument = gql`
     $major: String!
     $email: String!
     $gender: String!
+    $self_introduction: String!
     $auth0_uid: String
   ) {
     insert_students_one(
@@ -2943,6 +2981,7 @@ export const AddStudentProfileDocument = gql`
         major: $major
         email: $email
         gender: $gender
+        self_introduction: $self_introduction
         auth0_uid: $auth0_uid
       }
     ) {
@@ -3096,6 +3135,7 @@ export const GetOpportunitiesDocument = gql`
       date_to
       opportunity_id
       partner_id
+      field
       partner {
         display_name
         address_country
@@ -3127,6 +3167,7 @@ export const GetOpportunityDocument = gql`
       date_to
       opportunity_id
       partner_id
+      field
       partner {
         address_country
         address_line1
@@ -3168,6 +3209,7 @@ export const GetOpportunityApplicationsDocument = gql`
         address_zipcode
         display_name
       }
+      field
       manager {
         name
       }
@@ -3192,6 +3234,9 @@ export const GetOpportunityApplicationsDocument = gql`
       }
       manager {
         name
+      }
+      opportunity {
+        field
       }
       applied_at
       display_status
@@ -3247,6 +3292,7 @@ export const GetStudentProfileDocument = gql`
       passport_country
       passport_expires
       phone
+      self_introduction
     }
   }
 `;
@@ -3289,6 +3335,7 @@ export const UpdateOpportunityDocument = gql`
     $date_end: date
     $detail: String
     $status: Int
+    $field: String
   ) {
     update_opportunities_by_pk(
       pk_columns: { opportunity_id: $opportunity_id }
@@ -3299,6 +3346,7 @@ export const UpdateOpportunityDocument = gql`
         date_to: $date_end
         detail: $detail
         display_status: $status
+        field: $field
       }
     ) {
       opportunity_id
@@ -3378,6 +3426,7 @@ export const UpdateStudentProfileDocument = gql`
     $major: String!
     $email: String!
     $gender: String!
+    $self_introduction: String!
   ) {
     update_students_by_pk(
       pk_columns: { client_id: $uid }
@@ -3392,6 +3441,7 @@ export const UpdateStudentProfileDocument = gql`
         major: $major
         email: $email
         gender: $gender
+        self_introduction: $self_introduction
       }
     ) {
       client_id
@@ -5669,6 +5719,14 @@ export default {
             args: [],
           },
           {
+            name: 'field',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
             name: 'manager',
             type: {
               kind: 'OBJECT',
@@ -5961,6 +6019,14 @@ export default {
             args: [],
           },
           {
+            name: 'field',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
             name: 'manager_id',
             type: {
               kind: 'SCALAR',
@@ -6033,6 +6099,14 @@ export default {
           },
           {
             name: 'display_status',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'field',
             type: {
               kind: 'SCALAR',
               name: 'Any',
@@ -7932,6 +8006,14 @@ export default {
             },
             args: [],
           },
+          {
+            name: 'self_introduction',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
         ],
         interfaces: [],
       },
@@ -8142,6 +8224,14 @@ export default {
             },
             args: [],
           },
+          {
+            name: 'self_introduction',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
         ],
         interfaces: [],
       },
@@ -8255,6 +8345,14 @@ export default {
           },
           {
             name: 'registered_at',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'self_introduction',
             type: {
               kind: 'SCALAR',
               name: 'Any',

@@ -69,7 +69,9 @@ const ApplicationsView: React.FC<ApplicationsViewOptions> = ({
           className='m-4 cursor-pointer rounded-md border border-gray-500 p-2'
           onClick={() => router.push('/application/' + v.application_id)}
         >
-          <div className='p-1 text-2xl'>{v.partner.display_name}</div>
+          <div className='p-1 text-2xl'>
+            {v.partner.display_name} - {v.opportunity?.field}
+          </div>
           <div className='flex flex-wrap'>
             <div>
               <PersonIcon className='mr-1' />

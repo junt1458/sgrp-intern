@@ -49,6 +49,7 @@ CREATE TABLE opportunities (
     detail VARCHAR DEFAULT '',
     date_from DATE NOT NULL,
     date_to DATE NOT NULL,
+    field VARCHAR DEFAULT '',
     manager_id UUID,
     FOREIGN KEY (partner_id)
       REFERENCES partners (partner_id),
@@ -76,4 +77,4 @@ CREATE TABLE applications (
 );
 
 -- For memo purpose
--- ALTER TABLE managers ADD (auth0_uid VARCHAR DEFAULT '' UNIQUE);
+-- ALTER TABLE managers ADD auth0_uid VARCHAR DEFAULT '' UNIQUE;

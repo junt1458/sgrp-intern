@@ -6,6 +6,7 @@ mutation AddOpportunity(
   $detail: String
   $partner_id: uuid
   $status: Int
+  $field: String
 ) {
   insert_opportunities_one(
     object: {
@@ -16,6 +17,7 @@ mutation AddOpportunity(
       detail: $detail
       partner_id: $partner_id
       display_status: $status
+      field: $field
     }
   ) {
     opportunity_id
