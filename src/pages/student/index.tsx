@@ -24,6 +24,11 @@ const StudentIndexPage: NextPage = () => {
         <h1 className='my-4 w-full text-center text-3xl'>Open Opportunities</h1>
 
         <div className='screen-x mx-auto max-w-4xl py-2'>
+          {!data?.opportunities.filter((f) => f.display_status === 3).length ? (
+            <div className='text-center text-xl'>- Nothing to show -</div>
+          ) : (
+            ''
+          )}
           <OpportunitiesView
             opportunities={
               data?.opportunities.filter(
@@ -38,6 +43,11 @@ const StudentIndexPage: NextPage = () => {
           Closed Opportunities
         </h1>
         <div className='screen-x mx-auto max-w-4xl py-2'>
+          {!data?.opportunities.filter((f) => f.display_status === 4).length ? (
+            <div className='text-center text-xl'>- Nothing to show -</div>
+          ) : (
+            ''
+          )}
           <OpportunitiesView
             opportunities={
               data?.opportunities.filter(

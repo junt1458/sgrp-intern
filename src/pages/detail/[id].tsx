@@ -193,8 +193,8 @@ const DetailPage: NextPage = () => {
                   {(data?.opportunities_by_pk?.display_status || 0) <= 2
                     ? 'Delete'
                     : (data?.opportunities_by_pk?.display_status || 0) == 3
-                    ? 'Close Applications'
-                    : 'Open Applications'}
+                    ? 'Close Opportunity'
+                    : 'Open Opportunity'}
                 </Button>
               </div>
               {(data?.opportunities_by_pk?.display_status || 0) >= 3 ? (
@@ -257,8 +257,8 @@ const DetailPage: NextPage = () => {
                   <div className='my-1 mr-2'>
                     <Button color='action' onClick={onClickAction}>
                       {(data?.opportunities_by_pk?.display_status || 0) == 3
-                        ? 'Close Applications'
-                        : 'Open Applications'}
+                        ? 'Close Opportunity'
+                        : 'Open Opportunity'}
                     </Button>
                   </div>
                 ) : (

@@ -42,6 +42,11 @@ const PartnerIndexPage: NextPage = () => {
         </div>
 
         <div className='screen-x mx-auto max-w-4xl py-2'>
+          {!data?.opportunities.length ? (
+            <div className='text-center text-xl'>- Nothing to show -</div>
+          ) : (
+            ''
+          )}
           <OpportunitiesView
             opportunities={data?.opportunities as Opportunities[]}
             key_prefix='my'
