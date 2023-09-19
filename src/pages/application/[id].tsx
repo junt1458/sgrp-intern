@@ -55,6 +55,7 @@ const ApplicationDetailPage: NextPage = () => {
       )
     )
       return;
+
     await updateStatus({
       application_id: data?.applications_by_pk?.application_id,
       manager_id:

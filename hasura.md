@@ -1,3 +1,85 @@
+# Rest API Settings for Hasura
+
+## GetManagerIDFromUID
+
+Query:
+
+```GraphQL
+query GetManagerIDFromUID($uid: String) {
+  managers(where: {auth0_uid: {_eq: $uid}}) {
+    manager_id
+  }
+}
+```
+
+Location: `getmanageridfromuid/:uid`
+
+Method: GET
+
+## GetPartnerIDFromUID
+
+Query:
+
+```GraphQL
+query GetPartnerIDFromUID($uid: String) {
+  partners(where: {auth0_uid: {_eq: $uid}}) {
+    partner_id
+  }
+}
+```
+
+Location: `getpartneridfromuid/:uid`
+
+Method: GET
+
+## GetStudentIDFromUID
+
+Query:
+
+```GraphQL
+query GetStudentIDFromUID($uid: String) {
+  students(where: {auth0_uid: {_eq: $uid}}) {
+    client_id
+  }
+}
+```
+
+Location: `getstudentidfromuid/:uid`
+
+Method: GET
+
+## GetContactsFromApplication
+
+Query:
+
+```GraphQL
+query GetContactsFromApplication($application_id: uuid!) {
+  applications_by_pk(application_id: $application_id) {
+    display_status
+    student {
+      email
+      name
+    }
+    partner {
+      display_name
+      contact_email
+      contact_name
+    }
+    manager {
+      email
+      name
+    }
+    opportunity {
+      field
+    }
+  }
+}
+```
+
+Location: `getcontactsfromapplication/:application_id`
+
+Method: GET
+
 # Permission Settings for Hasura
 
 ## students
