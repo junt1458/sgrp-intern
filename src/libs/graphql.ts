@@ -1908,6 +1908,7 @@ export type GetOpportunityQuery = {
     date_from: any;
     date_to: any;
     opportunity_id: any;
+    partner_id: any;
     partner: {
       __typename?: 'partners';
       address_country?: string | null;
@@ -2221,6 +2222,7 @@ export const GetOpportunityDocument = gql`
       date_from
       date_to
       opportunity_id
+      partner_id
       partner {
         address_country
         address_line1

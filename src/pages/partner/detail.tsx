@@ -129,7 +129,7 @@ const usePartnerDetailPageHook = () => {
         date_start: date_start || new Date(),
         date_end: date_end || new Date(),
         detail,
-        status: 0,
+        status: 1,
       });
 
       if (data.error) {
@@ -234,7 +234,7 @@ const PartnerDetailPage: NextPage = () => {
   } = usePartnerDetailPageHook();
   const { isLoading, isAllowed } = useAuthHook(['partner'], true, true);
 
-  const [{ data, fetching }, executeQuery] = useGetOpportunityQuery({
+  const [{ data, fetching }] = useGetOpportunityQuery({
     variables: { id },
   });
 

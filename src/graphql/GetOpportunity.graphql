@@ -8,6 +8,7 @@ query GetOpportunity($id: uuid!) {
     date_from
     date_to
     opportunity_id
+    partner_id
     partner {
       address_country
       address_line1
