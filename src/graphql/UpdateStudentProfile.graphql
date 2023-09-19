@@ -10,6 +10,7 @@ mutation UpdateStudentProfile(
   $major: String!
   $email: String!
   $gender: String!
+  $self_introduction: String!
 ) {
   update_students_by_pk(
     pk_columns: { client_id: $uid }
@@ -24,6 +25,7 @@ mutation UpdateStudentProfile(
       major: $major
       email: $email
       gender: $gender
+      self_introduction: $self_introduction
     }
   ) {
     client_id

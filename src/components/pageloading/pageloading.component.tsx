@@ -8,16 +8,30 @@ interface PageLoadingOptions {
   children: JSX.Element;
   isLoading: boolean;
   isPermissionError: boolean;
+  isGeneralError?: boolean;
+  errorMessage?: string;
 }
 
 const PageLoading: React.FC<PageLoadingOptions> = ({
   children,
   isLoading,
   isPermissionError,
+  isGeneralError,
+  errorMessage,
 }) => {
   const { onBackClicked } = useBackButton();
 
-  return isLoading ? (
+  return isGeneralError ? (
+    <>
+      <Header />
+      <ErrorIcon message={errorMessage!} />
+      <div className='my-2 flex justify-center'>
+        <Button color={'primary'} onClick={onBackClicked}>
+          Back to Home
+        </Button>
+      </div>
+    </>
+  ) : isLoading ? (
     <>
       <Header />
       <Loading message='Loading...' />
@@ -28,7 +42,7 @@ const PageLoading: React.FC<PageLoadingOptions> = ({
       <ErrorIcon message='You do not have permission to view this page.' />
       <div className='my-2 flex justify-center'>
         <Button color={'primary'} onClick={onBackClicked}>
-          Back to home
+          Back to Home
         </Button>
       </div>
     </>

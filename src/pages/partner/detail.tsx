@@ -19,6 +19,7 @@ const usePartnerDetailPageHook = () => {
   const [date1Error, setDate1Error] = useState('');
   const [date2Error, setDate2Error] = useState('');
   const [detailError, setDetailError] = useState('');
+  const [fieldError, setFieldError] = useState('');
   const [isSending, setSending] = useState(false);
 
   const [, addDetail] = useAddOpportunityMutation();
@@ -37,6 +38,7 @@ const usePartnerDetailPageHook = () => {
     setDate1Error('');
     setDate2Error('');
     setDetailError('');
+    setFieldError('');
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -52,6 +54,7 @@ const usePartnerDetailPageHook = () => {
       .valueAsDate;
     const detail = (document.querySelector('#detail') as HTMLInputElement)
       .value;
+    const field = (document.querySelector('#field') as HTMLInputElement).value;
 
     let valid = true;
     if (!city) {
@@ -85,6 +88,11 @@ const usePartnerDetailPageHook = () => {
       setDetailError('Detail is required.');
     }
 
+    if (!field) {
+      valid = false;
+      setFieldError('Field is required.');
+    }
+
     return valid;
   }, []);
 
@@ -102,6 +110,8 @@ const usePartnerDetailPageHook = () => {
     const detail = (document.querySelector('#detail') as HTMLInputElement)
       .value;
 
+    const field = (document.querySelector('#field') as HTMLInputElement).value;
+
     if (id == undefined) {
       const data = await addDetail({
         city,
@@ -110,7 +120,8 @@ const usePartnerDetailPageHook = () => {
         date_end: date_end || new Date(),
         detail,
         partner_id: uid,
-        status: 1,
+        status: 2,
+        field,
       });
 
       if (data.error) {
@@ -129,7 +140,8 @@ const usePartnerDetailPageHook = () => {
         date_start: date_start || new Date(),
         date_end: date_end || new Date(),
         detail,
-        status: 0,
+        status: 2,
+        field,
       });
 
       if (data.error) {
@@ -164,6 +176,8 @@ const usePartnerDetailPageHook = () => {
     const detail = (document.querySelector('#detail') as HTMLInputElement)
       .value;
 
+    const field = (document.querySelector('#field') as HTMLInputElement).value;
+
     if (id == undefined) {
       const data = await addDetail({
         city,
@@ -172,6 +186,7 @@ const usePartnerDetailPageHook = () => {
         date_end: date_end || new Date(),
         detail,
         partner_id: uid,
+        field,
         status: 0,
       });
 
@@ -189,6 +204,7 @@ const usePartnerDetailPageHook = () => {
         date_start: date_start || new Date(),
         date_end: date_end || new Date(),
         detail,
+        field,
         status: 0,
       });
 
@@ -210,6 +226,7 @@ const usePartnerDetailPageHook = () => {
     date1Error,
     date2Error,
     detailError,
+    fieldError,
     onClickBack,
     onClickPost,
     onClickDraft,
@@ -228,13 +245,14 @@ const PartnerDetailPage: NextPage = () => {
     date1Error,
     date2Error,
     detailError,
+    fieldError,
     onClickBack,
     onClickDraft,
     onClickPost,
   } = usePartnerDetailPageHook();
   const { isLoading, isAllowed } = useAuthHook(['partner'], true, true);
 
-  const [{ data, fetching }, executeQuery] = useGetOpportunityQuery({
+  const [{ data, fetching }] = useGetOpportunityQuery({
     variables: { id },
   });
 
@@ -242,7 +260,7 @@ const PartnerDetailPage: NextPage = () => {
     <PageLoading
       isLoading={isLoading || fetching}
       isPermissionError={
-        !isAllowed || data?.opportunities_by_pk?.display_status! > 1
+        !isAllowed || data?.opportunities_by_pk?.display_status! > 2
       }
     >
       <>
@@ -284,6 +302,15 @@ const PartnerDetailPage: NextPage = () => {
             label='End Date'
             error={date2Error}
             defaultValue={data?.opportunities_by_pk?.date_to!}
+            required
+          />
+          <FormInput
+            id='field'
+            type='text'
+            label='Field'
+            placeholder='AI Technology'
+            error={fieldError}
+            defaultValue={data?.opportunities_by_pk?.field!}
             required
           />
           <div className='col-span-2'>

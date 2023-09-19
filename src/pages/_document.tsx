@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang='en'>
       <Head>
+        {/* eslint-disable-next-line @next/next/no-title-in-document-head */}
         <title>Internship Application System</title>
       </Head>
       <body>

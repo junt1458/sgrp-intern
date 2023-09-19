@@ -9,6 +9,7 @@ mutation AddStudentProfile(
   $major: String!
   $email: String!
   $gender: String!
+  $self_introduction: String!
   $auth0_uid: String
 ) {
   insert_students_one(
@@ -23,6 +24,7 @@ mutation AddStudentProfile(
       major: $major
       email: $email
       gender: $gender
+      self_introduction: $self_introduction
       auth0_uid: $auth0_uid
     }
   ) {

@@ -1,0 +1,29 @@
+query GetApplications($opportunity_id: uuid!) {
+  applications(where: { opportunity_id: { _eq: $opportunity_id } }) {
+    application_id
+    student {
+      passport_no
+      birthday
+      client_id
+      department
+      email
+      gender
+      major
+      name
+      passport_country
+      passport_expires
+      phone
+    }
+    opportunity {
+      field
+    }
+    partner {
+      display_name
+    }
+    manager {
+      name
+    }
+    applied_at
+    display_status
+  }
+}

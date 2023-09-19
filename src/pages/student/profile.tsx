@@ -108,6 +108,9 @@ export const useProfileHook = (
     const pCnt = (
       document.querySelector('#passport_country') as HTMLInputElement
     ).value;
+    const selfIntro = (
+      document.querySelector('#self_introduction') as HTMLInputElement
+    ).value;
 
     setSending(true);
     if (!uid) {
@@ -123,6 +126,7 @@ export const useProfileHook = (
         passport_country: pCnt,
         passport_expires: pExp,
         auth0_uid: sid,
+        self_introduction: selfIntro,
       });
       if (result.error) {
         alert('Error: ' + result.error);
@@ -157,6 +161,7 @@ export const useProfileHook = (
         passport_country: pCnt,
         passport_expires: pExp,
         uid,
+        self_introduction: selfIntro,
       });
       if (result.error) {
         alert('Error: ' + result.error);
@@ -273,21 +278,6 @@ const StudentProfilePage: NextPage = () => {
           />
 
           <FormInput
-            id='department'
-            label='Department of School'
-            type='text'
-            placeholder='Department of Computer Engineering'
-            defaultValue={data?.students[0].department!}
-          />
-          <FormInput
-            id='major'
-            label='Major field'
-            type='text'
-            placeholder='Computer Science'
-            defaultValue={data?.students[0].major!}
-          />
-
-          <FormInput
             id='passport_no'
             label='Passport No.'
             type='text'
@@ -308,6 +298,33 @@ const StudentProfilePage: NextPage = () => {
             options={countries}
             defaultValue={data?.students[0].passport_country!}
           />
+
+          <div></div>
+
+          <FormInput
+            id='department'
+            label='Department of School'
+            type='text'
+            placeholder='Department of Computer Engineering'
+            defaultValue={data?.students[0].department!}
+          />
+          <FormInput
+            id='major'
+            label='Major field'
+            type='text'
+            placeholder='Computer Science'
+            defaultValue={data?.students[0].major!}
+          />
+
+          <div className='col-span-2'>
+            <FormInput
+              id='self_introduction'
+              label='Self Introduction (Interests, Skils, etc...) (Markdown)'
+              type='textarea'
+              rows={5}
+              defaultValue={data?.students[0].self_introduction!}
+            />
+          </div>
 
           <div className='col-span-2 flex justify-end px-4'>
             <span className='text-red-800'>*</span>&nbsp;Required

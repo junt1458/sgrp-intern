@@ -25,3 +25,77 @@
 .PhoneInputInput::placeholder {
   color: red;
 }
+
+.markdown code {
+  color: red;
+  background-color: #efefef;
+  padding: 0px 4px;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.markdown pre {
+  background-color: #efefef;
+  border-radius: 4px;
+  margin: 4px 0px;
+}
+
+.markdown a:link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.markdown a:visited {
+  color: purple;
+  text-decoration: underline;
+}
+
+.markdown a:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+.markdown a:active {
+  color: red;
+  text-decoration: underline;
+}
+
+.markdown h1 {
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.markdown h2 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.markdown h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.markdown h4 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.markdown h5 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.markdown h6 {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.markdown ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.markdown ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+}

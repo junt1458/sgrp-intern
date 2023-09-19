@@ -6,6 +6,7 @@ mutation UpdateOpportunity(
   $date_end: date
   $detail: String
   $status: Int
+  $field: String
 ) {
   update_opportunities_by_pk(
     pk_columns: { opportunity_id: $opportunity_id }
@@ -16,6 +17,7 @@ mutation UpdateOpportunity(
       date_to: $date_end
       detail: $detail
       display_status: $status
+      field: $field
     }
   ) {
     opportunity_id
