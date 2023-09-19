@@ -6,7 +6,13 @@ import PageLoading from '../../components/pageloading/pageloading.component';
 import Button from '../../components/button/button.component';
 import OpportunitiesView from '../../components/opportunities/opportunities.component';
 import { useRouter } from 'next/router';
-import { Opportunities, useGetOpportunitiesQuery } from '../../libs/graphql';
+import {
+  Applications,
+  Opportunities,
+  useGetAllApplicationsQuery,
+  useGetOpportunitiesQuery,
+} from '../../libs/graphql';
+import ApplicationsView from '../../components/applications/applications';
 
 const usePartnerHooks = () => {
   const router = useRouter();
@@ -23,10 +29,11 @@ const PartnerIndexPage: NextPage = () => {
   const { isLoading, isAllowed } = useAuthHook(['partner'], true, true);
 
   const [{ data, fetching }] = useGetOpportunitiesQuery();
+  const [result] = useGetAllApplicationsQuery();
 
   return (
     <PageLoading
-      isLoading={isLoading || fetching}
+      isLoading={isLoading || fetching || result.fetching}
       isPermissionError={!isAllowed}
     >
       <>
@@ -34,6 +41,23 @@ const PartnerIndexPage: NextPage = () => {
         <h1 className='my-4 w-full text-center text-3xl'>
           Pending Applications
         </h1>
+        <div className='screen-x mx-auto max-w-4xl py-2'>
+          {!result.data?.applications.filter((f) => f.display_status === 3)
+            .length ? (
+            <div className='text-center text-xl'>- Nothing to show -</div>
+          ) : (
+            ''
+          )}
+          <ApplicationsView
+            applications={
+              result.data?.applications.filter(
+                (f) => f.display_status === 3
+              ) as Applications[]
+            }
+            key_prefix='pending_'
+            hide_control={true}
+          />
+        </div>
         <h1 className='my-4 w-full text-center text-3xl'>Your Opportunities</h1>
         <div className='my-2 flex justify-center'>
           <Button color={'primary'} onClick={onCreateNew}>

@@ -1,0 +1,47 @@
+query GetOpportunityApplications($opportunity_id: uuid!) {
+  opportunities_by_pk(opportunity_id: $opportunity_id) {
+    detail
+    display_status
+    manager_id
+    slots
+    city
+    date_from
+    date_to
+    opportunity_id
+    partner_id
+    partner {
+      address_country
+      address_line1
+      address_line2
+      address_zipcode
+      display_name
+    }
+    manager {
+      name
+    }
+  }
+  applications(where: { opportunity_id: { _eq: $opportunity_id } }) {
+    application_id
+    student {
+      passport_no
+      birthday
+      client_id
+      department
+      email
+      gender
+      major
+      name
+      passport_country
+      passport_expires
+      phone
+    }
+    partner {
+      display_name
+    }
+    manager {
+      name
+    }
+    applied_at
+    display_status
+  }
+}

@@ -1,0 +1,68 @@
+import { NextPage } from 'next';
+import { useAuthHook } from '../../libs/auth';
+import PageLoading from '../../components/pageloading/pageloading.component';
+import Header from '../../components/header/header.component';
+import {
+  Applications,
+  useGetAllApplicationsQuery,
+  useGetOpportunityApplicationsQuery,
+} from '../../libs/graphql';
+import { useRouter } from 'next/router';
+import Button from '../../components/button/button.component';
+import ApplicationsView from '../../components/applications/applications';
+
+const ApplicationListPage: NextPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const { isLoading, isAllowed, role } = useAuthHook(
+    ['partner', 'manager'],
+    true,
+    true
+  );
+
+  const [{ data, fetching }] = useGetOpportunityApplicationsQuery({
+    variables: { opportunity_id: id },
+  });
+
+  return (
+    <PageLoading
+      isLoading={isLoading || fetching}
+      isPermissionError={!isAllowed}
+      isGeneralError={!fetching && data?.opportunities_by_pk == null}
+      errorMessage='Opportunity Not Found'
+    >
+      <>
+        <Header />
+        <h1 className='my-4 w-full text-center text-3xl'>
+          Applications for &quot;
+          {data?.opportunities_by_pk?.partner.display_name}&quot;
+        </h1>
+        <div className='my-2 flex justify-center'>
+          <Button
+            color='primary'
+            onClick={() =>
+              router.push(
+                '/detail/' + data?.opportunities_by_pk?.opportunity_id
+              )
+            }
+          >
+            Back to Home
+          </Button>
+        </div>
+        <div className='screen-x mx-auto max-w-4xl py-2'>
+          {!data?.applications.length ? (
+            <div className='text-center text-xl'>- Nothing to show -</div>
+          ) : (
+            ''
+          )}
+          <ApplicationsView
+            applications={data?.applications as Applications[]}
+            key_prefix='all'
+          />
+        </div>
+      </>
+    </PageLoading>
+  );
+};
+
+export default ApplicationListPage;

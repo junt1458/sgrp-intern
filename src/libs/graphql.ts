@@ -2500,6 +2500,34 @@ export type DeleteOpportunityMutation = {
   } | null;
 };
 
+export type GetAllApplicationsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllApplicationsQuery = {
+  __typename?: 'query_root';
+  applications: Array<{
+    __typename?: 'applications';
+    application_id: any;
+    applied_at: any;
+    display_status?: number | null;
+    student: {
+      __typename?: 'students';
+      passport_no?: string | null;
+      birthday?: any | null;
+      client_id: any;
+      department?: string | null;
+      email?: string | null;
+      gender?: string | null;
+      major?: string | null;
+      name?: string | null;
+      passport_country?: string | null;
+      passport_expires?: any | null;
+      phone?: string | null;
+    };
+    partner: { __typename?: 'partners'; display_name?: string | null };
+    manager?: { __typename?: 'managers'; name?: string | null } | null;
+  }>;
+};
+
 export type GetApplicationsQueryVariables = Exact<{
   opportunity_id: Scalars['uuid']['input'];
 }>;
@@ -2525,6 +2553,7 @@ export type GetApplicationsQuery = {
       passport_expires?: any | null;
       phone?: string | null;
     };
+    partner: { __typename?: 'partners'; display_name?: string | null };
     manager?: { __typename?: 'managers'; name?: string | null } | null;
   }>;
 };
@@ -2595,6 +2624,57 @@ export type GetOpportunityQuery = {
     };
     manager?: { __typename?: 'managers'; name?: string | null } | null;
   } | null;
+};
+
+export type GetOpportunityApplicationsQueryVariables = Exact<{
+  opportunity_id: Scalars['uuid']['input'];
+}>;
+
+export type GetOpportunityApplicationsQuery = {
+  __typename?: 'query_root';
+  opportunities_by_pk?: {
+    __typename?: 'opportunities';
+    detail?: string | null;
+    display_status?: number | null;
+    manager_id?: any | null;
+    slots?: number | null;
+    city: string;
+    date_from: any;
+    date_to: any;
+    opportunity_id: any;
+    partner_id: any;
+    partner: {
+      __typename?: 'partners';
+      address_country?: string | null;
+      address_line1?: string | null;
+      address_line2?: string | null;
+      address_zipcode?: string | null;
+      display_name?: string | null;
+    };
+    manager?: { __typename?: 'managers'; name?: string | null } | null;
+  } | null;
+  applications: Array<{
+    __typename?: 'applications';
+    application_id: any;
+    applied_at: any;
+    display_status?: number | null;
+    student: {
+      __typename?: 'students';
+      passport_no?: string | null;
+      birthday?: any | null;
+      client_id: any;
+      department?: string | null;
+      email?: string | null;
+      gender?: string | null;
+      major?: string | null;
+      name?: string | null;
+      passport_country?: string | null;
+      passport_expires?: any | null;
+      phone?: string | null;
+    };
+    partner: { __typename?: 'partners'; display_name?: string | null };
+    manager?: { __typename?: 'managers'; name?: string | null } | null;
+  }>;
 };
 
 export type GetPartnerProfileQueryVariables = Exact<{
@@ -2912,6 +2992,43 @@ export function useDeleteOpportunityMutation() {
     DeleteOpportunityMutationVariables
   >(DeleteOpportunityDocument);
 }
+export const GetAllApplicationsDocument = gql`
+  query GetAllApplications {
+    applications {
+      application_id
+      student {
+        passport_no
+        birthday
+        client_id
+        department
+        email
+        gender
+        major
+        name
+        passport_country
+        passport_expires
+        phone
+      }
+      partner {
+        display_name
+      }
+      manager {
+        name
+      }
+      applied_at
+      display_status
+    }
+  }
+`;
+
+export function useGetAllApplicationsQuery(
+  options?: Omit<Urql.UseQueryArgs<GetAllApplicationsQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<
+    GetAllApplicationsQuery,
+    GetAllApplicationsQueryVariables
+  >({ query: GetAllApplicationsDocument, ...options });
+}
 export const GetApplicationsDocument = gql`
   query GetApplications($opportunity_id: uuid!) {
     applications(where: { opportunity_id: { _eq: $opportunity_id } }) {
@@ -2928,6 +3045,9 @@ export const GetApplicationsDocument = gql`
         passport_country
         passport_expires
         phone
+      }
+      partner {
+        display_name
       }
       manager {
         name
@@ -3028,6 +3148,67 @@ export function useGetOpportunityQuery(
     query: GetOpportunityDocument,
     ...options,
   });
+}
+export const GetOpportunityApplicationsDocument = gql`
+  query GetOpportunityApplications($opportunity_id: uuid!) {
+    opportunities_by_pk(opportunity_id: $opportunity_id) {
+      detail
+      display_status
+      manager_id
+      slots
+      city
+      date_from
+      date_to
+      opportunity_id
+      partner_id
+      partner {
+        address_country
+        address_line1
+        address_line2
+        address_zipcode
+        display_name
+      }
+      manager {
+        name
+      }
+    }
+    applications(where: { opportunity_id: { _eq: $opportunity_id } }) {
+      application_id
+      student {
+        passport_no
+        birthday
+        client_id
+        department
+        email
+        gender
+        major
+        name
+        passport_country
+        passport_expires
+        phone
+      }
+      partner {
+        display_name
+      }
+      manager {
+        name
+      }
+      applied_at
+      display_status
+    }
+  }
+`;
+
+export function useGetOpportunityApplicationsQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetOpportunityApplicationsQueryVariables>,
+    'query'
+  >
+) {
+  return Urql.useQuery<
+    GetOpportunityApplicationsQuery,
+    GetOpportunityApplicationsQueryVariables
+  >({ query: GetOpportunityApplicationsDocument, ...options });
 }
 export const GetPartnerProfileDocument = gql`
   query GetPartnerProfile($uid: uuid) {

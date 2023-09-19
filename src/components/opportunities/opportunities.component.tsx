@@ -13,11 +13,13 @@ import CancelIcon from '@mui/icons-material/Cancel'; // Closed
 interface OpportunitiesViewOptions {
   opportunities?: Opportunities[];
   key_prefix: string;
+  hide_control?: boolean;
 }
 
 const OpportunitiesView: React.FC<OpportunitiesViewOptions> = ({
   opportunities,
   key_prefix,
+  hide_control,
 }) => {
   const router = useRouter();
   const toStateString = (state: Number) => {
@@ -56,9 +58,13 @@ const OpportunitiesView: React.FC<OpportunitiesViewOptions> = ({
 
   return (
     <div>
-      <div className='mx-4 flex justify-end px-2'>
-        TODO: PUT SOME FILTER CONTROLS HERE
-      </div>
+      {hide_control ? (
+        <></>
+      ) : (
+        <div className='mx-4 flex justify-end px-2'>
+          TODO: PUT SOME FILTER CONTROLS HERE
+        </div>
+      )}
       {(opportunities || []).map((v, i) => (
         <div
           key={key_prefix + '_' + v.opportunity_id + '_' + i}
