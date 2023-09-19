@@ -299,6 +299,8 @@ const StudentProfilePage: NextPage = () => {
             defaultValue={data?.students[0].passport_country!}
           />
 
+          <div></div>
+
           <FormInput
             id='department'
             label='Department of School'

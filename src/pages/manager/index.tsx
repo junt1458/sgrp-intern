@@ -27,11 +27,6 @@ const ManagerIndexPage: NextPage = () => {
           Pending Opportunities
         </h1>
         <div className='screen-x mx-auto max-w-4xl py-2'>
-          {!data?.opportunities.filter((f) => f.display_status === 2).length ? (
-            <div className='text-center text-xl'>- Nothing to show -</div>
-          ) : (
-            ''
-          )}
           <OpportunitiesView
             opportunities={
               data?.opportunities.filter(
@@ -46,12 +41,6 @@ const ManagerIndexPage: NextPage = () => {
           Pending Applications
         </h1>
         <div className='screen-x mx-auto max-w-4xl py-2'>
-          {!result.data?.applications.filter((f) => f.display_status === 0)
-            .length ? (
-            <div className='text-center text-xl'>- Nothing to show -</div>
-          ) : (
-            ''
-          )}
           <ApplicationsView
             applications={
               result.data?.applications.filter(
@@ -64,11 +53,6 @@ const ManagerIndexPage: NextPage = () => {
         </div>
         <h1 className='my-4 w-full text-center text-3xl'>Opportunities</h1>
         <div className='screen-x mx-auto max-w-4xl py-2'>
-          {!data?.opportunities.length ? (
-            <div className='text-center text-xl'>- Nothing to show -</div>
-          ) : (
-            ''
-          )}
           <OpportunitiesView
             opportunities={data?.opportunities as Opportunities[]}
             key_prefix='open'

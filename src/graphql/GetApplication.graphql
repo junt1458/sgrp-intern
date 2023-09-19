@@ -1,6 +1,8 @@
-query GetApplications($opportunity_id: uuid!) {
-  applications(where: { opportunity_id: { _eq: $opportunity_id } }) {
+query GetApplication($id: uuid!) {
+  applications_by_pk(application_id: $id) {
     application_id
+    partner_id
+    manager_id
     student {
       passport_no
       birthday
@@ -13,11 +15,22 @@ query GetApplications($opportunity_id: uuid!) {
       passport_country
       passport_expires
       phone
+      self_introduction
     }
     opportunity {
+      detail
+      slots
+      city
+      date_from
+      date_to
+      opportunity_id
       field
     }
     partner {
+      address_country
+      address_line1
+      address_line2
+      address_zipcode
       display_name
     }
     manager {

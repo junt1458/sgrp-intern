@@ -17,6 +17,9 @@ query GetAllApplications {
     partner {
       display_name
     }
+    opportunity {
+      field
+    }
     manager {
       name
     }

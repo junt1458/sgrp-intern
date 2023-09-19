@@ -1,0 +1,12 @@
+mutation UpdateApplicationStatus(
+  $application_id: uuid!
+  $status: Int
+  $manager_id: uuid!
+) {
+  update_applications_by_pk(
+    pk_columns: { application_id: $application_id }
+    _set: { display_status: $status, manager_id: $manager_id }
+  ) {
+    application_id
+  }
+}

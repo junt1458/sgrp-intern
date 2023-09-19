@@ -42,12 +42,6 @@ const PartnerIndexPage: NextPage = () => {
           Pending Applications
         </h1>
         <div className='screen-x mx-auto max-w-4xl py-2'>
-          {!result.data?.applications.filter((f) => f.display_status === 3)
-            .length ? (
-            <div className='text-center text-xl'>- Nothing to show -</div>
-          ) : (
-            ''
-          )}
           <ApplicationsView
             applications={
               result.data?.applications.filter(
@@ -66,11 +60,6 @@ const PartnerIndexPage: NextPage = () => {
         </div>
 
         <div className='screen-x mx-auto max-w-4xl py-2'>
-          {!data?.opportunities.length ? (
-            <div className='text-center text-xl'>- Nothing to show -</div>
-          ) : (
-            ''
-          )}
           <OpportunitiesView
             opportunities={data?.opportunities as Opportunities[]}
             key_prefix='my'

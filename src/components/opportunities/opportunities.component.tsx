@@ -65,6 +65,11 @@ const OpportunitiesView: React.FC<OpportunitiesViewOptions> = ({
           TODO: PUT SOME FILTER CONTROLS HERE
         </div>
       )}
+      {!(opportunities || []).length ? (
+        <div className='text-center text-xl'>- Nothing to show -</div>
+      ) : (
+        ''
+      )}
       {(opportunities || []).map((v, i) => (
         <div
           key={key_prefix + '_' + v.opportunity_id + '_' + i}

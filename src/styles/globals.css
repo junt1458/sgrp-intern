@@ -89,3 +89,13 @@
   font-size: 12px;
   font-weight: bold;
 }
+
+.markdown ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.markdown ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+}

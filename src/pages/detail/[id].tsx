@@ -156,9 +156,9 @@ const DetailPage: NextPage = () => {
       case 3:
         return 'Partner Reviewing';
       case 4:
-        return 'Partner Accepted';
-      case 5:
         return 'Partner Rejected';
+      case 5:
+        return 'Partner Accepted';
     }
     return 'Unknown Status';
   };
@@ -177,6 +177,14 @@ const DetailPage: NextPage = () => {
     for (var app of applications) {
       let state = app.display_status;
       if (state === 0 || state === 3) return true;
+    }
+    return false;
+  };
+
+  const isCompleted = (applications: Applications[]) => {
+    for (var app of applications) {
+      let state = app.display_status;
+      if (state === 5) return true;
     }
     return false;
   };
@@ -385,6 +393,9 @@ const DetailPage: NextPage = () => {
               {data?.opportunities_by_pk?.display_status == 3 &&
               !isPending(
                 (stuResult.data?.applications as Applications[]) || []
+              ) &&
+              !isCompleted(
+                (stuResult.data?.applications as Applications[]) || []
               ) ? (
                 <Button color='action' onClick={onClickApply}>
                   Apply to this opportunity
@@ -404,7 +415,7 @@ const DetailPage: NextPage = () => {
           </Button>
         </div>
         <div className='screen-x mx-auto my-6 grid max-w-4xl grid-cols-2 px-3'>
-          <h2 className='col-span-2 my-1 text-2xl font-bold'>
+          <h2 className='col-span-2 my-1 bg-gray-200 text-2xl font-bold'>
             Detail of Opportunity
           </h2>
           <div>
@@ -430,6 +441,10 @@ const DetailPage: NextPage = () => {
               {formatDate(new Date(data?.opportunities_by_pk?.date_to))}
             </span>
           </div>
+          <div className='mb-6'>
+            <h3 className='text-lg font-bold'>Field</h3>
+            <span>{data?.opportunities_by_pk?.field}</span>
+          </div>
           <div className='col-span-2 mb-6'>
             <h3 className='text-lg font-bold'>Description</h3>
             <div className='markdown rounded-md border border-gray-300 p-2'>
@@ -438,7 +453,7 @@ const DetailPage: NextPage = () => {
               </ReactMarkdown>
             </div>
           </div>
-          <h2 className='col-span-2 my-1 text-2xl font-bold'>
+          <h2 className='col-span-2 my-1 bg-gray-200 text-2xl font-bold'>
             Detail of Partner
           </h2>
           <div className='col-span-2 mb-6'>

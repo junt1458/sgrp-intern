@@ -2552,8 +2552,59 @@ export type GetAllApplicationsQuery = {
       phone?: string | null;
     };
     partner: { __typename?: 'partners'; display_name?: string | null };
+    opportunity: { __typename?: 'opportunities'; field?: string | null };
     manager?: { __typename?: 'managers'; name?: string | null } | null;
   }>;
+};
+
+export type GetApplicationQueryVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+export type GetApplicationQuery = {
+  __typename?: 'query_root';
+  applications_by_pk?: {
+    __typename?: 'applications';
+    application_id: any;
+    partner_id: any;
+    manager_id?: any | null;
+    applied_at: any;
+    display_status?: number | null;
+    student: {
+      __typename?: 'students';
+      passport_no?: string | null;
+      birthday?: any | null;
+      client_id: any;
+      department?: string | null;
+      email?: string | null;
+      gender?: string | null;
+      major?: string | null;
+      name?: string | null;
+      passport_country?: string | null;
+      passport_expires?: any | null;
+      phone?: string | null;
+      self_introduction?: string | null;
+    };
+    opportunity: {
+      __typename?: 'opportunities';
+      detail?: string | null;
+      slots?: number | null;
+      city: string;
+      date_from: any;
+      date_to: any;
+      opportunity_id: any;
+      field?: string | null;
+    };
+    partner: {
+      __typename?: 'partners';
+      address_country?: string | null;
+      address_line1?: string | null;
+      address_line2?: string | null;
+      address_zipcode?: string | null;
+      display_name?: string | null;
+    };
+    manager?: { __typename?: 'managers'; name?: string | null } | null;
+  } | null;
 };
 
 export type GetApplicationsQueryVariables = Exact<{
@@ -2581,6 +2632,7 @@ export type GetApplicationsQuery = {
       passport_expires?: any | null;
       phone?: string | null;
     };
+    opportunity: { __typename?: 'opportunities'; field?: string | null };
     partner: { __typename?: 'partners'; display_name?: string | null };
     manager?: { __typename?: 'managers'; name?: string | null } | null;
   }>;
@@ -2750,6 +2802,20 @@ export type GetStudentProfileQuery = {
     phone?: string | null;
     self_introduction?: string | null;
   }>;
+};
+
+export type UpdateApplicationStatusMutationVariables = Exact<{
+  application_id: Scalars['uuid']['input'];
+  status?: InputMaybe<Scalars['Int']['input']>;
+  manager_id: Scalars['uuid']['input'];
+}>;
+
+export type UpdateApplicationStatusMutation = {
+  __typename?: 'mutation_root';
+  update_applications_by_pk?: {
+    __typename?: 'applications';
+    application_id: any;
+  } | null;
 };
 
 export type UpdateManagerProfileMutationVariables = Exact<{
@@ -3051,6 +3117,9 @@ export const GetAllApplicationsDocument = gql`
       partner {
         display_name
       }
+      opportunity {
+        field
+      }
       manager {
         name
       }
@@ -3068,6 +3137,59 @@ export function useGetAllApplicationsQuery(
     GetAllApplicationsQueryVariables
   >({ query: GetAllApplicationsDocument, ...options });
 }
+export const GetApplicationDocument = gql`
+  query GetApplication($id: uuid!) {
+    applications_by_pk(application_id: $id) {
+      application_id
+      partner_id
+      manager_id
+      student {
+        passport_no
+        birthday
+        client_id
+        department
+        email
+        gender
+        major
+        name
+        passport_country
+        passport_expires
+        phone
+        self_introduction
+      }
+      opportunity {
+        detail
+        slots
+        city
+        date_from
+        date_to
+        opportunity_id
+        field
+      }
+      partner {
+        address_country
+        address_line1
+        address_line2
+        address_zipcode
+        display_name
+      }
+      manager {
+        name
+      }
+      applied_at
+      display_status
+    }
+  }
+`;
+
+export function useGetApplicationQuery(
+  options: Omit<Urql.UseQueryArgs<GetApplicationQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<GetApplicationQuery, GetApplicationQueryVariables>({
+    query: GetApplicationDocument,
+    ...options,
+  });
+}
 export const GetApplicationsDocument = gql`
   query GetApplications($opportunity_id: uuid!) {
     applications(where: { opportunity_id: { _eq: $opportunity_id } }) {
@@ -3084,6 +3206,9 @@ export const GetApplicationsDocument = gql`
         passport_country
         passport_expires
         phone
+      }
+      opportunity {
+        field
       }
       partner {
         display_name
@@ -3303,6 +3428,27 @@ export function useGetStudentProfileQuery(
   return Urql.useQuery<GetStudentProfileQuery, GetStudentProfileQueryVariables>(
     { query: GetStudentProfileDocument, ...options }
   );
+}
+export const UpdateApplicationStatusDocument = gql`
+  mutation UpdateApplicationStatus(
+    $application_id: uuid!
+    $status: Int
+    $manager_id: uuid!
+  ) {
+    update_applications_by_pk(
+      pk_columns: { application_id: $application_id }
+      _set: { display_status: $status, manager_id: $manager_id }
+    ) {
+      application_id
+    }
+  }
+`;
+
+export function useUpdateApplicationStatusMutation() {
+  return Urql.useMutation<
+    UpdateApplicationStatusMutation,
+    UpdateApplicationStatusMutationVariables
+  >(UpdateApplicationStatusDocument);
 }
 export const UpdateManagerProfileDocument = gql`
   mutation UpdateManagerProfile(

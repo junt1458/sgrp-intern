@@ -4,7 +4,6 @@ import PageLoading from '../../components/pageloading/pageloading.component';
 import Header from '../../components/header/header.component';
 import {
   Applications,
-  useGetAllApplicationsQuery,
   useGetOpportunityApplicationsQuery,
 } from '../../libs/graphql';
 import { useRouter } from 'next/router';
@@ -35,7 +34,8 @@ const ApplicationListPage: NextPage = () => {
         <Header />
         <h1 className='my-4 w-full text-center text-3xl'>
           Applications for &quot;
-          {data?.opportunities_by_pk?.partner.display_name}&quot;
+          {data?.opportunities_by_pk?.partner.display_name} -{' '}
+          {data?.opportunities_by_pk?.field}&quot;
         </h1>
         <div className='my-2 flex justify-center'>
           <Button
@@ -50,11 +50,6 @@ const ApplicationListPage: NextPage = () => {
           </Button>
         </div>
         <div className='screen-x mx-auto max-w-4xl py-2'>
-          {!data?.applications.length ? (
-            <div className='text-center text-xl'>- Nothing to show -</div>
-          ) : (
-            ''
-          )}
           <ApplicationsView
             applications={data?.applications as Applications[]}
             key_prefix='all'
