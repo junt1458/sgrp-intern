@@ -32,7 +32,7 @@ const ApplicationDetailPage: NextPage = () => {
       case 4:
         return 'Partner Rejected';
       case 5:
-        return 'Partnet Accepted';
+        return 'Partner Accepted';
       default:
         return 'Unknown';
     }
@@ -75,6 +75,16 @@ const ApplicationDetailPage: NextPage = () => {
       }),
     });
   }, [data, role, uid, updateStatus, getAccessTokenSilently]);
+
+  const onPhotoError = () => {
+    const ppt = document.getElementById('profile_photo');
+    if (ppt?.getAttribute('src')?.endsWith('/default.png')) return;
+
+    ppt?.setAttribute(
+      'src',
+      `${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/default.png`
+    );
+  };
 
   const onClickReject = useCallback(async () => {
     if (role === 'student') return;
@@ -259,9 +269,19 @@ const ApplicationDetailPage: NextPage = () => {
           <h2 className='col-span-2 mb-1 mt-4  bg-gray-200 text-2xl font-bold'>
             Detail of Student
           </h2>
-          <div className='col-span-2 mb-6'>
+          <div className='mb-6'>
             <h3 className='text-lg font-bold'>Name</h3>
             <span>{data?.applications_by_pk?.student.name}</span>
+          </div>
+          <div className='mb-6'>
+            <h3 className='text-lg font-bold'>Photo</h3>
+            <img
+              src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/${data?.applications_by_pk?.student.client_id}.png`}
+              alt='Profile Photo'
+              onError={onPhotoError}
+              id='profile_photo'
+              style={{ maxWidth: '240px', width: '100%' }}
+            />
           </div>
 
           <div className='mb-6'>
@@ -322,7 +342,7 @@ const ApplicationDetailPage: NextPage = () => {
             <span>{data?.applications_by_pk?.student.department}</span>
           </div>
           <div className='mb-6'>
-            <h3 className='text-lg font-bold'>Major field</h3>
+            <h3 className='text-lg font-bold'>Major Field</h3>
             <span>{data?.applications_by_pk?.student.major}</span>
           </div>
 

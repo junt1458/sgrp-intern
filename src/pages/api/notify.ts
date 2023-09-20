@@ -124,7 +124,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           '',
           '[Internship] UPDATE: Your application is approved.',
           [
-            `Good News! Your application to "${a0Res.applications_by_pk.partner.display_name} - ${a0Res.applications_by_pk.opportunity.field}" is approved by partner!`,
+            `Good News! Your application to "${a0Res.applications_by_pk.partner.display_name} - ${a0Res.applications_by_pk.opportunity.field}" is approved by manager!`,
             'Please wait until the partner accepts your request.',
             `${process.env.ADMIN_MAIL_WEB_URL}/application/${aid}`,
           ].join('\r\n')

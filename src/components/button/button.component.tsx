@@ -3,6 +3,7 @@ interface ButtonOptions {
   onClick?(): void;
   disabled?: boolean;
   color: 'primary' | 'danger' | 'draft' | 'action' | 'list';
+  full?: boolean;
 }
 
 const Button: React.FC<ButtonOptions> = ({
@@ -10,6 +11,7 @@ const Button: React.FC<ButtonOptions> = ({
   children,
   color,
   disabled,
+  full,
 }) => {
   let bgColorHex = '';
   let txColorHex = '';
@@ -54,6 +56,7 @@ const Button: React.FC<ButtonOptions> = ({
         backgroundColor: bgColorHex,
         color: txColorHex,
         borderColor: borderHex,
+        width: full ? '100%' : '',
       }}
       disabled={disabled}
     >

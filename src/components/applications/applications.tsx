@@ -31,7 +31,7 @@ const ApplicationsView: React.FC<ApplicationsViewOptions> = ({
       case 4:
         return 'Partner Rejected';
       case 5:
-        return 'Partnet Accepted';
+        return 'Partner Accepted';
       default:
         return 'Unknown';
     }
