@@ -13,7 +13,7 @@ import {
 import ApplicationsView from '../../components/applications/applications';
 
 const StudentIndexPage: NextPage = () => {
-  const { isLoading, isAllowed } = useAuthHook(['student'], true, true);
+  const { isLoading, isAllowed, role } = useAuthHook(['student'], true, true);
 
   const [{ data, fetching }] = useGetOpportunitiesQuery();
   const [result] = useGetAllApplicationsQuery();
@@ -31,7 +31,7 @@ const StudentIndexPage: NextPage = () => {
           <ApplicationsView
             applications={result.data?.applications as Applications[]}
             key_prefix='my_'
-            hide_control={true}
+            role={role!}
           />
         </div>
 
@@ -41,6 +41,7 @@ const StudentIndexPage: NextPage = () => {
           <OpportunitiesView
             opportunities={data?.opportunities as Opportunities[]}
             key_prefix='open'
+            role={role!}
           />
         </div>
       </>

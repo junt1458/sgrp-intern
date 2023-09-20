@@ -16,6 +16,7 @@ query GetAllApplications {
     }
     partner {
       display_name
+      address_country
     }
     opportunity {
       field

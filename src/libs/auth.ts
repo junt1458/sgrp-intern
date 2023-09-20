@@ -23,6 +23,7 @@ type AuthResult = {
   error?: string;
   status: number;
   uid?: string;
+  pid?: string;
 };
 
 export const authenticate = async (
@@ -98,6 +99,7 @@ export const authenticate = async (
     error: undefined,
     status: 200,
     uid: payload['sub'],
+    pid: payload['https://hasura.io/jwt/claims']['x-hasura-user-id'] as string,
   };
 };
 

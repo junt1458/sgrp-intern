@@ -9,6 +9,7 @@ query GetOpportunityApplications($opportunity_id: uuid!) {
     date_to
     opportunity_id
     partner_id
+    posted_at
     partner {
       address_country
       address_line1
@@ -38,6 +39,7 @@ query GetOpportunityApplications($opportunity_id: uuid!) {
     }
     partner {
       display_name
+      address_country
     }
     manager {
       name

@@ -10,6 +10,7 @@ query GetOpportunity($id: uuid!) {
     opportunity_id
     partner_id
     field
+    posted_at
     partner {
       address_country
       address_line1

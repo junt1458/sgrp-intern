@@ -1,5 +1,6 @@
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { useHeaderHook } from './header.hooks';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
@@ -12,7 +13,7 @@ const Header: React.FC = () => {
     false
   );
   const { isLoading, isAuthenticated } = useAuth0();
-  const { isOpen, onClickLogout, onClickProfile, toggleOpen } =
+  const { isOpen, onClickLogout, onClickProfile, toggleOpen, onClickExport } =
     useHeaderHook(role);
 
   return (
@@ -35,6 +36,17 @@ const Header: React.FC = () => {
         <div className='mx-2 w-full border-gray-500 py-2 text-left'>
           Hi, {name}
         </div>
+        {role === 'partner' || role === 'manager' ? (
+          <button
+            onClick={onClickProfile}
+            title='Profile'
+            className='mx-2 w-full border-t border-gray-500 py-2 text-left'
+          >
+            <FileDownloadIcon /> Export Data
+          </button>
+        ) : (
+          <></>
+        )}
         <button
           onClick={onClickProfile}
           title='Profile'

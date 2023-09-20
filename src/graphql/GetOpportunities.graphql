@@ -10,6 +10,7 @@ query GetOpportunities {
     opportunity_id
     partner_id
     field
+    posted_at
     partner {
       display_name
       address_country

@@ -19,6 +19,7 @@ query GetApplications($opportunity_id: uuid!) {
     }
     partner {
       display_name
+      address_country
     }
     manager {
       name

@@ -24,5 +24,13 @@ export const useHeaderHook = (role?: string) => {
     });
   }, [logout]);
 
-  return { isOpen, onClickLogout, onClickProfile, toggleOpen };
+  const onClickExport = useCallback(() => {
+    alert('TODO: Process for Exporting.');
+
+    // https://medium.com/@aalam-info-solutions-llp/how-to-excel-export-in-react-js-481b15b961e3
+    // https://www.npmjs.com/package/sheetjs-style?source=post_page-----481b15b961e3--------------------------------
+    // https://www.npmjs.com/package/file-saver?source=post_page-----481b15b961e3--------------------------------
+  }, []);
+
+  return { isOpen, onClickLogout, onClickProfile, toggleOpen, onClickExport };
 };

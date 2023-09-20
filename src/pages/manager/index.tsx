@@ -12,7 +12,7 @@ import OpportunitiesView from '../../components/opportunities/opportunities.comp
 import ApplicationsView from '../../components/applications/applications';
 
 const ManagerIndexPage: NextPage = () => {
-  const { isLoading, isAllowed } = useAuthHook(['manager'], true, true);
+  const { isLoading, isAllowed, role } = useAuthHook(['manager'], true, true);
   const [{ data, fetching }] = useGetOpportunitiesQuery();
   const [result] = useGetAllApplicationsQuery();
 
@@ -35,6 +35,7 @@ const ManagerIndexPage: NextPage = () => {
             }
             key_prefix='pending'
             hide_control={true}
+            role={role!}
           />
         </div>
         <h1 className='my-4 w-full text-center text-3xl'>
@@ -49,6 +50,7 @@ const ManagerIndexPage: NextPage = () => {
             }
             key_prefix='pending_'
             hide_control={true}
+            role={role!}
           />
         </div>
         <h1 className='my-4 w-full text-center text-3xl'>Opportunities</h1>
@@ -56,6 +58,7 @@ const ManagerIndexPage: NextPage = () => {
           <OpportunitiesView
             opportunities={data?.opportunities as Opportunities[]}
             key_prefix='open'
+            role={role!}
           />
         </div>
       </>

@@ -26,7 +26,7 @@ const usePartnerHooks = () => {
 
 const PartnerIndexPage: NextPage = () => {
   const { onCreateNew } = usePartnerHooks();
-  const { isLoading, isAllowed } = useAuthHook(['partner'], true, true);
+  const { isLoading, isAllowed, role } = useAuthHook(['partner'], true, true);
 
   const [{ data, fetching }] = useGetOpportunitiesQuery();
   const [result] = useGetAllApplicationsQuery();
@@ -50,6 +50,7 @@ const PartnerIndexPage: NextPage = () => {
             }
             key_prefix='pending_'
             hide_control={true}
+            role={role!}
           />
         </div>
         <h1 className='my-4 w-full text-center text-3xl'>Your Opportunities</h1>
@@ -63,6 +64,8 @@ const PartnerIndexPage: NextPage = () => {
           <OpportunitiesView
             opportunities={data?.opportunities as Opportunities[]}
             key_prefix='my'
+            role={role!}
+            defaultFilter={-1}
           />
         </div>
       </>

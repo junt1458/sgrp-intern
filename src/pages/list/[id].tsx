@@ -53,6 +53,7 @@ const ApplicationListPage: NextPage = () => {
           <ApplicationsView
             applications={data?.applications as Applications[]}
             key_prefix='all'
+            role={role!}
           />
         </div>
       </>
