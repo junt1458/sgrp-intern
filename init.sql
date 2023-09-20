@@ -39,7 +39,7 @@ CREATE TABLE managers (
     registered_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- display_status: 0 (Draft) / 1 (In Review) / 2 (Rejected) / 3 (Form Open) / 4 (Form Closed)
+-- display_status: 0 (Draft) / 2 (In Review) / 1 (Rejected) / 3 (Form Open) / 4 (Form Closed)
 CREATE TABLE opportunities (
     opportunity_id UUID DEFAULT uuid_generate_v4() UNIQUE PRIMARY KEY,
     partner_id UUID NOT NULL,
@@ -51,6 +51,7 @@ CREATE TABLE opportunities (
     date_to DATE NOT NULL,
     field VARCHAR DEFAULT '',
     manager_id UUID,
+    posted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     FOREIGN KEY (partner_id)
       REFERENCES partners (partner_id),
     FOREIGN KEY (manager_id)

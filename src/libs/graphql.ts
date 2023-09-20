@@ -1011,6 +1011,7 @@ export type Opportunities = {
   /** An object relationship */
   partner: Partners;
   partner_id: Scalars['uuid']['output'];
+  posted_at: Scalars['timestamptz']['output'];
   slots?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1125,6 +1126,7 @@ export type Opportunities_Bool_Exp = {
   opportunity_id?: InputMaybe<Uuid_Comparison_Exp>;
   partner?: InputMaybe<Partners_Bool_Exp>;
   partner_id?: InputMaybe<Uuid_Comparison_Exp>;
+  posted_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   slots?: InputMaybe<Int_Comparison_Exp>;
 };
 
@@ -1154,6 +1156,7 @@ export type Opportunities_Insert_Input = {
   opportunity_id?: InputMaybe<Scalars['uuid']['input']>;
   partner?: InputMaybe<Partners_Obj_Rel_Insert_Input>;
   partner_id?: InputMaybe<Scalars['uuid']['input']>;
+  posted_at?: InputMaybe<Scalars['timestamptz']['input']>;
   slots?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -1169,6 +1172,7 @@ export type Opportunities_Max_Fields = {
   manager_id?: Maybe<Scalars['uuid']['output']>;
   opportunity_id?: Maybe<Scalars['uuid']['output']>;
   partner_id?: Maybe<Scalars['uuid']['output']>;
+  posted_at?: Maybe<Scalars['timestamptz']['output']>;
   slots?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1183,6 +1187,7 @@ export type Opportunities_Max_Order_By = {
   manager_id?: InputMaybe<Order_By>;
   opportunity_id?: InputMaybe<Order_By>;
   partner_id?: InputMaybe<Order_By>;
+  posted_at?: InputMaybe<Order_By>;
   slots?: InputMaybe<Order_By>;
 };
 
@@ -1198,6 +1203,7 @@ export type Opportunities_Min_Fields = {
   manager_id?: Maybe<Scalars['uuid']['output']>;
   opportunity_id?: Maybe<Scalars['uuid']['output']>;
   partner_id?: Maybe<Scalars['uuid']['output']>;
+  posted_at?: Maybe<Scalars['timestamptz']['output']>;
   slots?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1212,6 +1218,7 @@ export type Opportunities_Min_Order_By = {
   manager_id?: InputMaybe<Order_By>;
   opportunity_id?: InputMaybe<Order_By>;
   partner_id?: InputMaybe<Order_By>;
+  posted_at?: InputMaybe<Order_By>;
   slots?: InputMaybe<Order_By>;
 };
 
@@ -1252,6 +1259,7 @@ export type Opportunities_Order_By = {
   opportunity_id?: InputMaybe<Order_By>;
   partner?: InputMaybe<Partners_Order_By>;
   partner_id?: InputMaybe<Order_By>;
+  posted_at?: InputMaybe<Order_By>;
   slots?: InputMaybe<Order_By>;
 };
 
@@ -1281,6 +1289,8 @@ export enum Opportunities_Select_Column {
   /** column name */
   PartnerId = 'partner_id',
   /** column name */
+  PostedAt = 'posted_at',
+  /** column name */
   Slots = 'slots',
 }
 
@@ -1295,6 +1305,7 @@ export type Opportunities_Set_Input = {
   manager_id?: InputMaybe<Scalars['uuid']['input']>;
   opportunity_id?: InputMaybe<Scalars['uuid']['input']>;
   partner_id?: InputMaybe<Scalars['uuid']['input']>;
+  posted_at?: InputMaybe<Scalars['timestamptz']['input']>;
   slots?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -1356,6 +1367,7 @@ export type Opportunities_Stream_Cursor_Value_Input = {
   manager_id?: InputMaybe<Scalars['uuid']['input']>;
   opportunity_id?: InputMaybe<Scalars['uuid']['input']>;
   partner_id?: InputMaybe<Scalars['uuid']['input']>;
+  posted_at?: InputMaybe<Scalars['timestamptz']['input']>;
   slots?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -1392,6 +1404,8 @@ export enum Opportunities_Update_Column {
   OpportunityId = 'opportunity_id',
   /** column name */
   PartnerId = 'partner_id',
+  /** column name */
+  PostedAt = 'posted_at',
   /** column name */
   Slots = 'slots',
 }
@@ -2593,6 +2607,7 @@ export type GetApplicationQuery = {
       date_from: any;
       date_to: any;
       opportunity_id: any;
+      posted_at: any;
       field?: string | null;
     };
     partner: {
@@ -2669,6 +2684,7 @@ export type GetOpportunitiesQuery = {
     opportunity_id: any;
     partner_id: any;
     field?: string | null;
+    posted_at: any;
     partner: {
       __typename?: 'partners';
       display_name?: string | null;
@@ -2696,6 +2712,7 @@ export type GetOpportunityQuery = {
     opportunity_id: any;
     partner_id: any;
     field?: string | null;
+    posted_at: any;
     partner: {
       __typename?: 'partners';
       address_country?: string | null;
@@ -2725,6 +2742,7 @@ export type GetOpportunityApplicationsQuery = {
     date_to: any;
     opportunity_id: any;
     partner_id: any;
+    posted_at: any;
     field?: string | null;
     partner: {
       __typename?: 'partners';
@@ -3164,6 +3182,7 @@ export const GetApplicationDocument = gql`
         date_from
         date_to
         opportunity_id
+        posted_at
         field
       }
       partner {
@@ -3261,6 +3280,7 @@ export const GetOpportunitiesDocument = gql`
       opportunity_id
       partner_id
       field
+      posted_at
       partner {
         display_name
         address_country
@@ -3293,6 +3313,7 @@ export const GetOpportunityDocument = gql`
       opportunity_id
       partner_id
       field
+      posted_at
       partner {
         address_country
         address_line1
@@ -3327,6 +3348,7 @@ export const GetOpportunityApplicationsDocument = gql`
       date_to
       opportunity_id
       partner_id
+      posted_at
       partner {
         address_country
         address_line1
@@ -5924,6 +5946,17 @@ export default {
             args: [],
           },
           {
+            name: 'posted_at',
+            type: {
+              kind: 'NON_NULL',
+              ofType: {
+                kind: 'SCALAR',
+                name: 'Any',
+              },
+            },
+            args: [],
+          },
+          {
             name: 'slots',
             type: {
               kind: 'SCALAR',
@@ -6197,6 +6230,14 @@ export default {
             args: [],
           },
           {
+            name: 'posted_at',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
             name: 'slots',
             type: {
               kind: 'SCALAR',
@@ -6277,6 +6318,14 @@ export default {
           },
           {
             name: 'partner_id',
+            type: {
+              kind: 'SCALAR',
+              name: 'Any',
+            },
+            args: [],
+          },
+          {
+            name: 'posted_at',
             type: {
               kind: 'SCALAR',
               name: 'Any',

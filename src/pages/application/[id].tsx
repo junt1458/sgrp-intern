@@ -174,15 +174,27 @@ const ApplicationDetailPage: NextPage = () => {
         <div className='my-2 flex justify-center'>
           <div className='flex flex-wrap'>
             <div>
-              {' '}
               <Button color={'primary'} onClick={() => router.push('/')}>
                 Back to Home
               </Button>
             </div>
             <div className='ml-2'>
+              <Button
+                color={'action'}
+                onClick={() =>
+                  router.push(
+                    '/detail/' +
+                      data?.applications_by_pk?.opportunity.opportunity_id
+                  )
+                }
+              >
+                Back to Opportunity
+              </Button>
+            </div>
+            <div className='ml-2'>
               {role !== 'student' ? (
                 <Button
-                  color={'action'}
+                  color={'list'}
                   onClick={() =>
                     router.push(
                       '/list/' +
