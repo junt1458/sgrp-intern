@@ -38,7 +38,7 @@ const Header: React.FC = () => {
         </div>
         {role === 'partner' || role === 'manager' ? (
           <button
-            onClick={onClickProfile}
+            onClick={onClickExport}
             title='Profile'
             className='mx-2 w-full border-t border-gray-500 py-2 text-left'
           >
