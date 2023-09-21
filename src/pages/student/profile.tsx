@@ -289,6 +289,8 @@ const StudentProfilePage: NextPage = () => {
     setProfileNotFound(true);
   };
 
+  const [t] = useState(new Date().getTime());
+
   const { isLoading, isAllowed, uid, sid, getAccessTokenSilently } =
     useAuthHook(['student'], true);
 
@@ -351,7 +353,7 @@ const StudentProfilePage: NextPage = () => {
             <div className='m-4 flex flex-wrap'>
               <div className='h-[316px] w-[237px] border'>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/${uid}.png`}
+                  src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/${uid}.png?t=${t}`}
                   id='profile_photo'
                   alt='Profile Photo'
                   onError={onImageError}

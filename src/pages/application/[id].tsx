@@ -12,9 +12,10 @@ import { formatDate, formatDateTime } from '../../libs/date';
 import ReactMarkdown from 'react-markdown';
 import Button from '../../components/button/button.component';
 import WarningIcon from '@mui/icons-material/Warning';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 const ApplicationDetailPage: NextPage = () => {
+  const [t] = useState(new Date().getTime());
   const router = useRouter();
   const { id } = router.query;
 
@@ -172,13 +173,13 @@ const ApplicationDetailPage: NextPage = () => {
         </div>
         <h1 className='my-4 text-center text-3xl'>Application Detail</h1>
         <div className='my-2 flex justify-center'>
-          <div className='flex flex-wrap'>
-            <div>
+          <div className='flex flex-wrap justify-center'>
+            <div className='my-1'>
               <Button color={'primary'} onClick={() => router.push('/')}>
                 Back to Home
               </Button>
             </div>
-            <div className='ml-2'>
+            <div className='my-1 ml-2'>
               <Button
                 color={'action'}
                 onClick={() =>
@@ -191,7 +192,7 @@ const ApplicationDetailPage: NextPage = () => {
                 Back to Opportunity
               </Button>
             </div>
-            <div className='ml-2'>
+            <div className='my-1 ml-2'>
               {role !== 'student' ? (
                 <Button
                   color={'list'}
@@ -288,7 +289,10 @@ const ApplicationDetailPage: NextPage = () => {
           <div className='mb-6'>
             <h3 className='text-lg font-bold'>Photo</h3>
             <img
-              src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/${data?.applications_by_pk?.student.client_id}.png`}
+              src={
+                `${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/${data?.applications_by_pk?.student.client_id}.png?t=` +
+                t
+              }
               alt='Profile Photo'
               onError={onPhotoError}
               id='profile_photo'
