@@ -4,11 +4,13 @@ import PageLoading from '../../components/pageloading/pageloading.component';
 import Header from '../../components/header/header.component';
 import {
   Applications,
+  Opportunities,
   useGetOpportunityApplicationsQuery,
 } from '../../libs/graphql';
 import { useRouter } from 'next/router';
 import Button from '../../components/button/button.component';
 import ApplicationsView from '../../components/applications/applications';
+import { exportCSV } from './export';
 
 const ApplicationListPage: NextPage = () => {
   const router = useRouter();
@@ -48,6 +50,19 @@ const ApplicationListPage: NextPage = () => {
           >
             Back to Home
           </Button>
+          <div className='ml-2'>
+            <Button
+              color='action'
+              onClick={() =>
+                exportCSV(
+                  data?.opportunities_by_pk as Opportunities,
+                  data?.applications as Applications[]
+                )
+              }
+            >
+              Export List
+            </Button>
+          </div>
         </div>
         <div className='screen-x mx-auto max-w-4xl py-2'>
           <ApplicationsView

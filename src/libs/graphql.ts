@@ -2565,7 +2565,11 @@ export type GetAllApplicationsQuery = {
       passport_expires?: any | null;
       phone?: string | null;
     };
-    partner: { __typename?: 'partners'; display_name?: string | null };
+    partner: {
+      __typename?: 'partners';
+      display_name?: string | null;
+      address_country?: string | null;
+    };
     opportunity: { __typename?: 'opportunities'; field?: string | null };
     manager?: { __typename?: 'managers'; name?: string | null } | null;
   }>;
@@ -2648,7 +2652,11 @@ export type GetApplicationsQuery = {
       phone?: string | null;
     };
     opportunity: { __typename?: 'opportunities'; field?: string | null };
-    partner: { __typename?: 'partners'; display_name?: string | null };
+    partner: {
+      __typename?: 'partners';
+      display_name?: string | null;
+      address_country?: string | null;
+    };
     manager?: { __typename?: 'managers'; name?: string | null } | null;
   }>;
 };
@@ -2772,8 +2780,13 @@ export type GetOpportunityApplicationsQuery = {
       passport_country?: string | null;
       passport_expires?: any | null;
       phone?: string | null;
+      self_introduction?: string | null;
     };
-    partner: { __typename?: 'partners'; display_name?: string | null };
+    partner: {
+      __typename?: 'partners';
+      display_name?: string | null;
+      address_country?: string | null;
+    };
     manager?: { __typename?: 'managers'; name?: string | null } | null;
     opportunity: { __typename?: 'opportunities'; field?: string | null };
   }>;
@@ -3134,6 +3147,7 @@ export const GetAllApplicationsDocument = gql`
       }
       partner {
         display_name
+        address_country
       }
       opportunity {
         field
@@ -3231,6 +3245,7 @@ export const GetApplicationsDocument = gql`
       }
       partner {
         display_name
+        address_country
       }
       manager {
         name
@@ -3375,9 +3390,11 @@ export const GetOpportunityApplicationsDocument = gql`
         passport_country
         passport_expires
         phone
+        self_introduction
       }
       partner {
         display_name
+        address_country
       }
       manager {
         name

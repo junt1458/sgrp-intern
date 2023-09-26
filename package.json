@@ -28,6 +28,7 @@
     "@urql/exchange-auth": "^2.1.6",
     "autoprefixer": "10.4.16",
     "aws-sdk": "^2.1461.0",
+    "csv": "^6.3.3",
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.2",
     "graphql": "^16.8.0",

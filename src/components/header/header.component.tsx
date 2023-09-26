@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     false
   );
   const { isLoading, isAuthenticated } = useAuth0();
-  const { isOpen, onClickLogout, onClickProfile, toggleOpen, onClickExport } =
+  const { isOpen, onClickLogout, onClickProfile, toggleOpen } =
     useHeaderHook(role);
 
   return (
@@ -36,17 +36,6 @@ const Header: React.FC = () => {
         <div className='mx-2 w-full border-gray-500 py-2 text-left'>
           Hi, {name}
         </div>
-        {role === 'partner' || role === 'manager' ? (
-          <button
-            onClick={onClickExport}
-            title='Profile'
-            className='mx-2 w-full border-t border-gray-500 py-2 text-left'
-          >
-            <FileDownloadIcon /> Export Data
-          </button>
-        ) : (
-          <></>
-        )}
         <button
           onClick={onClickProfile}
           title='Profile'

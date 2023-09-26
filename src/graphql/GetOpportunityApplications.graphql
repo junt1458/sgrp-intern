@@ -36,6 +36,7 @@ query GetOpportunityApplications($opportunity_id: uuid!) {
       passport_country
       passport_expires
       phone
+      self_introduction
     }
     partner {
       display_name
