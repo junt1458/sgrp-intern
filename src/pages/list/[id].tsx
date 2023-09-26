@@ -10,7 +10,7 @@ import {
 import { useRouter } from 'next/router';
 import Button from '../../components/button/button.component';
 import ApplicationsView from '../../components/applications/applications';
-import { exportCSV } from './export';
+import { exportCSV } from '../../libs/export';
 
 const ApplicationListPage: NextPage = () => {
   const router = useRouter();

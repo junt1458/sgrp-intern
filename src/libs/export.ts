@@ -1,6 +1,6 @@
 import * as csv from 'csv';
-import { formatDate, formatDateTime } from '../../libs/date';
-import { Applications, Opportunities } from '../../libs/graphql';
+import { formatDate, formatDateTime } from './date';
+import { Applications, Opportunities } from './graphql';
 
 const toStateString = (state: Number) => {
   switch (state) {
