@@ -29,7 +29,7 @@
     "autoprefixer": "10.4.16",
     "aws-sdk": "^2.1461.0",
     "csv": "^6.3.3",
-    "eslint": "8.50.0",
+    "eslint": "8.51.0",
     "eslint-config-next": "13.5.4",
     "graphql": "^16.8.0",
     "graphql-tag": "^2.12.6",
