@@ -2572,9 +2572,9 @@
     "@types/node" "*"
 
 "@types/jwk-to-pem@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/jwk-to-pem/-/jwk-to-pem-2.0.1.tgz#ba6949f447e02cb7bebf101551e3a4dea5f4fde4"
-  integrity sha512-QXmRPhR/LPzvXBHTPfG2BBfMTkNLUD7NyRcPft8m5xFCeANa1BZyLgT0Gw+OxdWx6i1WCpT27EqyggP4UUHMrA==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/jwk-to-pem/-/jwk-to-pem-2.0.2.tgz#f68e1fb3e22e3e34ffe764696bef7400c4116daa"
+  integrity sha512-1K7QjvzQTN12c7yqLZJRokf9OZxndoj542ToQzWE+sfHXuU+mixLAgKArjM2roSZ/U4aC8pCTcqRDRgK2MEoVQ==
 
 "@types/mdast@^4.0.0":
   version "4.0.1"
