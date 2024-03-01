@@ -26,7 +26,7 @@
     "@types/react": "18.2.61",
     "@types/react-dom": "18.2.19",
     "@urql/exchange-auth": "^2.1.6",
-    "autoprefixer": "10.4.17",
+    "autoprefixer": "10.4.18",
     "aws-sdk": "^2.1461.0",
     "csv": "^6.3.3",
     "eslint": "8.57.0",
