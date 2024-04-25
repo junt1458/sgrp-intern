@@ -6705,9 +6705,9 @@ react-markdown@^9.0.0:
     vfile "^6.0.0"
 
 react-phone-number-input@^3.3.6:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/react-phone-number-input/-/react-phone-number-input-3.4.0.tgz#6b566ae115bc6cd531f87dab90671e9fddda378c"
-  integrity sha512-anL8OAqlSnOXd6O+lidkprOO5+OpgW+ODrbfyLc6u8lOX8ghT0nO6ZOPrGjotpZND4cr0xxH+vu3dgbdUB2lBA==
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/react-phone-number-input/-/react-phone-number-input-3.4.1.tgz#c9a73cace2ac4a7c5fd625e1020baae7607a4d49"
+  integrity sha512-guuenZqU/DYvDBFzFdTrppC4rs+q5ybTFHrxEo9VGvX0pPLWM4ZXlRa0llT7LRAvfxX8RjQNnQkkCiTHTzhLZA==
   dependencies:
     classnames "^2.5.1"
     country-flag-icons "^1.5.11"
