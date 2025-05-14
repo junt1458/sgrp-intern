@@ -2818,10 +2818,12 @@
   dependencies:
     undici-types "~6.21.0"
 
-"@types/node@20.6.0":
-  version "20.6.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.6.0.tgz#9d7daa855d33d4efec8aea88cd66db1c2f0ebe16"
-  integrity sha512-najjVq5KN2vsH2U/xyh2opaSEz6cZMR2SetLIlxlj08nOcmPOemJmUK2o4kUzfLqfrWE0PIrNeE16XhYDd3nqg==
+"@types/node@20.17.47":
+  version "20.17.47"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.17.47.tgz#f9cb375993fffdae609c8e17d2b3dd8d3c4bfa14"
+  integrity sha512-3dLX0Upo1v7RvUimvxLeXqwrfyKxUINk0EAM83swP2mlSUcwV73sZy8XhNz8bcZ3VbsfQyC/y6jRdL5tgCNpDQ==
+  dependencies:
+    undici-types "~6.19.2"
 
 "@types/nodemailer@^6.4.10":
   version "6.4.10"
@@ -7536,6 +7538,11 @@ underscore.deferred@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/underscore.deferred/-/underscore.deferred-0.4.0.tgz#2753de633b9ff7db601a2f3fa2af92b3dd290e6c"
   integrity sha512-OByG6SGS1FlbQrOijhS/B+QBiKbbtoOt6KvLrF/042W/96poPkVIVfaYxvoxW7ifDwG6RgKFV2X2x/EYEPXObA==
+
+undici-types@~6.19.2:
+  version "6.19.8"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-6.19.8.tgz#35111c9d1437ab83a7cdc0abae2f26d88eda0a02"
+  integrity sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==
 
 undici-types@~6.21.0:
   version "6.21.0"
