@@ -30,7 +30,7 @@
     "aws-sdk": "^2.1461.0",
     "csv": "^6.3.3",
     "eslint": "8.57.0",
-    "eslint-config-next": "13.5.6",
+    "eslint-config-next": "15.3.5",
     "graphql": "^16.8.0",
     "graphql-tag": "^2.12.6",
     "jsonwebtoken": "^9.0.2",
